@@ -60,6 +60,7 @@ class TorrentSearch(
      */
     fun searchFlow(query: String, category: Category, limit: Int): Flow<List<TorrentDescription>> {
         return providers
+            .filter(TorrentProvider::isEnabled)
             .map { provider ->
                 println("Searching '${provider.name}' for '$query'")
                 flow {
