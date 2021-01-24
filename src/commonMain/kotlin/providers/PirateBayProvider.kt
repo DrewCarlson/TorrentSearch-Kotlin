@@ -71,17 +71,17 @@ internal class PirateBayProvider(
                 emptyList()
             } else {
                 torrents.map { element ->
-                    val torrentName = element.jsonObject["name"]!!.jsonPrimitive.content
+                    val torrentName = element.jsonObject["name"]?.jsonPrimitive?.content ?: "<unknown>"
                     TorrentDescription(
                         provider = name,
                         magnetUrl = formatMagnet(
                             name = torrentName,
-                            infoHash = element.jsonObject["info_hash"]!!.jsonPrimitive.content
+                            infoHash = checkNotNull(element.jsonObject["info_hash"]).jsonPrimitive.content
                         ),
                         title = torrentName,
-                        size = element.jsonObject["size"]!!.jsonPrimitive.long,
-                        seeds = element.jsonObject["seeders"]!!.jsonPrimitive.int,
-                        peers = element.jsonObject["leechers"]!!.jsonPrimitive.int,
+                        size = element.jsonObject["size"]?.jsonPrimitive?.long ?: -1,
+                        seeds = element.jsonObject["seeders"]?.jsonPrimitive?.int ?: -1,
+                        peers = element.jsonObject["leechers"]?.jsonPrimitive?.int ?: -1,
                     )
                 }
             }
