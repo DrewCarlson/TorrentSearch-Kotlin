@@ -14,6 +14,14 @@ val signingKey: String? by project
 val signingPassword: String? by project
 val sonatypeUsername: String? by project
 val sonatypePassword: String? by project
+val pomProjectUrl: String by project
+val pomProjectDescription: String by project
+val pomScmUrl: String by project
+val pomDeveloperId: String by project
+val pomDeveloperName: String by project
+val pomLicenseName: String by project
+val pomLicenseUrl: String by project
+val pomLicenseDistribution: String by project
 
 task<Jar>("javadocJar") {
     archiveClassifier.set("javadoc")
@@ -25,22 +33,22 @@ configure<PublishingExtension> {
             artifact(tasks.named("javadocJar"))
             with(pom) {
                 name.set(rootProject.name)
-                url.set("https://github.com/DrewCarlson/TorrentSearch-Kotlin")
-                description.set("Torrent Provider API client written in Kotlin, based on torrent-search-api.")
+                url.set(pomProjectUrl)
+                description.set(pomProjectDescription)
                 scm {
-                    url.set("https://github.com/DrewCarlson/TorrentSearch-Kotlin.git")
+                    url.set(pomScmUrl)
                 }
                 developers {
                     developer {
-                        id.set("DrewCarlson")
-                        name.set("Drew Carlson")
+                        id.set(pomDeveloperId)
+                        name.set(pomDeveloperName)
                     }
                 }
                 licenses {
                     license {
-                        name.set("MIT")
-                        url.set("https://opensource.org/licenses/mit-license.php")
-                        distribution.set("repo")
+                        name.set(pomLicenseName)
+                        url.set(pomLicenseUrl)
+                        distribution.set(pomLicenseDistribution)
                     }
                 }
             }
