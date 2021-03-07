@@ -1,7 +1,6 @@
 # TorrentSearch Kotlin
 
-![Bintray](https://img.shields.io/bintray/v/drewcarlson/TorrentSearch-Kotlin/TorrentSearch-Kotlin?color=blue)
-![](https://img.shields.io/maven-metadata/v?label=artifactory&logoColor=lightgrey&metadataUrl=https%3A%2F%2Foss.jfrog.org%2Fartifactory%2Foss-snapshot-local%2Fdrewcarlson%2Ftorrentsearch%2Ftorrentsearch%2Fmaven-metadata.xml&color=lightgrey)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/torrentsearch-jvm?label=maven&color=blue)
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Jvm/badge.svg)
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Native/badge.svg)
@@ -26,6 +25,9 @@ println(torrentSearch.search("big buck bunny"))
 
 ## Download
 
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/torrentsearch-jvm?label=maven&color=blue)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/torrentsearch-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
+
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=Jvm&color=blue)
@@ -36,17 +38,18 @@ println(torrentSearch.search("big buck bunny"))
 ![](https://img.shields.io/static/v1?label=&message=tvOS&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=watchOS&color=blue)
 
-Artifacts are available on [Bintray](https://bintray.com/drewcarlson/TorrentSearch-Kotlin).
-
 ```kotlin
 repositories {
-  jcenter()
+  mavenCentral()
   // Or snapshots
-  maven { setUrl("http://oss.jfrog.org/artifactory/oss-snapshot-local") }
+  maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-  implementation("drewcarlson.torrentsearch:torrentsearch:$torrentsearch_version")
+  implementation("org.drewcarlson:torrentsearch:$torrentsearch_version")
+
+  // For Jvm only:
+  implementation("org.drewcarlson:torrentsearch-jvm:$torrentsearch_version")
 }
 ```
 

@@ -1,41 +1,15 @@
 plugins {
     kotlin("multiplatform") version KOTLIN_VERSION
     kotlin("plugin.serialization") version KOTLIN_VERSION
-    `maven-publish`
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
     }
 }
 
-val mavenUrl: String by ext
-val mavenSnapshotUrl: String by ext
-
-
-System.getenv("GITHUB_REF")?.let { ref ->
-    if (ref.startsWith("refs/tags/")) {
-        version = ref.substringAfterLast("refs/tags/")
-    }
-}
-
-publishing {
-    repositories {
-        maven {
-            url = if (version.toString().endsWith("SNAPSHOT")) {
-                uri(mavenSnapshotUrl)
-            } else {
-                uri(mavenUrl)
-            }
-            credentials {
-                username = System.getenv("BINTRAY_USER")
-                password = System.getenv("BINTRAY_API_KEY")
-            }
-        }
-    }
-}
+apply(from = "gradle/publishing.gradle.kts")
 
 kotlin {
     jvm()
