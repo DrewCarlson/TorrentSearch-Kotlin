@@ -1,12 +1,13 @@
 plugins {
     kotlin("multiplatform") version KOTLIN_VERSION
     kotlin("plugin.serialization") version KOTLIN_VERSION
-    kotlin("org.jetbrains.dokka") version DOKKA_VERSION
+    id("org.jetbrains.dokka") version DOKKA_VERSION
 }
 
 allprojects {
     repositories {
         mavenCentral()
+        jcenter()
     }
 }
 

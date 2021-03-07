@@ -2,9 +2,8 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
+        jcenter()
     }
 }
 
 rootProject.name = "torrentsearch"
-
-enableFeaturePreview("GRADLE_METADATA")
