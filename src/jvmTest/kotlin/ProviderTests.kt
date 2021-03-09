@@ -6,6 +6,7 @@ import io.ktor.client.features.cookies.AcceptAllCookiesStorage
 import io.ktor.client.features.cookies.HttpCookies
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertNotNull
@@ -32,6 +33,8 @@ class ProviderTests {
         val token = assertNotNull(provider.readToken())
 
         assertTrue(token.isNotBlank())
+
+        delay(1500L)
 
         val results = provider.search("Airplane", Category.MOVIES, 20)
 
