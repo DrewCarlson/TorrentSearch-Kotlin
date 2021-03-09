@@ -16,8 +16,9 @@ import kotlinx.serialization.json.*
 private const val API_REQUEST_DELAY = 3000L
 
 internal class RarbgProvider(
+    private val httpClient: HttpClient,
     private val providerCache: TorrentProviderCache? = null,
-    private val httpClient: HttpClient
+    prefetchToken: Boolean = true,
 ) : BaseTorrentProvider() {
     override val name = "Rarbg"
     override val baseUrl = "https://torrentapi.org"
@@ -39,8 +40,10 @@ internal class RarbgProvider(
     private var token: String? = null
 
     init {
-        // Prefetch token
-        launch { readToken() }
+        if (prefetchToken) {
+            // Prefetch token
+            launch { readToken() }
+        }
     }
 
     override suspend fun search(query: String, category: Category, limit: Int): List<TorrentDescription> {
@@ -79,7 +82,7 @@ internal class RarbgProvider(
         tokenString: String,
         limit: Int
     ): JsonObject = mutex.withLock {
-        httpClient.get<JsonObject> {
+        httpClient.get {
             url {
                 takeFrom(baseUrl)
                 takeFrom(
@@ -104,7 +107,7 @@ internal class RarbgProvider(
             .content
     }
 
-    private suspend fun readToken(): String? {
+    internal suspend fun readToken(): String? {
         if (token == null) {
             token = mutex.withLock {
                 token ?: providerCache?.loadToken(this) ?: try {

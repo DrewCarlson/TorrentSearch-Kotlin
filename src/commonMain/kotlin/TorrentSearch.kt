@@ -36,8 +36,8 @@ class TorrentSearch(
     }
 
     private val providers = listOf(
-        RarbgProvider(providerCache, httpClient),
-        PirateBayProvider(httpClient),
+        RarbgProvider(http, providerCache),
+        PirateBayProvider(http),
         LibreProvider()
     ) + providers
 
