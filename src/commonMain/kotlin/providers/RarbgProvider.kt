@@ -66,9 +66,9 @@ internal class RarbgProvider(
 
         val errorCode = result["error_code"]?.jsonPrimitive?.intOrNull
         return if (errorCode == null) {
-             result["torrent_results"]!!
-                 .jsonArray
-                 .map { it.asTorrentDescription() }
+            result["torrent_results"]!!
+                .jsonArray
+                .map { it.asTorrentDescription() }
         } else {
             // TODO: Handle error codes
             //   - 20: No results
