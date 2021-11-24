@@ -3,8 +3,8 @@ apply(plugin = "signing")
 apply(plugin = "org.jetbrains.dokka")
 
 System.getenv("GITHUB_REF")?.let { ref ->
-    if (ref.startsWith("refs/tags/")) {
-        version = ref.substringAfterLast("refs/tags/")
+    if (ref.startsWith("refs/tags/v")) {
+        version = ref.substringAfterLast("refs/tags/v")
     }
 }
 
@@ -28,6 +28,11 @@ task<Jar>("javadocJar") {
 }
 
 configure<PublishingExtension> {
+    if (components.any { it.name == "java" }) {
+        publications.create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
     components.all {
         publications.withType<MavenPublication> {
             artifact(tasks.named("javadocJar"))
