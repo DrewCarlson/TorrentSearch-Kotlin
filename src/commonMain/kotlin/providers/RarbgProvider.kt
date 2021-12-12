@@ -116,7 +116,7 @@ internal class RarbgProvider(
                         delay(API_REQUEST_DELAY)
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    //e.printStackTrace()
                     null
                 }
             }

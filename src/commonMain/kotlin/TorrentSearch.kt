@@ -62,13 +62,11 @@ class TorrentSearch(
         return providers
             .filter(TorrentProvider::isEnabled)
             .map { provider ->
-                println("Searching '${provider.name}' for '$query'")
                 flow {
                     try {
                         emit(provider.search(query, category, limit))
-                    } catch (e: ClientRequestException) {
-                        println("Search failed for '${provider.name}'")
-                        e.printStackTrace()
+                    } catch (e: ResponseException) {
+                        //e.printStackTrace()
                     }
                 }.onEach { results ->
                     if (results.isNotEmpty()) {
