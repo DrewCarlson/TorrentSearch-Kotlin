@@ -48,7 +48,7 @@ internal class PirateBayProvider(
         if (query.isBlank() || categoryString.isNullOrBlank()) {
             return emptyList()
         }
-        val response = httpClient.get<HttpResponse> {
+        val response = httpClient.get {
             url {
                 takeFrom(baseUrl)
                 takeFrom(
@@ -60,7 +60,7 @@ internal class PirateBayProvider(
         }
 
         return if (response.status == HttpStatusCode.OK) {
-            val torrents = response.call.receive<JsonArray>()
+            val torrents = response.body<JsonArray>()
             val noResults = torrents.singleOrNull()
                 ?.jsonObject
                 ?.get("info_hash")

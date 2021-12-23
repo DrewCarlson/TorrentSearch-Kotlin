@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+
 plugins {
     kotlin("multiplatform") version KOTLIN_VERSION
     kotlin("plugin.serialization") version KOTLIN_VERSION
@@ -11,6 +13,10 @@ allprojects {
 }
 
 apply(from = "gradle/publishing.gradle.kts")
+
+yarn.apply {
+    lockFileDirectory = file("gradle/kotlin-js-store")
+}
 
 kotlin {
     jvm()
@@ -45,7 +51,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
                 implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
                 implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-serialization:$KTOR_VERSION")
+                implementation("io.ktor:ktor-client-content-negotiation:$KTOR_VERSION")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
             }
         }
         val commonTest by getting {
@@ -57,9 +64,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
-                implementation("io.ktor:ktor-client-core-jvm:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-json-jvm:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-serialization-jvm:$KTOR_VERSION")
             }
         }
         val jvmTest by getting {
@@ -69,13 +73,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$KTOR_VERSION")
             }
         }
-        val jsMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-core-js:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-json-js:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-serialization-js:$KTOR_VERSION")
-            }
-        }
+        val jsMain by getting
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -86,11 +84,6 @@ kotlin {
 
         val nativeCommonMain by creating {
             dependsOn(commonMain)
-            dependencies {
-                implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-serialization:$KTOR_VERSION")
-            }
         }
         val nativeCommonTest by creating {
             dependsOn(commonTest)
@@ -125,7 +118,7 @@ kotlin {
         val iosTest by getting {
             dependsOn(nativeCommonTest)
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$KTOR_VERSION")
+                implementation("io.ktor:ktor-client-darwin:$KTOR_VERSION")
             }
         }
 

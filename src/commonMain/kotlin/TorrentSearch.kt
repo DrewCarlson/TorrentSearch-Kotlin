@@ -4,11 +4,9 @@ import drewcarlson.torrentsearch.providers.LibreProvider
 import drewcarlson.torrentsearch.providers.PirateBayProvider
 import drewcarlson.torrentsearch.providers.RarbgProvider
 import io.ktor.client.HttpClient
-import io.ktor.client.features.*
-import io.ktor.client.features.cookies.AcceptAllCookiesStorage
-import io.ktor.client.features.cookies.HttpCookies
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.cookies.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -26,8 +24,8 @@ class TorrentSearch(
 ) {
 
     private val http = httpClient.config {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer()
+        install(ContentNegotiation) {
+            json()
         }
 
         install(HttpCookies) {

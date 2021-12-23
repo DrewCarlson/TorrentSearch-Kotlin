@@ -4,6 +4,7 @@ import drewcarlson.torrentsearch.Category
 import drewcarlson.torrentsearch.TorrentDescription
 import drewcarlson.torrentsearch.TorrentProviderCache
 import io.ktor.client.HttpClient
+import io.ktor.client.call.*
 import io.ktor.client.request.get
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.takeFrom
@@ -93,16 +94,16 @@ internal class RarbgProvider(
                         .replace("{limit}", limit.toString())
                 )
             }
-        }
+        }.body()
     }
 
     private suspend fun fetchToken(): String {
-        return httpClient.get<JsonObject> {
+        return httpClient.get {
             url {
                 takeFrom(baseUrl)
                 takeFrom(tokenPath)
             }
-        }["token"]!!
+        }.body<JsonObject>()["token"]!!
             .jsonPrimitive
             .content
     }
