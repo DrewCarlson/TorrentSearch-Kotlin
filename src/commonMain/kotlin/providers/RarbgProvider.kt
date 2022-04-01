@@ -3,11 +3,10 @@ package drewcarlson.torrentsearch.providers
 import drewcarlson.torrentsearch.Category
 import drewcarlson.torrentsearch.TorrentDescription
 import drewcarlson.torrentsearch.TorrentProviderCache
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.request.get
-import io.ktor.http.encodeURLParameter
-import io.ktor.http.takeFrom
+import io.ktor.client.request.*
+import io.ktor.http.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -132,7 +131,13 @@ internal class RarbgProvider(
     }
 
     private fun JsonElement.asTorrentDescription(): TorrentDescription {
-        val episodeInfo = jsonObject["episode_info"]!!.jsonObject
+        val episodeInfo = jsonObject["episode_info"].let { element ->
+            if (element !is JsonNull) {
+                jsonObject
+            } else {
+                JsonObject(emptyMap())
+            }
+        }
         return TorrentDescription(
             provider = name,
             magnetUrl = jsonObject["download"]!!.jsonPrimitive.content,
@@ -140,9 +145,9 @@ internal class RarbgProvider(
             seeds = jsonObject["seeders"]!!.jsonPrimitive.int,
             peers = jsonObject["leechers"]!!.jsonPrimitive.int,
             size = jsonObject["size"]!!.jsonPrimitive.long,
-            themoviedbId = episodeInfo["themoviedb"]!!.jsonPrimitive.intOrNull,
-            imdbId = episodeInfo["imdb"]!!.jsonPrimitive.contentOrNull,
-            tvdbId = episodeInfo["tvdb"]!!.jsonPrimitive.intOrNull,
+            themoviedbId = episodeInfo["themoviedb"]?.jsonPrimitive?.intOrNull,
+            imdbId = episodeInfo["imdb"]?.jsonPrimitive?.contentOrNull,
+            tvdbId = episodeInfo["tvdb"]?.jsonPrimitive?.intOrNull,
             infoUrl = jsonObject["info_page"]!!.jsonPrimitive.contentOrNull,
         )
     }

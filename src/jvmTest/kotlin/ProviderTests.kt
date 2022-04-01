@@ -1,5 +1,6 @@
 package drewcarlson.torrentsearch
 
+import drewcarlson.torrentsearch.providers.PirateBayProvider
 import drewcarlson.torrentsearch.providers.RarbgProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.*
@@ -52,6 +53,15 @@ class ProviderTests {
                 }
             }
         }
+        assertTrue(results.isNotEmpty())
+    }
+
+    @Test
+    fun testPirateBayProvider() = runTest {
+        val provider = PirateBayProvider(http)
+
+        val results = provider.search("Airplane", Category.MOVIES, 20)
+
         assertTrue(results.isNotEmpty())
     }
 }
