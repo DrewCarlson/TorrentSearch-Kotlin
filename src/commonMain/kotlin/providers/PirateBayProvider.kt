@@ -6,7 +6,9 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.json.*
 import torrentsearch.Category
+import torrentsearch.SearchParam
 import torrentsearch.TorrentDescription
+import torrentsearch.TorrentQuery
 
 internal class PirateBayProvider(
     private val httpClient: HttpClient
@@ -15,8 +17,7 @@ internal class PirateBayProvider(
     override val name: String = "ThePirateBay"
     override val baseUrl: String = "https://apibay.org"
     override val tokenPath: String = ""
-    override val searchPath: String = "/q.php?q={query}&cat={category}"
-
+    override val searchPath: String = "/q.php"
     override val categories = mapOf(
         Category.ALL to "",
         Category.AUDIO to "100",
@@ -30,20 +31,26 @@ internal class PirateBayProvider(
         Category.OTHER to "600",
     )
 
-    override suspend fun search(query: String, category: Category, limit: Int): List<TorrentDescription> {
-        val categoryString = categories[category]
+    override val searchParams: Map<SearchParam, String> = mapOf(
+        SearchParam.QUERY to "q",
+        SearchParam.CATEGORY to "cat",
+    )
 
-        if (query.isBlank() || categoryString.isNullOrBlank()) {
+    override suspend fun search(query: TorrentQuery): List<TorrentDescription> {
+        val queryString = query.content?.encodeURLQueryComponent()
+        if (queryString.isNullOrBlank()) {
             return emptyList()
         }
+
+        val categoryString = categories[query.category]
         val response = httpClient.get {
             url {
                 takeFrom(baseUrl)
-                takeFrom(
-                    searchPath
-                        .replace("{query}", query.encodeURLQueryComponent())
-                        .replace("{category}", categoryString)
-                )
+                takeFrom(searchPath)
+                parameter(searchParams.getValue(SearchParam.QUERY), queryString)
+                if (!categoryString.isNullOrBlank()) {
+                    parameter(searchParams.getValue(SearchParam.CATEGORY), categoryString)
+                }
             }
         }
 

@@ -48,16 +48,59 @@ class ProviderTests {
 
         realDelay(RarbgProvider.API_REQUEST_DELAY)
 
-        var results = emptyList<TorrentDescription>()
+        val results = searchWithTimeout(
+            provider,
+            TorrentQuery(
+                content = "Airplane",
+                category = Category.MOVIES,
+            )
+        )
+        assertTrue(results.isNotEmpty())
+    }
 
-        withContext(Dispatchers.Default) {
-            withTimeout(30.seconds) {
-                while (results.isEmpty()) {
-                    results = provider.search("Airplane", Category.MOVIES, 20)
-                    delay(RarbgProvider.API_REQUEST_DELAY)
-                }
-            }
-        }
+    @Test
+    fun testRarbgImdbIdProvider() = runTest {
+        val provider = RarbgProvider(
+            httpClient = http,
+            prefetchToken = false,
+            providerCache = null,
+        )
+        val token = assertNotNull(provider.readToken())
+
+        assertTrue(token.isNotBlank())
+
+        realDelay(RarbgProvider.API_REQUEST_DELAY)
+
+        val results = searchWithTimeout(
+            provider,
+            TorrentQuery(
+                imdbId = "tt0080339",
+                category = Category.MOVIES,
+            )
+        )
+        assertTrue(results.isNotEmpty())
+    }
+
+    @Test
+    fun testRarbgTmdbIdProvider() = runTest {
+        val provider = RarbgProvider(
+            httpClient = http,
+            prefetchToken = false,
+            providerCache = null,
+        )
+        val token = assertNotNull(provider.readToken())
+
+        assertTrue(token.isNotBlank())
+
+        realDelay(RarbgProvider.API_REQUEST_DELAY)
+
+        val results = searchWithTimeout(
+            provider,
+            TorrentQuery(
+                tmdbId = 813,
+                category = Category.MOVIES,
+            )
+        )
         assertTrue(results.isNotEmpty())
     }
 
@@ -65,7 +108,12 @@ class ProviderTests {
     fun testPirateBayProvider() = runTest {
         val provider = PirateBayProvider(http)
 
-        val results = provider.search("Airplane", Category.MOVIES, 20)
+        val results = provider.search(
+            TorrentQuery(
+                content = "Airplane",
+                category = Category.MOVIES,
+            )
+        )
 
         assertTrue(results.isNotEmpty())
     }
@@ -74,8 +122,44 @@ class ProviderTests {
     fun testYtsProvider() = runTest {
         val provider = YtsProvider(http)
 
-        val results = provider.search("Airplane", Category.MOVIES, 20)
+        val results = provider.search(
+            TorrentQuery(
+                content = "Airplane",
+                category = Category.MOVIES,
+            )
+        )
 
         assertTrue(results.isNotEmpty())
+    }
+
+    @Test
+    fun testYtsImdbIdProvider() = runTest {
+        val provider = YtsProvider(http)
+
+        val results = provider.search(
+            TorrentQuery(
+                imdbId = "tt0080339",
+                category = Category.MOVIES,
+            )
+        )
+
+        assertTrue(results.isNotEmpty())
+    }
+
+    private suspend fun searchWithTimeout(
+        provider: TorrentProvider,
+        query: TorrentQuery
+    ): List<TorrentDescription> {
+        var results = emptyList<TorrentDescription>()
+
+        withContext(Dispatchers.Default) {
+            withTimeout(30.seconds) {
+                while (results.isEmpty()) {
+                    results = provider.search(query)
+                    delay(RarbgProvider.API_REQUEST_DELAY)
+                }
+            }
+        }
+        return results
     }
 }

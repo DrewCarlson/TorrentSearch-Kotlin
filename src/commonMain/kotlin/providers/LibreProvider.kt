@@ -1,7 +1,9 @@
 package torrentsearch.providers
 
 import torrentsearch.Category
+import torrentsearch.SearchParam
 import torrentsearch.TorrentDescription
+import torrentsearch.TorrentQuery
 
 class LibreProvider : BaseTorrentProvider() {
     override val name: String = "libre"
@@ -9,9 +11,10 @@ class LibreProvider : BaseTorrentProvider() {
     override val tokenPath: String = ""
     override val searchPath: String = ""
     override val categories: Map<Category, String> = emptyMap()
+    override val searchParams: Map<SearchParam, String> = emptyMap()
 
-    override suspend fun search(query: String, category: Category, limit: Int): List<TorrentDescription> {
-        return when (query.lowercase()) {
+    override suspend fun search(query: TorrentQuery): List<TorrentDescription> {
+        return when (query.content.orEmpty().lowercase()) {
             "sintel" -> listOf(
                 TorrentDescription(
                     provider = name,

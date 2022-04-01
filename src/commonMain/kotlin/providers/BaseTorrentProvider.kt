@@ -12,17 +12,20 @@ import kotlin.native.concurrent.SharedImmutable
 @Suppress("HttpUrlsUsage")
 @SharedImmutable
 internal val trackers = listOf(
-    "udp://p4p.arenabg.ch:1337/announce",
-    "udp://tracker.leechers-paradise.org:6969/announce",
+    "udp://p4p.arenabg.ch:1337",
+    "udp://tracker.leechers-paradise.org:6969",
     "udp://tracker.opentrackr.org:1337/announce",
     "udp://tracker.coppersurfer.tk:6969/announce",
     "udp://9.rarbg.to:2920/announce",
-    "udp://tracker.internetwarriors.net:1337/announce",
+    "udp://tracker.internetwarriors.net:1337",
     "udp://tracker.leechers-paradise.org:6969/announce",
     "udp://tracker.pirateparty.gr:6969/announce",
     "udp://tracker.cyberia.is:6969/announce",
     "udp://open.tracker.cl:1337/announce",
-    "http://p4p.arenabg.com:1337/announce"
+    "http://p4p.arenabg.com:1337/announce",
+    "udp://torrent.gresille.org:80/announce",
+    "udp://tracker.openbittorrent.com:80",
+    "udp://glotorrents.pw:6969/announce",
 ).map { it.encodeURLQueryComponent() }
 
 abstract class BaseTorrentProvider(

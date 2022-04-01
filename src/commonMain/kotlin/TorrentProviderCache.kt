@@ -8,14 +8,12 @@ interface TorrentProviderCache {
 
     fun saveResults(
         provider: TorrentProvider,
-        query: String,
-        category: Category,
+        query: TorrentQuery,
         results: List<TorrentDescription>
     )
 
     fun loadResults(
         provider: TorrentProvider,
-        query: String,
-        category: Category
+        query: TorrentQuery,
     ): List<TorrentDescription>?
 }

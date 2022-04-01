@@ -53,8 +53,8 @@ class TorrentSearch(
      * All results are merged into a single list. [limit] is used
      * when possible to limit the result count from each provider.
      */
-    suspend fun search(query: String, category: Category, limit: Int): List<TorrentDescription> {
-        return searchFlow(query, category, limit).reduce { acc, next -> acc + next }
+    suspend fun search(buildQuery: TorrentQuery.() -> Unit): List<TorrentDescription> {
+        return searchFlow(buildQuery).reduce { acc, next -> acc + next }
     }
 
     /**
@@ -64,22 +64,23 @@ class TorrentSearch(
      * [limit] is used when possible to limit the result count
      * from each provider.
      */
-    fun searchFlow(query: String, category: Category, limit: Int): Flow<List<TorrentDescription>> {
+    fun searchFlow(buildQuery: TorrentQuery.() -> Unit): Flow<List<TorrentDescription>> {
+        val query = TorrentQuery().apply(buildQuery)
         return providers
             .filter(TorrentProvider::isEnabled)
             .map { provider ->
                 flow {
                     try {
-                        emit(provider.search(query, category, limit))
+                        emit(provider.search(query))
                     } catch (e: ResponseException) {
                         //e.printStackTrace()
                     }
                 }.onEach { results ->
                     if (results.isNotEmpty()) {
-                        providerCache?.saveResults(provider, query, category, results)
+                        providerCache?.saveResults(provider, query, results)
                     }
                 }.onStart {
-                    val cacheResult = providerCache?.loadResults(provider, query, category)
+                    val cacheResult = providerCache?.loadResults(provider, query)
                     if (cacheResult != null) {
                         emit(cacheResult)
                     }

@@ -37,7 +37,10 @@ class TorrentSearchTests {
 
     @Test
     fun testSearch() = runTest {
-        val results = torrentSearch.search("Big Buck Bunny", Category.MOVIES, 10)
+        val results = torrentSearch.search {
+            content = "Big Buck Bunny"
+            category = Category.MOVIES
+        }
         val torrent = assertNotNull(results.firstOrNull())
 
         assertEquals("Big Buck Bunny", torrent.title)

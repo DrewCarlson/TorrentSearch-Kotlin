@@ -1,6 +1,5 @@
 package torrentsearch
 
-
 interface TorrentProvider {
 
     /** The Provider's name. */
@@ -15,6 +14,9 @@ interface TorrentProvider {
     /** The Provider's path to search data. */
     val searchPath: String
 
+    /** The Provider's available query parameters and names. */
+    val searchParams: Map<SearchParam, String>
+
     /** Maps a url safe string of provider categories to a [Category]. */
     val categories: Map<Category, String>
 
@@ -28,7 +30,7 @@ interface TorrentProvider {
      * Execute a search for the given [query] in [category], returning
      * [TorrentDescription]s for each of the Provider's entries.
      */
-    suspend fun search(query: String, category: Category, limit: Int): List<TorrentDescription>
+    suspend fun search(query: TorrentQuery): List<TorrentDescription>
 
     fun enable(username: String? = null, password: String? = null, cookies: List<String> = emptyList())
 
