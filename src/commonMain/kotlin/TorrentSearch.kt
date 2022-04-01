@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.take
 class TorrentSearch(
     private val providerCache: TorrentProviderCache? = null,
     httpClient: HttpClient = HttpClient(),
+    installDefaultProviders: Boolean = true,
     vararg providers: TorrentProvider
 ) {
 
@@ -33,11 +34,15 @@ class TorrentSearch(
         }
     }
 
-    private val providers = listOf(
-        RarbgProvider(http, providerCache),
-        PirateBayProvider(http),
-        LibreProvider()
-    ) + providers
+    private val providers = if (installDefaultProviders) {
+        listOf(
+            RarbgProvider(http, providerCache),
+            PirateBayProvider(http),
+            LibreProvider()
+        ) + providers
+    } else {
+        providers.toList()
+    }
 
     /**
      * Search all enabled providers with [query] and [category].

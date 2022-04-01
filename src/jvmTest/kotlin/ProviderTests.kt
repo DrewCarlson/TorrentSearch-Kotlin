@@ -5,11 +5,15 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
 
 class ProviderTests {
 
@@ -24,19 +28,30 @@ class ProviderTests {
     }
 
     @Test
-    fun testRarbgProvider() = runBlocking {
+    fun testRarbgProvider() = runTest {
+        realDelay(RarbgProvider.API_REQUEST_DELAY)
+
         val provider = RarbgProvider(
             httpClient = http,
-            prefetchToken = false
+            prefetchToken = false,
+            providerCache = null,
         )
         val token = assertNotNull(provider.readToken())
 
         assertTrue(token.isNotBlank())
 
-        delay(1500L)
+        realDelay(RarbgProvider.API_REQUEST_DELAY)
 
-        val results = provider.search("Airplane", Category.MOVIES, 20)
+        var results = emptyList<TorrentDescription>()
 
+        withContext(Dispatchers.Default) {
+            withTimeout(30.seconds) {
+                while (results.isEmpty()) {
+                    results = provider.search("Airplane", Category.MOVIES, 20)
+                    delay(RarbgProvider.API_REQUEST_DELAY)
+                }
+            }
+        }
         assertTrue(results.isNotEmpty())
     }
 }

@@ -13,14 +13,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.*
+import kotlin.time.Duration.Companion.seconds
 
-private const val API_REQUEST_DELAY = 3000L
 
 internal class RarbgProvider(
     private val httpClient: HttpClient,
-    private val providerCache: TorrentProviderCache? = null,
+    private val providerCache: TorrentProviderCache?,
     prefetchToken: Boolean = true,
 ) : BaseTorrentProvider() {
+
+    internal companion object {
+        val API_REQUEST_DELAY = 3.seconds
+    }
+
     override val name = "Rarbg"
     override val baseUrl = "https://torrentapi.org"
     override val tokenPath = "/pubapi_v2.php?get_token=get_token&app_id=TorrentSearch"
@@ -117,7 +122,7 @@ internal class RarbgProvider(
                         delay(API_REQUEST_DELAY)
                     }
                 } catch (e: Exception) {
-                    //e.printStackTrace()
+                    e.printStackTrace()
                     null
                 }
             }
