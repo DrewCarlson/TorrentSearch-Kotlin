@@ -20,7 +20,7 @@ yarn.apply {
 
 kotlin {
     jvm()
-    js(BOTH) {
+    js(IR) {
         browser {
             testTask {
                 useMocha {
@@ -45,6 +45,10 @@ kotlin {
     //tvos()
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
@@ -57,6 +61,7 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION")
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
