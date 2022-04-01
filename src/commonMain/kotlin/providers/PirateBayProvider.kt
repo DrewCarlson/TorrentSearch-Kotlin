@@ -71,6 +71,7 @@ internal class PirateBayProvider(
                 emptyList()
             } else {
                 torrents.map { element ->
+                    val id = element.jsonObject["id"]?.jsonPrimitive?.longOrNull
                     val torrentName = element.jsonObject["name"]?.jsonPrimitive?.content ?: "<unknown>"
                     TorrentDescription(
                         provider = name,
@@ -82,6 +83,8 @@ internal class PirateBayProvider(
                         size = element.jsonObject["size"]?.jsonPrimitive?.long ?: -1,
                         seeds = element.jsonObject["seeders"]?.jsonPrimitive?.int ?: -1,
                         peers = element.jsonObject["leechers"]?.jsonPrimitive?.int ?: -1,
+                        imdbId = element.jsonObject["imdb"]?.jsonPrimitive?.contentOrNull,
+                        infoUrl = "https://thepiratebay.org/description.php?id=$id",
                     )
                 }
             }

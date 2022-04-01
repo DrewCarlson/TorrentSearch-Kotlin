@@ -10,7 +10,11 @@ data class TorrentDescription(
     val title: String,
     val size: Long,
     val seeds: Int,
-    val peers: Int
+    val peers: Int,
+    val themoviedbId: Int? = null,
+    val tvdbId: Int? = null,
+    val imdbId: String? = null,
+    val infoUrl: String? = null,
 ) {
     @Transient
     val hash: String = magnetUrl

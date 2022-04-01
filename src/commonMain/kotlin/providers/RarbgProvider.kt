@@ -132,13 +132,18 @@ internal class RarbgProvider(
     }
 
     private fun JsonElement.asTorrentDescription(): TorrentDescription {
+        val episodeInfo = jsonObject["episode_info"]!!.jsonObject
         return TorrentDescription(
             provider = name,
             magnetUrl = jsonObject["download"]!!.jsonPrimitive.content,
             title = jsonObject["title"]!!.jsonPrimitive.content,
             seeds = jsonObject["seeders"]!!.jsonPrimitive.int,
             peers = jsonObject["leechers"]!!.jsonPrimitive.int,
-            size = jsonObject["size"]!!.jsonPrimitive.long
+            size = jsonObject["size"]!!.jsonPrimitive.long,
+            themoviedbId = episodeInfo["themoviedb"]!!.jsonPrimitive.intOrNull,
+            imdbId = episodeInfo["imdb"]!!.jsonPrimitive.contentOrNull,
+            tvdbId = episodeInfo["tvdb"]!!.jsonPrimitive.intOrNull,
+            infoUrl = jsonObject["info_page"]!!.jsonPrimitive.contentOrNull,
         )
     }
 }
