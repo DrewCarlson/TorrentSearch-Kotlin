@@ -14,12 +14,23 @@ TorrentSearch-Kotlin is written in common Kotlin to support multiplatform develo
 
 Supported providers can be found in [`src/commonMain/kotlin/providers`](src/commonMain/kotlin/providers).
 
-## Usage
+## Example
 
 ```kotlin
 val torrentSearch = TorrentSearch()
 
-println(torrentSearch.search("big buck bunny"))
+// Only a content string or content id must be provided
+val torrents = torrentSearch.search {
+    content = "big buck bunny"
+
+    category = Category.ALL // Optional: Filter by category
+    imdbId = "tt..." // Optional: Find by IMDB id instead of content
+    tmdbId = 534 // Optional: Find by TMDB id instead of content
+    tvdbId = 874 // Optional: Find by TVDB id instead of content
+    contentYear = 2000 // Optional: Filter by content release year
+    limit = 20 // Optional: Limit results per provider endpoint
+}
+println(torrents)
 // TorrentDescription(provider=Libre, title=Big Buck Bunny, magnetUrl=magnet:?xt=urn:btih:...
 ```
 
