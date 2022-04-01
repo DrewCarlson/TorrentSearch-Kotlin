@@ -2,15 +2,18 @@ package drewcarlson.torrentsearch
 
 import drewcarlson.torrentsearch.providers.PirateBayProvider
 import drewcarlson.torrentsearch.providers.RarbgProvider
+import drewcarlson.torrentsearch.providers.YtsProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.cookies.*
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -20,7 +23,11 @@ class ProviderTests {
 
     private val http = HttpClient().config {
         install(ContentNegotiation) {
-            json()
+            json(Json { ignoreUnknownKeys = true })
+        }
+
+        defaultRequest {
+            userAgent(USER_AGENT)
         }
 
         install(HttpCookies) {
@@ -30,8 +37,6 @@ class ProviderTests {
 
     @Test
     fun testRarbgProvider() = runTest {
-        realDelay(RarbgProvider.API_REQUEST_DELAY)
-
         val provider = RarbgProvider(
             httpClient = http,
             prefetchToken = false,
@@ -59,6 +64,15 @@ class ProviderTests {
     @Test
     fun testPirateBayProvider() = runTest {
         val provider = PirateBayProvider(http)
+
+        val results = provider.search("Airplane", Category.MOVIES, 20)
+
+        assertTrue(results.isNotEmpty())
+    }
+
+    @Test
+    fun testYtsProvider() = runTest {
+        val provider = YtsProvider(http)
 
         val results = provider.search("Airplane", Category.MOVIES, 20)
 

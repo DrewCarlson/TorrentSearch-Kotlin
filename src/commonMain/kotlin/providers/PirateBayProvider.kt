@@ -32,16 +32,6 @@ internal class PirateBayProvider(
         Category.OTHER to "600",
     )
 
-    private val trackers = listOf(
-        "udp://tracker.coppersurfer.tk:6969/announce",
-        "udp://9.rarbg.to:2920/announce",
-        "udp://tracker.opentrackr.org:1337",
-        "udp://tracker.internetwarriors.net:1337/announce",
-        "udp://tracker.leechers-paradise.org:6969/announce",
-        "udp://tracker.pirateparty.gr:6969/announce",
-        "udp://tracker.cyberia.is:6969/announce"
-    ).map { it.encodeURLQueryComponent() }
-
     override suspend fun search(query: String, category: Category, limit: Int): List<TorrentDescription> {
         val categoryString = categories[category]
 
@@ -91,10 +81,5 @@ internal class PirateBayProvider(
         } else {
             emptyList()
         }
-    }
-
-    private fun formatMagnet(infoHash: String, name: String): String {
-        val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
-        return "magnet:?xt=urn:btih:${infoHash}&dn=${name.encodeURLQueryComponent()}${trackersQueryString}"
     }
 }

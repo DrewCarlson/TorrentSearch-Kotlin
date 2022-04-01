@@ -3,9 +3,11 @@ package drewcarlson.torrentsearch
 import drewcarlson.torrentsearch.providers.LibreProvider
 import drewcarlson.torrentsearch.providers.PirateBayProvider
 import drewcarlson.torrentsearch.providers.RarbgProvider
+import drewcarlson.torrentsearch.providers.YtsProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.cookies.*
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +18,9 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.take
+import kotlinx.serialization.json.Json
+
+internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0"
 
 class TorrentSearch(
     private val providerCache: TorrentProviderCache? = null,
@@ -26,7 +31,11 @@ class TorrentSearch(
 
     private val http = httpClient.config {
         install(ContentNegotiation) {
-            json()
+            json(Json { ignoreUnknownKeys = true })
+        }
+
+        defaultRequest {
+            userAgent(USER_AGENT)
         }
 
         install(HttpCookies) {
@@ -38,7 +47,8 @@ class TorrentSearch(
         listOf(
             RarbgProvider(http, providerCache),
             PirateBayProvider(http),
-            LibreProvider()
+            YtsProvider(http),
+            LibreProvider(),
         ) + providers
     } else {
         providers.toList()

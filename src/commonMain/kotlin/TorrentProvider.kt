@@ -12,7 +12,7 @@ interface TorrentProvider {
     /** The Provider's path to acquire a token. */
     val tokenPath: String
 
-    /** The Provider's path to search search data. */
+    /** The Provider's path to search data. */
     val searchPath: String
 
     /** Maps a url safe string of provider categories to a [Category]. */
