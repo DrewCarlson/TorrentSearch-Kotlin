@@ -1,8 +1,5 @@
-package drewcarlson.torrentsearch.providers
+package torrentsearch.providers
 
-import drewcarlson.torrentsearch.Category
-import drewcarlson.torrentsearch.TorrentDescription
-import drewcarlson.torrentsearch.TorrentProviderCache
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -12,6 +9,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.*
+import torrentsearch.Category
+import torrentsearch.TorrentDescription
+import torrentsearch.TorrentProviderCache
 import kotlin.time.Duration.Companion.seconds
 
 

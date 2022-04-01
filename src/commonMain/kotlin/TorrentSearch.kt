@@ -1,24 +1,17 @@
-package drewcarlson.torrentsearch
+package torrentsearch
 
-import drewcarlson.torrentsearch.providers.LibreProvider
-import drewcarlson.torrentsearch.providers.PirateBayProvider
-import drewcarlson.torrentsearch.providers.RarbgProvider
-import drewcarlson.torrentsearch.providers.YtsProvider
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.merge
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.reduce
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
+import torrentsearch.providers.LibreProvider
+import torrentsearch.providers.PirateBayProvider
+import torrentsearch.providers.RarbgProvider
+import torrentsearch.providers.YtsProvider
 
 internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0"
 

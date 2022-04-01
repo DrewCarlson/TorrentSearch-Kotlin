@@ -1,9 +1,6 @@
-package drewcarlson.torrentsearch
+package torrentsearch
 
-import drewcarlson.torrentsearch.providers.PirateBayProvider
-import drewcarlson.torrentsearch.providers.RarbgProvider
-import drewcarlson.torrentsearch.providers.YtsProvider
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.http.*
@@ -14,6 +11,9 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
+import torrentsearch.providers.PirateBayProvider
+import torrentsearch.providers.RarbgProvider
+import torrentsearch.providers.YtsProvider
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue

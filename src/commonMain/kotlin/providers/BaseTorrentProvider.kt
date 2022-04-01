@@ -1,10 +1,10 @@
-package drewcarlson.torrentsearch.providers
+package torrentsearch.providers
 
-import drewcarlson.torrentsearch.TorrentProvider
 import io.ktor.http.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import torrentsearch.TorrentProvider
 import kotlin.coroutines.CoroutineContext
 import kotlin.native.concurrent.SharedImmutable
 

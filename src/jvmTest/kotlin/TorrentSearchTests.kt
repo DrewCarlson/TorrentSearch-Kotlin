@@ -1,6 +1,5 @@
-package drewcarlson.torrentsearch
+package torrentsearch
 
-import drewcarlson.torrentsearch.providers.LibreProvider
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.cookies.*
@@ -8,6 +7,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
+import torrentsearch.providers.LibreProvider
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

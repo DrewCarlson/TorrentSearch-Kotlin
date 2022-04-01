@@ -1,7 +1,7 @@
-package drewcarlson.torrentsearch.providers
+package torrentsearch.providers
 
-import drewcarlson.torrentsearch.Category
-import drewcarlson.torrentsearch.TorrentDescription
+import torrentsearch.Category
+import torrentsearch.TorrentDescription
 
 class LibreProvider : BaseTorrentProvider() {
     override val name: String = "libre"

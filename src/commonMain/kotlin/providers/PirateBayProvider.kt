@@ -1,14 +1,12 @@
-package drewcarlson.torrentsearch.providers
+package torrentsearch.providers
 
-import drewcarlson.torrentsearch.Category
-import drewcarlson.torrentsearch.TorrentDescription
-import drewcarlson.torrentsearch.TorrentProviderCache
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.json.*
+import torrentsearch.Category
+import torrentsearch.TorrentDescription
 
 internal class PirateBayProvider(
     private val httpClient: HttpClient

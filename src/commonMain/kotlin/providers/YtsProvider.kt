@@ -1,13 +1,13 @@
-package drewcarlson.torrentsearch.providers
+package torrentsearch.providers
 
-import drewcarlson.torrentsearch.Category
-import drewcarlson.torrentsearch.TorrentDescription
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import torrentsearch.Category
+import torrentsearch.TorrentDescription
 
 internal class YtsProvider(
     private val httpClient: HttpClient

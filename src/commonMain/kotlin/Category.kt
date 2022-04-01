@@ -1,4 +1,4 @@
-package drewcarlson.torrentsearch
+package torrentsearch
 
 enum class Category {
     ALL,

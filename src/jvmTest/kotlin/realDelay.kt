@@ -1,4 +1,4 @@
-package drewcarlson.torrentsearch
+package torrentsearch
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
