@@ -46,6 +46,8 @@ internal class YtsProvider(
                         peers = torrent.peers,
                         title = "$name ${torrent.quality} ${torrent.type}",
                         size = torrent.size,
+                        infoUrl = torrent.url,
+                        imdbId = movie.imdbId,
                     )
                 }
             }
@@ -70,6 +72,7 @@ internal class YtsProvider(
     @Serializable
     internal data class YtsMovie(
         val id: Int,
+        @SerialName("title_long")
         val title: String,
         @SerialName("imdb_code")
         val imdbId: String?,
