@@ -2,13 +2,16 @@ package torrentsearch.providers
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.takeFrom
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import torrentsearch.models.Category
+import torrentsearch.models.ProviderResult
 import torrentsearch.models.SearchParam
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
@@ -19,7 +22,7 @@ internal class EztvProvider(
 
     override val name: String = "eztv"
     override val baseUrl: String = "https://eztv.re/api/"
-    override val categories: Map<Category, String> = mapOf()
+    override val categories: Map<Category, String> = mapOf(Category.TV to "")
     override val tokenPath: String = ""
     override val searchParams: Map<SearchParam, String> = mapOf(
         SearchParam.IMDB_ID to "imdb_id",
@@ -28,26 +31,30 @@ internal class EztvProvider(
     )
     override val searchPath: String = "get-torrents"
 
-    override suspend fun search(query: TorrentQuery): List<TorrentDescription> {
+    override suspend fun search(query: TorrentQuery): ProviderResult {
         val imdbId = query.imdbId?.dropWhile { it == 't' }
         if (imdbId.isNullOrBlank()) {
-            return emptyList()
+            return ProviderResult.Error.InvalidQueryError(name, "Eztv requires imdbId")
         }
 
-        val response = httpClient.get {
-            url {
-                takeFrom(baseUrl)
-                takeFrom(searchPath)
-                parameter(searchParams.getValue(SearchParam.IMDB_ID), imdbId)
-                if (query.limit > -1) {
-                    parameter(searchParams.getValue(SearchParam.LIMIT), query.limit)
+        val response = try {
+            httpClient.get {
+                url {
+                    takeFrom(baseUrl)
+                    takeFrom(searchPath)
+                    parameter(searchParams.getValue(SearchParam.IMDB_ID), imdbId)
+                    if (query.limit > -1) {
+                        parameter(searchParams.getValue(SearchParam.LIMIT), query.limit)
+                    }
                 }
             }
+        } catch (e: ResponseException) {
+            return ProviderResult.Error.RequestError(name, e.response.status, e.response.bodyAsText())
         }
 
         return if (response.status == HttpStatusCode.OK) {
             val body = response.body<EztvResponse>()
-            body.torrents.map { eztvTorrent ->
+            val torrentDescriptions = body.torrents.map { eztvTorrent ->
                 TorrentDescription(
                     provider = name,
                     magnetUrl = eztvTorrent.magnetUrl,
@@ -59,8 +66,9 @@ internal class EztvProvider(
                     infoUrl = eztvTorrent.episodeUrl
                 )
             }
+            ProviderResult.Success(name, torrentDescriptions)
         } else {
-            emptyList()
+            ProviderResult.Error.RequestError(name, response.status, response.bodyAsText())
         }
     }
 

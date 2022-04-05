@@ -1,10 +1,12 @@
 package torrentsearch
 
-import io.ktor.client.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.cookies.*
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.ContentNegotiation
+import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
+import io.ktor.client.plugins.cookies.HttpCookies
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.http.userAgent
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
@@ -12,13 +14,14 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
 import torrentsearch.models.Category
-import torrentsearch.models.TorrentDescription
+import torrentsearch.models.ProviderResult
 import torrentsearch.models.TorrentQuery
 import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.PirateBayProvider
 import torrentsearch.providers.RarbgProvider
 import torrentsearch.providers.YtsProvider
 import kotlin.test.Test
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
@@ -52,14 +55,15 @@ class ProviderTests {
 
         realDelay(RarbgProvider.API_REQUEST_DELAY)
 
-        val results = searchWithTimeout(
+        val result = searchWithTimeout(
             provider,
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
             )
         )
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
@@ -75,14 +79,15 @@ class ProviderTests {
 
         realDelay(RarbgProvider.API_REQUEST_DELAY)
 
-        val results = searchWithTimeout(
+        val result = searchWithTimeout(
             provider,
             TorrentQuery(
                 imdbId = "tt0080339",
                 category = Category.MOVIES,
             )
         )
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
@@ -98,86 +103,95 @@ class ProviderTests {
 
         realDelay(RarbgProvider.API_REQUEST_DELAY)
 
-        val results = searchWithTimeout(
+        val result = searchWithTimeout(
             provider,
             TorrentQuery(
                 tmdbId = 813,
                 category = Category.MOVIES,
             )
         )
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
     fun testPirateBayProvider() = runTest {
         val provider = PirateBayProvider(http)
 
-        val results = provider.search(
+        val result = provider.search(
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
             )
         )
 
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
     fun testYtsProvider() = runTest {
         val provider = YtsProvider(http)
 
-        val results = provider.search(
+        val result = provider.search(
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
             )
         )
 
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
     fun testYtsImdbIdProvider() = runTest {
         val provider = YtsProvider(http)
 
-        val results = provider.search(
+        val result = provider.search(
             TorrentQuery(
                 imdbId = "tt0080339",
                 category = Category.MOVIES,
             )
         )
 
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
     fun testEztvImdbIdProvider() = runTest {
         val provider = EztvProvider(http)
 
-        val results = provider.search(
+        val result = provider.search(
             TorrentQuery(
                 imdbId = "tt4254242",
                 category = Category.MOVIES,
             )
         )
 
-        assertTrue(results.isNotEmpty())
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
     }
 
     private suspend fun searchWithTimeout(
         provider: TorrentProvider,
         query: TorrentQuery
-    ): List<TorrentDescription> {
-        var results = emptyList<TorrentDescription>()
+    ): ProviderResult {
+        var result = ProviderResult.Success("", emptyList())
 
         withContext(Dispatchers.Default) {
             withTimeout(30.seconds) {
-                while (results.isEmpty()) {
-                    results = provider.search(query)
+                while (result.torrents.isEmpty()) {
+                    (provider.search(query) as? ProviderResult.Success)?.let { nextResult ->
+                        if (nextResult.torrents.isNotEmpty()) {
+                            result = nextResult
+                        }
+                    }
                     delay(RarbgProvider.API_REQUEST_DELAY)
                 }
             }
         }
-        return results
+        return checkNotNull(result)
     }
 }

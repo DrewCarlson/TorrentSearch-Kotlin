@@ -7,6 +7,7 @@ data class TorrentQuery(
     var tmdbId: Int? = null,
     var tvdbId: Int? = null,
     var contentYear: Int? = null,
+    val skipCache: Boolean = false,
     /**
      * The limit applied to each provider query, expect a higher
      * [TorrentDescription] count when more than one provider

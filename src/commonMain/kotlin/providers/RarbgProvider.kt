@@ -1,16 +1,25 @@
 package torrentsearch.providers
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.ResponseException
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.takeFrom
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.json.*
-import torrentsearch.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import torrentsearch.TorrentProviderCache
 import torrentsearch.models.Category
+import torrentsearch.models.ProviderResult
 import torrentsearch.models.SearchParam
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
@@ -62,28 +71,40 @@ internal class RarbgProvider(
         }
     }
 
-    override suspend fun search(query: TorrentQuery): List<TorrentDescription> {
-        val result = fetchSearchResults(query)
+    override suspend fun search(query: TorrentQuery): ProviderResult {
+        val response = try {
+            fetchSearchResults(query)
+        } catch (e: ResponseException) {
+            return ProviderResult.Error.RequestError(name, e.response.status, e.response.bodyAsText())
+        }
 
-        launch { mutex.withLock { delay(API_REQUEST_DELAY) } }
-
-        val errorCode = result["error_code"]?.jsonPrimitive?.intOrNull
-        return if (errorCode == null) {
-            result["torrent_results"]!!
-                .jsonArray
-                .map { it.asTorrentDescription() }
+        return if (response.status == HttpStatusCode.OK) {
+            val result = response.body<RarbgResult>()
+            val torrentDescriptions = result.torrentResults.map { rarbgTorrent ->
+                TorrentDescription(
+                    provider = name,
+                    magnetUrl = rarbgTorrent.download,
+                    title = rarbgTorrent.title,
+                    seeds = rarbgTorrent.seeders,
+                    peers = rarbgTorrent.leechers,
+                    size = rarbgTorrent.size,
+                    themoviedbId = rarbgTorrent.episodeInfo?.themoviedb,
+                    imdbId = rarbgTorrent.episodeInfo?.imdb,
+                    tvdbId = rarbgTorrent.episodeInfo?.tvdb,
+                    infoUrl = rarbgTorrent.infoPage,
+                )
+            }
+            ProviderResult.Success(name, torrentDescriptions)
         } else {
-            // TODO: Handle error codes
-            //   - 20: No results
-            emptyList()
+            ProviderResult.Error.RequestError(name, response.status, response.bodyAsText())
         }
     }
 
-    private suspend fun fetchSearchResults(query: TorrentQuery): JsonObject {
-        val encodedQuery = query.content?.encodeURLQueryComponent()
+    private suspend fun fetchSearchResults(query: TorrentQuery): HttpResponse {
+        val queryString = query.content?.filter { it.isLetter() || it.isWhitespace() }
         val categoryString = categories[query.category]
         val tokenString = readToken() ?: ""
-        return mutex.withLock {
+        val response = mutex.withLock {
             httpClient.get {
                 url {
                     takeFrom(baseUrl)
@@ -94,18 +115,21 @@ internal class RarbgProvider(
                     }
 
                     when {
-                        encodedQuery != null -> parameter(searchParams.getValue(SearchParam.QUERY), encodedQuery)
                         query.tmdbId != null -> parameter(searchParams.getValue(SearchParam.TMDB_ID), query.tmdbId)
                         query.imdbId != null -> parameter(searchParams.getValue(SearchParam.IMDB_ID), query.imdbId)
                         query.tvdbId != null -> parameter(searchParams.getValue(SearchParam.TVDB_ID), query.tvdbId)
+                        queryString != null -> parameter(searchParams.getValue(SearchParam.QUERY), queryString)
                     }
 
                     if (categoryString != null) {
                         parameter(searchParams.getValue(SearchParam.CATEGORY), categoryString)
                     }
                 }
-            }.body()
+            }
         }
+
+        launch { mutex.withLock { delay(API_REQUEST_DELAY) } }
+        return response
     }
 
     private suspend fun fetchToken(): String {
@@ -137,25 +161,31 @@ internal class RarbgProvider(
         return token
     }
 
-    private fun JsonElement.asTorrentDescription(): TorrentDescription {
-        val episodeInfo = jsonObject["episode_info"].let { element ->
-            if (element !is JsonNull) {
-                jsonObject
-            } else {
-                JsonObject(emptyMap())
-            }
-        }
-        return TorrentDescription(
-            provider = name,
-            magnetUrl = jsonObject["download"]!!.jsonPrimitive.content,
-            title = jsonObject["title"]!!.jsonPrimitive.content,
-            seeds = jsonObject["seeders"]!!.jsonPrimitive.int,
-            peers = jsonObject["leechers"]!!.jsonPrimitive.int,
-            size = jsonObject["size"]!!.jsonPrimitive.long,
-            themoviedbId = episodeInfo["themoviedb"]?.jsonPrimitive?.intOrNull,
-            imdbId = episodeInfo["imdb"]?.jsonPrimitive?.contentOrNull,
-            tvdbId = episodeInfo["tvdb"]?.jsonPrimitive?.intOrNull,
-            infoUrl = jsonObject["info_page"]!!.jsonPrimitive.contentOrNull,
-        )
-    }
+    @Serializable
+    internal class RarbgResult(
+        @SerialName("torrent_results")
+        val torrentResults: List<RarbgTorrent> = emptyList(),
+        @SerialName("error_code")
+        val errorCode: Int? = null
+    )
+
+    @Serializable
+    internal class RarbgTorrent(
+        val download: String,
+        val title: String,
+        val seeders: Int,
+        val leechers: Int,
+        val size: Long,
+        @SerialName("info_page")
+        val infoPage: String?,
+        @SerialName("episode_info")
+        val episodeInfo: RarbgEpisodeInfo? = null,
+    )
+
+    @Serializable
+    internal class RarbgEpisodeInfo(
+        val imdb: String? = null,
+        val themoviedb: Int? = null,
+        val tvdb: Int? = null,
+    )
 }

@@ -41,11 +41,10 @@ kotlin {
     linuxX64()
 
     ios()
-    //watchos()
-    //tvos()
 
     sourceSets {
         all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
 
@@ -69,6 +68,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
+                implementation("io.ktor:ktor-client-okhttp:$KTOR_VERSION")
             }
         }
         val jvmTest by getting {
@@ -126,17 +126,5 @@ kotlin {
                 implementation("io.ktor:ktor-client-darwin:$KTOR_VERSION")
             }
         }
-
-        // Configure tvos and watchos to build on ios sources
-        /*val tvosMain by getting
-        val tvosTest by getting
-        val watchosMain by getting
-        val watchosTest by getting
-        configure(listOf(tvosMain, watchosMain)) {
-            dependsOn(iosMain)
-        }
-        configure(listOf(tvosTest, watchosTest)) {
-            dependsOn(iosTest)
-        }*/
     }
 }

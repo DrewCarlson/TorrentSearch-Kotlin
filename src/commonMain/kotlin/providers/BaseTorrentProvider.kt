@@ -1,6 +1,6 @@
 package torrentsearch.providers
 
-import io.ktor.http.*
+import io.ktor.http.encodeURLQueryComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

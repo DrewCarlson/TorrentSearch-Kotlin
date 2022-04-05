@@ -5,22 +5,20 @@
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Native/badge.svg)
 
-Torrent Provider API client written in Kotlin, based on [torrent-search-api](https://github.com/JimmyLaurent/torrent-search-api).
+Multiplatform Torrent Provider API client written in Kotlin.
 
 ## About
 
-TorrentSearch-Kotlin is written in common Kotlin to support multiplatform development.
-[Kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) provides json (de)serialization and [Ktor](https://ktor.io) the HTTP API.
+TorrentSearch-Kotlin enables you to query multiple torrent provides in one request and handle all the results. Supported
+providers can be found in [`src/commonMain/kotlin/providers`](src/commonMain/kotlin/providers).
 
-Supported providers can be found in [`src/commonMain/kotlin/providers`](src/commonMain/kotlin/providers).
-
-## Example
+## Usage
 
 ```kotlin
 val torrentSearch = TorrentSearch()
 
-// Only a content string or content id must be provided
-val torrents = torrentSearch.search {
+// Only the content string or imdbId/tmdbId/tvdbId is required
+val result = torrentSearch.search {
     content = "big buck bunny"
 
     category = Category.ALL // Optional: Filter by category
@@ -30,9 +28,19 @@ val torrents = torrentSearch.search {
     contentYear = 2000 // Optional: Filter by content release year
     limit = 20 // Optional: Limit results per provider endpoint
 }
-println(torrents)
-// TorrentDescription(provider=Libre, title=Big Buck Bunny, magnetUrl=magnet:?xt=urn:btih:...
+
+println(result.torrents().toList())
+// [TorrentDescription(provider=Libre, title=Big Buck Bunny, magnetUrl=magnet:?xt=urn:btih:...]
 ```
+
+## Caching
+
+An optional [`TorrentProviderCache`](src/commonMain/kotlin/TorrentProviderCache.kt)
+can be provided to `TorrentSearch` enabled caching for authentication tokens and search results.
+
+The default cache will store auth tokens in memory and does not cache torrent results. To add custom caching behavior,
+implement a [`TorrentProviderCache`](src/commonMain/kotlin/TorrentProviderCache.kt) and use it when
+constructing `TorrentSearch`.
 
 ## Download
 
@@ -46,43 +54,41 @@ println(torrents)
 ![](https://img.shields.io/static/v1?label=&message=macOS&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=Windows&color=blue)
 ![](https://img.shields.io/static/v1?label=&message=iOS&color=blue)
-![](https://img.shields.io/static/v1?label=&message=tvOS&color=blue)
-![](https://img.shields.io/static/v1?label=&message=watchOS&color=blue)
 
 ```kotlin
 repositories {
-  mavenCentral()
-  // Or snapshots
-  maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    mavenCentral()
+    // Or snapshots
+    maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-  implementation("org.drewcarlson:torrentsearch:$torrentsearch_version")
+    implementation("org.drewcarlson:torrentsearch:$torrentsearch_version")
 
-  // For Jvm only:
-  implementation("org.drewcarlson:torrentsearch-jvm:$torrentsearch_version")
+    // For Jvm only:
+    implementation("org.drewcarlson:torrentsearch-jvm:$torrentsearch_version")
 }
 ```
-
 
 Note: it is required to specify a Ktor client engine implementation.
 ([Documentation](https://ktor.io/clients/http-client/multiplatform.html))
 
 ```kotlin
 dependencies {
-  // Jvm/Android
-  implementation("io.ktor:ktor-client-okhttp:$ktor_version")
-  implementation("io.ktor:ktor-client-android:$ktor_version")
-  // iOS
-  implementation("io.ktor:ktor-client-darwin:$ktor_version")
-  // macOS/Windows/Linux
-  implementation("io.ktor:ktor-client-curl:$ktor_version")
-  // Javascript/NodeJS
-  implementation("io.ktor:ktor-client-js:$ktor_version")
+    // Jvm/Android
+    implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+    implementation("io.ktor:ktor-client-android:$ktor_version")
+    // iOS
+    implementation("io.ktor:ktor-client-darwin:$ktor_version")
+    // macOS/Windows/Linux
+    implementation("io.ktor:ktor-client-curl:$ktor_version")
+    // Javascript/NodeJS
+    implementation("io.ktor:ktor-client-js:$ktor_version")
 }
 ``` 
 
 ## License
+
 ```
 Copyright (c) 2020 Andrew Carlson
 

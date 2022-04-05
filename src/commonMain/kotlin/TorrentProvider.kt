@@ -1,6 +1,7 @@
 package torrentsearch
 
 import torrentsearch.models.Category
+import torrentsearch.models.ProviderResult
 import torrentsearch.models.SearchParam
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
@@ -35,7 +36,7 @@ interface TorrentProvider {
      * Execute a search for the given [query] in [category], returning
      * [TorrentDescription]s for each of the Provider's entries.
      */
-    suspend fun search(query: TorrentQuery): List<TorrentDescription>
+    suspend fun search(query: TorrentQuery): ProviderResult
 
     fun enable(username: String? = null, password: String? = null, cookies: List<String> = emptyList())
 

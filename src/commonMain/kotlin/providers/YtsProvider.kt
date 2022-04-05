@@ -1,12 +1,17 @@
 package torrentsearch.providers
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.ResponseException
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.takeFrom
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import torrentsearch.models.Category
+import torrentsearch.models.ProviderResult
 import torrentsearch.models.SearchParam
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
@@ -20,32 +25,36 @@ internal class YtsProvider(
     override val tokenPath: String = ""
     override val searchPath: String = "list_movies.json?sort_by=date_added"
     private val imdbIdPath: String = "movie_details.json?sort_by=date_added"
-    override val categories: Map<Category, String> = emptyMap()
+    override val categories: Map<Category, String> = mapOf(Category.MOVIES to "")
     override val searchParams: Map<SearchParam, String> = mapOf(
         SearchParam.QUERY to "query_term",
         SearchParam.LIMIT to "limit",
         SearchParam.IMDB_ID to "imdb_id",
     )
 
-    override suspend fun search(query: TorrentQuery): List<TorrentDescription> {
-        val queryString = query.content?.encodeURLParameter()
+    override suspend fun search(query: TorrentQuery): ProviderResult {
+        val queryString = query.content
         val imdbId = query.imdbId
         if (queryString.isNullOrBlank() && imdbId.isNullOrBlank()) {
-            return emptyList()
+            return ProviderResult.Error.InvalidQueryError(name, "Yts requires imdbId or a query content string.")
         }
 
-        val response = httpClient.get {
-            url {
-                takeFrom(baseUrl)
-                if (!queryString.isNullOrBlank()) {
-                    takeFrom(searchPath)
-                    parameter(searchParams.getValue(SearchParam.QUERY), queryString)
-                }
-                if (!imdbId.isNullOrBlank()) {
-                    takeFrom(imdbIdPath)
-                    parameter(searchParams.getValue(SearchParam.IMDB_ID), imdbId)
+        val response = try {
+            httpClient.get {
+                url {
+                    takeFrom(baseUrl)
+                    if (!queryString.isNullOrBlank()) {
+                        takeFrom(searchPath)
+                        parameter(searchParams.getValue(SearchParam.QUERY), queryString)
+                    }
+                    if (!imdbId.isNullOrBlank()) {
+                        takeFrom(imdbIdPath)
+                        parameter(searchParams.getValue(SearchParam.IMDB_ID), imdbId)
+                    }
                 }
             }
+        } catch (e: ResponseException) {
+            return ProviderResult.Error.RequestError(name, e.response.status, e.response.bodyAsText())
         }
 
         return if (response.status == HttpStatusCode.OK) {
@@ -55,7 +64,7 @@ internal class YtsProvider(
             } else {
                 listOf(ytsResponse.data.movie)
             }
-            movies.flatMap { movie ->
+            val torrentDescriptions = movies.flatMap { movie ->
                 movie.torrents.map { torrent ->
                     TorrentDescription(
                         provider = name,
@@ -69,8 +78,9 @@ internal class YtsProvider(
                     )
                 }
             }
+            ProviderResult.Success(name, torrentDescriptions)
         } else {
-            emptyList()
+            ProviderResult.Error.RequestError(name, response.status, response.bodyAsText())
         }
     }
 
@@ -95,7 +105,7 @@ internal class YtsProvider(
         val title: String,
         @SerialName("imdb_code")
         val imdbId: String?,
-        val torrents: List<YtsTorrent>,
+        val torrents: List<YtsTorrent> = emptyList(),
     )
 
     @Serializable
