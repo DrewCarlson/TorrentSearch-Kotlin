@@ -36,3 +36,18 @@ jobs:
         name: Publish
         with:
           arguments: clean publish
+
+      - uses: gradle/gradle-build-action@v2
+        name: Build docs
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        with:
+          arguments: clean dokkaHtml
+
+      - name: Publish Docs
+        uses: JamesIves/github-pages-deploy-action@4
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: docs
+          FOLDER: build/dokka/html
+          SINGLE_COMMIT: true
