@@ -12,5 +12,5 @@ data class TorrentQuery(
      * [TorrentDescription] count when more than one provider
      * is enabled.
      */
-    var limit: Int = 20,
+    var limit: Int = -1,
 )

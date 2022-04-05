@@ -11,6 +11,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
+import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.PirateBayProvider
 import torrentsearch.providers.RarbgProvider
 import torrentsearch.providers.YtsProvider
@@ -139,6 +140,20 @@ class ProviderTests {
         val results = provider.search(
             TorrentQuery(
                 imdbId = "tt0080339",
+                category = Category.MOVIES,
+            )
+        )
+
+        assertTrue(results.isNotEmpty())
+    }
+
+    @Test
+    fun testEztvImdbIdProvider() = runTest {
+        val provider = EztvProvider(http)
+
+        val results = provider.search(
+            TorrentQuery(
+                imdbId = "tt4254242",
                 category = Category.MOVIES,
             )
         )

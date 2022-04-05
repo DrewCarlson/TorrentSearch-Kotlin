@@ -85,7 +85,9 @@ internal class RarbgProvider(
                     takeFrom(baseUrl)
                     takeFrom(searchPath)
                     parameter(searchParams.getValue(SearchParam.TOKEN), tokenString)
-                    parameter(searchParams.getValue(SearchParam.LIMIT), query.limit)
+                    if (query.limit > -1) {
+                        parameter(searchParams.getValue(SearchParam.LIMIT), query.limit)
+                    }
 
                     when {
                         encodedQuery != null -> parameter(searchParams.getValue(SearchParam.QUERY), encodedQuery)

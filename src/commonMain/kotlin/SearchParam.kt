@@ -8,4 +8,5 @@ enum class SearchParam {
     TMDB_ID,
     IMDB_ID,
     TVDB_ID,
+    PAGE,
 }

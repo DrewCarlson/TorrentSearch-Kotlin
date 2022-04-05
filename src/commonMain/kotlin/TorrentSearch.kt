@@ -8,6 +8,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
+import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.LibreProvider
 import torrentsearch.providers.PirateBayProvider
 import torrentsearch.providers.RarbgProvider
@@ -41,6 +42,7 @@ class TorrentSearch(
             RarbgProvider(http, providerCache),
             PirateBayProvider(http),
             YtsProvider(http),
+            EztvProvider(http),
             LibreProvider(),
         ) + providers
     } else {

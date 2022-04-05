@@ -51,7 +51,7 @@ abstract class BaseTorrentProvider(
         enabled = false
     }
 
-    internal fun formatMagnet(infoHash: String, name: String): String {
+    protected fun formatMagnet(infoHash: String, name: String): String {
         val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
         return "magnet:?xt=urn:btih:${infoHash}&dn=${name.encodeURLQueryComponent()}${trackersQueryString}"
     }
