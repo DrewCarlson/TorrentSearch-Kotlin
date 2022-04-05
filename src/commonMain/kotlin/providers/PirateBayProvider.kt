@@ -5,10 +5,10 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.json.*
-import torrentsearch.Category
-import torrentsearch.SearchParam
-import torrentsearch.TorrentDescription
-import torrentsearch.TorrentQuery
+import torrentsearch.models.Category
+import torrentsearch.models.SearchParam
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
 
 internal class PirateBayProvider(
     private val httpClient: HttpClient

@@ -1,5 +1,10 @@
 package torrentsearch
 
+import torrentsearch.models.Category
+import torrentsearch.models.SearchParam
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
+
 interface TorrentProvider {
 
     /** The Provider's name. */

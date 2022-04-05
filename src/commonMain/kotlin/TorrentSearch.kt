@@ -8,6 +8,8 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
 import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.LibreProvider
 import torrentsearch.providers.PirateBayProvider

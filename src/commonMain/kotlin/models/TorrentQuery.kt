@@ -1,4 +1,4 @@
-package torrentsearch
+package torrentsearch.models
 
 data class TorrentQuery(
     var content: String? = null,

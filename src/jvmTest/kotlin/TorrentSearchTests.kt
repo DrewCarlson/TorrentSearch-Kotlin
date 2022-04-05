@@ -7,6 +7,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
+import torrentsearch.models.Category
 import torrentsearch.providers.LibreProvider
 import kotlin.test.BeforeTest
 import kotlin.test.Test

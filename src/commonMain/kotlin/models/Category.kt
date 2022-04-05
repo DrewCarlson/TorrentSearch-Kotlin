@@ -1,4 +1,4 @@
-package torrentsearch
+package torrentsearch.models
 
 enum class Category {
     ALL,

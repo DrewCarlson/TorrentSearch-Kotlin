@@ -1,9 +1,9 @@
 package torrentsearch.providers
 
-import torrentsearch.Category
-import torrentsearch.SearchParam
-import torrentsearch.TorrentDescription
-import torrentsearch.TorrentQuery
+import torrentsearch.models.Category
+import torrentsearch.models.SearchParam
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
 
 class LibreProvider : BaseTorrentProvider() {
     override val name: String = "libre"

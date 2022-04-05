@@ -1,5 +1,8 @@
 package torrentsearch
 
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
+
 interface TorrentProviderCache {
 
     fun saveToken(provider: TorrentProvider, token: String)

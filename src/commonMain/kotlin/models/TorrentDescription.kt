@@ -1,4 +1,4 @@
-package torrentsearch
+package torrentsearch.models
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

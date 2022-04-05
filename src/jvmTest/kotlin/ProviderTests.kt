@@ -11,6 +11,9 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
+import torrentsearch.models.Category
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
 import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.PirateBayProvider
 import torrentsearch.providers.RarbgProvider

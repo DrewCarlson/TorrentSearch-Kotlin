@@ -10,6 +10,10 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.*
 import torrentsearch.*
+import torrentsearch.models.Category
+import torrentsearch.models.SearchParam
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
 import kotlin.time.Duration.Companion.seconds
 
 

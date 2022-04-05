@@ -6,10 +6,10 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import torrentsearch.Category
-import torrentsearch.SearchParam
-import torrentsearch.TorrentDescription
-import torrentsearch.TorrentQuery
+import torrentsearch.models.Category
+import torrentsearch.models.SearchParam
+import torrentsearch.models.TorrentDescription
+import torrentsearch.models.TorrentQuery
 
 internal class YtsProvider(
     private val httpClient: HttpClient
