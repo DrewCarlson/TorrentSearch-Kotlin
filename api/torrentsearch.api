@@ -1,0 +1,239 @@
+public abstract interface class torrentsearch/TorrentProvider {
+	public abstract fun disable ()V
+	public abstract fun enable (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public abstract fun getBaseUrl ()Ljava/lang/String;
+	public abstract fun getCategories ()Ljava/util/Map;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getResultsPerPage ()I
+	public abstract fun getSearchParams ()Ljava/util/Map;
+	public abstract fun getSearchPath ()Ljava/lang/String;
+	public abstract fun getTokenPath ()Ljava/lang/String;
+	public abstract fun isEnabled ()Z
+	public abstract fun search (Ltorrentsearch/models/TorrentQuery;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class torrentsearch/TorrentProvider$DefaultImpls {
+	public static synthetic fun enable$default (Ltorrentsearch/TorrentProvider;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)V
+	public static fun getResultsPerPage (Ltorrentsearch/TorrentProvider;)I
+}
+
+public abstract interface class torrentsearch/TorrentProviderCache {
+	public abstract fun loadResults (Ltorrentsearch/TorrentProvider;Ltorrentsearch/models/TorrentQuery;)Ljava/util/List;
+	public abstract fun loadToken (Ltorrentsearch/TorrentProvider;)Ljava/lang/String;
+	public abstract fun saveResults (Ltorrentsearch/TorrentProvider;Ltorrentsearch/models/TorrentQuery;Ljava/util/List;)V
+	public abstract fun saveToken (Ltorrentsearch/TorrentProvider;Ljava/lang/String;)V
+}
+
+public final class torrentsearch/TorrentSearch {
+	public fun <init> (Ltorrentsearch/TorrentProviderCache;Lio/ktor/client/HttpClient;ZLjava/util/List;)V
+	public synthetic fun <init> (Ltorrentsearch/TorrentProviderCache;Lio/ktor/client/HttpClient;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun disableProvider (Ljava/lang/String;)V
+	public final fun dispose ()V
+	public final fun enableProvider (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public static synthetic fun enableProvider$default (Ltorrentsearch/TorrentSearch;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)V
+	public final fun enabledProviders ()Ljava/util/List;
+	public final fun providers ()Ljava/util/List;
+	public final fun search (Lkotlin/jvm/functions/Function1;)Ltorrentsearch/models/SearchResult;
+}
+
+public final class torrentsearch/models/Category : java/lang/Enum {
+	public static final field ALL Ltorrentsearch/models/Category;
+	public static final field APPS Ltorrentsearch/models/Category;
+	public static final field AUDIO Ltorrentsearch/models/Category;
+	public static final field BOOKS Ltorrentsearch/models/Category;
+	public static final field GAMES Ltorrentsearch/models/Category;
+	public static final field MOVIES Ltorrentsearch/models/Category;
+	public static final field MUSIC Ltorrentsearch/models/Category;
+	public static final field OTHER Ltorrentsearch/models/Category;
+	public static final field TV Ltorrentsearch/models/Category;
+	public static final field VIDEO Ltorrentsearch/models/Category;
+	public static final field XXX Ltorrentsearch/models/Category;
+	public static fun valueOf (Ljava/lang/String;)Ltorrentsearch/models/Category;
+	public static fun values ()[Ltorrentsearch/models/Category;
+}
+
+public abstract class torrentsearch/models/ProviderResult {
+	public abstract fun getProviderName ()Ljava/lang/String;
+}
+
+public abstract class torrentsearch/models/ProviderResult$Error : torrentsearch/models/ProviderResult {
+	public abstract fun getMessage ()Ljava/lang/String;
+}
+
+public final class torrentsearch/models/ProviderResult$Error$InvalidQueryError : torrentsearch/models/ProviderResult$Error {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/ProviderResult$Error$InvalidQueryError;
+	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Error$InvalidQueryError;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Error$InvalidQueryError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getMessage ()Ljava/lang/String;
+	public fun getProviderName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class torrentsearch/models/ProviderResult$Error$RequestError : torrentsearch/models/ProviderResult$Error {
+	public fun <init> (Ljava/lang/String;Lio/ktor/http/HttpStatusCode;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lio/ktor/http/HttpStatusCode;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lio/ktor/http/HttpStatusCode;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lio/ktor/http/HttpStatusCode;Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/ProviderResult$Error$RequestError;
+	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Error$RequestError;Ljava/lang/String;Lio/ktor/http/HttpStatusCode;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Error$RequestError;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBody ()Ljava/lang/String;
+	public final fun getHttpStatusCode ()Lio/ktor/http/HttpStatusCode;
+	public fun getMessage ()Ljava/lang/String;
+	public fun getProviderName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class torrentsearch/models/ProviderResult$Error$UnknownError : torrentsearch/models/ProviderResult$Error {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/ProviderResult$Error$UnknownError;
+	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Error$UnknownError;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Error$UnknownError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getMessage ()Ljava/lang/String;
+	public fun getProviderName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class torrentsearch/models/ProviderResult$Success : torrentsearch/models/ProviderResult {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Z)Ltorrentsearch/models/ProviderResult$Success;
+	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Success;Ljava/lang/String;Ljava/util/List;ZILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Success;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFromCache ()Z
+	public fun getProviderName ()Ljava/lang/String;
+	public final fun getTorrents ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class torrentsearch/models/SearchParam : java/lang/Enum {
+	public static final field CATEGORY Ltorrentsearch/models/SearchParam;
+	public static final field IMDB_ID Ltorrentsearch/models/SearchParam;
+	public static final field LIMIT Ltorrentsearch/models/SearchParam;
+	public static final field PAGE Ltorrentsearch/models/SearchParam;
+	public static final field QUERY Ltorrentsearch/models/SearchParam;
+	public static final field TMDB_ID Ltorrentsearch/models/SearchParam;
+	public static final field TOKEN Ltorrentsearch/models/SearchParam;
+	public static final field TVDB_ID Ltorrentsearch/models/SearchParam;
+	public static fun valueOf (Ljava/lang/String;)Ltorrentsearch/models/SearchParam;
+	public static fun values ()[Ltorrentsearch/models/SearchParam;
+}
+
+public final class torrentsearch/models/SearchResult {
+	public final fun errors ()Lkotlinx/coroutines/flow/Flow;
+	public final fun providerCount ()I
+	public final fun providerResults ()Lkotlinx/coroutines/flow/Flow;
+	public fun toString ()Ljava/lang/String;
+	public final fun torrents ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class torrentsearch/models/TorrentDescription {
+	public static final field Companion Ltorrentsearch/models/TorrentDescription$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()J
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()Ljava/lang/Integer;
+	public final fun component8 ()Ljava/lang/Integer;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/TorrentDescription;
+	public static synthetic fun copy$default (Ltorrentsearch/models/TorrentDescription;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/TorrentDescription;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHash ()Ljava/lang/String;
+	public final fun getImdbId ()Ljava/lang/String;
+	public final fun getInfoUrl ()Ljava/lang/String;
+	public final fun getMagnetUrl ()Ljava/lang/String;
+	public final fun getPeers ()I
+	public final fun getProvider ()Ljava/lang/String;
+	public final fun getSeeds ()I
+	public final fun getSize ()J
+	public final fun getThemoviedbId ()Ljava/lang/Integer;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getTvdbId ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Ltorrentsearch/models/TorrentDescription;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class torrentsearch/models/TorrentDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltorrentsearch/models/TorrentDescription$$serializer;
+	public static final synthetic field descriptor Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltorrentsearch/models/TorrentDescription;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltorrentsearch/models/TorrentDescription;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class torrentsearch/models/TorrentDescription$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class torrentsearch/models/TorrentQuery {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;ZI)V
+	public synthetic fun <init> (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;ZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ltorrentsearch/models/Category;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/Integer;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Z
+	public final fun component8 ()I
+	public final fun copy (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;ZI)Ltorrentsearch/models/TorrentQuery;
+	public static synthetic fun copy$default (Ltorrentsearch/models/TorrentQuery;Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;ZIILjava/lang/Object;)Ltorrentsearch/models/TorrentQuery;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCategory ()Ltorrentsearch/models/Category;
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getContentYear ()Ljava/lang/Integer;
+	public final fun getImdbId ()Ljava/lang/String;
+	public final fun getLimit ()I
+	public final fun getSkipCache ()Z
+	public final fun getTmdbId ()Ljava/lang/Integer;
+	public final fun getTvdbId ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public final fun setCategory (Ltorrentsearch/models/Category;)V
+	public final fun setContent (Ljava/lang/String;)V
+	public final fun setContentYear (Ljava/lang/Integer;)V
+	public final fun setImdbId (Ljava/lang/String;)V
+	public final fun setLimit (I)V
+	public final fun setTmdbId (Ljava/lang/Integer;)V
+	public final fun setTvdbId (Ljava/lang/Integer;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class torrentsearch/providers/BaseTorrentProvider : kotlinx/coroutines/CoroutineScope, torrentsearch/TorrentProvider {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun disable ()V
+	public fun enable (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	protected final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun getCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
+	public fun getResultsPerPage ()I
+	public final fun isEnabled ()Z
+}
+
