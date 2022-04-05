@@ -30,7 +30,8 @@ internal class RarbgProvider(
     private val httpClient: HttpClient,
     private val providerCache: TorrentProviderCache?,
     prefetchToken: Boolean = true,
-) : BaseTorrentProvider() {
+    enabled: Boolean = true,
+) : BaseTorrentProvider(enabled) {
 
     internal companion object {
         val API_REQUEST_DELAY = 3.seconds

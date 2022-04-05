@@ -3,19 +3,34 @@ package torrentsearch
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 
-interface TorrentProviderCache {
+/**
+ * A [TorrentProviderCache] enables saving and restoring authentication tokens and search results.
+ */
+public interface TorrentProviderCache {
 
-    fun saveToken(provider: TorrentProvider, token: String)
+    /**
+     * Save the [token] for [provider].
+     */
+    public fun saveToken(provider: TorrentProvider, token: String)
 
-    fun loadToken(provider: TorrentProvider): String?
+    /**
+     * Load the cached token or null for the [provider].
+     */
+    public fun loadToken(provider: TorrentProvider): String?
 
-    fun saveResults(
+    /**
+     * Save the [results] from the [provider] and [query].
+     */
+    public fun saveResults(
         provider: TorrentProvider,
         query: TorrentQuery,
         results: List<TorrentDescription>
     )
 
-    fun loadResults(
+    /**
+     * Load the cached results with the [provider] and [query].
+     */
+    public fun loadResults(
         provider: TorrentProvider,
         query: TorrentQuery,
     ): List<TorrentDescription>?

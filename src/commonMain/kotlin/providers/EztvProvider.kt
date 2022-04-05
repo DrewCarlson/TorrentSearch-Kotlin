@@ -17,8 +17,9 @@ import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 
 internal class EztvProvider(
-    private val httpClient: HttpClient
-) : BaseTorrentProvider() {
+    private val httpClient: HttpClient,
+    enabled: Boolean = true,
+) : BaseTorrentProvider(enabled) {
 
     override val name: String = "eztv"
     override val baseUrl: String = "https://eztv.re/api/"

@@ -25,7 +25,6 @@ val result = torrentSearch.search {
     imdbId = "tt..." // Optional: Find by IMDB id instead of content
     tmdbId = 534 // Optional: Find by TMDB id instead of content
     tvdbId = 874 // Optional: Find by TVDB id instead of content
-    contentYear = 2000 // Optional: Filter by content release year
     limit = 20 // Optional: Limit results per provider endpoint
 }
 

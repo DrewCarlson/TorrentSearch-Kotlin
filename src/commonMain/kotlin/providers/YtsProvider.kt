@@ -17,8 +17,9 @@ import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 
 internal class YtsProvider(
-    private val httpClient: HttpClient
-) : BaseTorrentProvider() {
+    private val httpClient: HttpClient,
+    enabled: Boolean = true,
+) : BaseTorrentProvider(enabled) {
 
     override val name: String = "yts"
     override val baseUrl: String = "https://yts.mx/api/v2/"

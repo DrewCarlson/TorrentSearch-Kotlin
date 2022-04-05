@@ -37,11 +37,12 @@ class TorrentSearchTests {
 
     @BeforeTest
     fun setup() {
-        torrentSearch = TorrentSearch(null, http, installDefaultProviders = false, LibreProvider())
+        torrentSearch = TorrentSearch(null, http, enableDefaultProviders = false)
     }
 
     @Test
     fun testSearch() = runTest {
+        torrentSearch.enableProvider("libre")
         val result = torrentSearch.search {
             content = "Big Buck Bunny"
             category = Category.MOVIES
@@ -55,7 +56,7 @@ class TorrentSearchTests {
 
     @Test
     fun testDefaultProviderSearch() = runTest {
-        torrentSearch = TorrentSearch()
+        torrentSearch.providers().forEach { torrentSearch.enableProvider(it.name) }
         val result = torrentSearch.search {
             content = "Big Buck Bunny"
             category = Category.MOVIES

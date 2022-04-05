@@ -6,39 +6,48 @@ import torrentsearch.models.SearchParam
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 
-interface TorrentProvider {
+/**
+ * [TorrentProvider]s define how to communicate with a single torrent provider.
+ */
+public interface TorrentProvider {
 
     /** The Provider's name. */
-    val name: String
+    public val name: String
 
     /** The Provider's base url. (ex. `https://provider.link`) */
-    val baseUrl: String
+    public val baseUrl: String
 
     /** The Provider's path to acquire a token. */
-    val tokenPath: String
+    public val tokenPath: String
 
     /** The Provider's path to search data. */
-    val searchPath: String
+    public val searchPath: String
 
     /** The Provider's available query parameters and names. */
-    val searchParams: Map<SearchParam, String>
+    public val searchParams: Map<SearchParam, String>
 
     /** Maps a url safe string of provider categories to a [Category]. */
-    val categories: Map<Category, String>
+    public val categories: Map<Category, String>
 
     /** The result limit for search requests. */
-    val resultsPerPage: Int get() = 100
+    public val resultsPerPage: Int get() = 100
 
     /** True if the provider is enabled. */
-    val isEnabled: Boolean
+    public val isEnabled: Boolean
 
     /**
      * Execute a search for the given [query] in [category], returning
      * [TorrentDescription]s for each of the Provider's entries.
      */
-    suspend fun search(query: TorrentQuery): ProviderResult
+    public suspend fun search(query: TorrentQuery): ProviderResult
 
-    fun enable(username: String? = null, password: String? = null, cookies: List<String> = emptyList())
+    /**
+     * Enable this provider using the provided authentication details.
+     */
+    public fun enable(username: String? = null, password: String? = null, cookies: List<String> = emptyList())
 
-    fun disable()
+    /**
+     * Disable this provider, so it cannot be used until [enable] is called.
+     */
+    public fun disable()
 }

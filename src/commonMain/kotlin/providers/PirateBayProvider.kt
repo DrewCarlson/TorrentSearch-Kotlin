@@ -17,8 +17,9 @@ import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 
 internal class PirateBayProvider(
-    private val httpClient: HttpClient
-) : BaseTorrentProvider() {
+    private val httpClient: HttpClient,
+    enabled: Boolean = true,
+) : BaseTorrentProvider(enabled) {
 
     override val name: String = "ThePirateBay"
     override val baseUrl: String = "https://apibay.org"

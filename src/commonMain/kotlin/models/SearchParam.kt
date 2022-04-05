@@ -1,6 +1,10 @@
 package torrentsearch.models
 
-enum class SearchParam {
+/**
+ * Represents a parameter that may be consumed by a
+ * [torrentsearch.TorrentProvider] when executing a query.
+ */
+public enum class SearchParam {
     QUERY,
     CATEGORY,
     LIMIT,

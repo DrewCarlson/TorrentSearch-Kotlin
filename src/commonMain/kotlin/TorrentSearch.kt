@@ -1,11 +1,13 @@
 package torrentsearch
 
-import io.ktor.client.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.cookies.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.ContentNegotiation
+import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
+import io.ktor.client.plugins.cookies.HttpCookies
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.http.userAgent
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.json.Json
 import torrentsearch.models.Category
 import torrentsearch.models.SearchResult
@@ -18,11 +20,24 @@ import torrentsearch.providers.YtsProvider
 
 internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0"
 
-class TorrentSearch(
+public class TorrentSearch(
     private val providerCache: TorrentProviderCache? = null,
+    /**
+     * The [HttpClient] to use for [TorrentProvider] search requests.
+     *
+     * NOTE: If providing a [HttpClient] used elsewhere in your app,
+     * do not call [dispose] as this will close your [HttpClient].
+     */
     httpClient: HttpClient = HttpClient(),
-    installDefaultProviders: Boolean = true,
-    providers: List<TorrentProvider>
+    /**
+     * When false, the built in default providers will be disabled.
+     * They can be enabled later with [enableProvider].
+     */
+    enableDefaultProviders: Boolean = true,
+    /**
+     * An optional list of custom [TorrentProvider] implementations.
+     */
+    providers: List<TorrentProvider> = emptyList(),
 ) {
     private val disposed = MutableStateFlow(false)
     private val http = httpClient.config {
@@ -39,22 +54,18 @@ class TorrentSearch(
         }
     }
 
-    private val providers = if (installDefaultProviders) {
-        listOf(
-            RarbgProvider(http, providerCache),
-            PirateBayProvider(http),
-            YtsProvider(http),
-            EztvProvider(http),
-            LibreProvider(),
-        ) + providers
-    } else {
-        providers.toList()
-    }
+    private val providers = providers + listOf(
+        RarbgProvider(http, providerCache, enableDefaultProviders, enableDefaultProviders),
+        PirateBayProvider(http, enableDefaultProviders),
+        YtsProvider(http, enableDefaultProviders),
+        EztvProvider(http, enableDefaultProviders),
+        LibreProvider(enableDefaultProviders),
+    )
 
     /**
      * Search all enabled providers with the [TorrentQuery].
      */
-    fun search(buildQuery: TorrentQuery.() -> Unit): SearchResult {
+    public fun search(buildQuery: TorrentQuery.() -> Unit): SearchResult {
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
         val query = TorrentQuery().apply(buildQuery)
         val selectedProviders = providers.filter { provider ->
@@ -68,7 +79,7 @@ class TorrentSearch(
     /**
      * Returns a list of enabled providers.
      */
-    fun enabledProviders(): List<TorrentProvider> {
+    public fun enabledProviders(): List<TorrentProvider> {
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
         return providers.filter(TorrentProvider::isEnabled).toList()
     }
@@ -76,7 +87,7 @@ class TorrentSearch(
     /**
      * Returns a list of available [TorrentProvider] instances.
      */
-    fun providers(): List<TorrentProvider> {
+    public fun providers(): List<TorrentProvider> {
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
         return providers.toList()
     }
@@ -84,21 +95,20 @@ class TorrentSearch(
     /**
      * Enable the provider [name] with the included credentials and [cookies].
      */
-    fun enableProvider(
+    public fun enableProvider(
         name: String,
         username: String? = null,
         password: String? = null,
         cookies: List<String> = emptyList()
     ) {
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
-        providers.singleOrNull { it.name == name }
-            ?.enable(username, password, cookies)
+        providers.singleOrNull { it.name == name }?.enable(username, password, cookies)
     }
 
     /**
      * Disable the provider [name], future queries will not be handled by this provider.
      */
-    fun disableProvider(name: String) {
+    public fun disableProvider(name: String) {
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
         providers.singleOrNull { it.name == name }?.disable()
     }
@@ -106,7 +116,7 @@ class TorrentSearch(
     /**
      * Release the [http] client and prevent future use of this instance.
      */
-    fun dispose() {
+    public fun dispose() {
         disposed.value = true
         http.close()
     }

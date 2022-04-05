@@ -28,29 +28,38 @@ internal val trackers = listOf(
     "udp://glotorrents.pw:6969/announce",
 ).map { it.encodeURLQueryComponent() }
 
-abstract class BaseTorrentProvider(
+/**
+ * The base class for creating new [TorrentProvider]s.
+ */
+public abstract class BaseTorrentProvider(
+    /**
+     * If the provider requires authentication credentials,
+     * set [enabledByDefault] to false and the user will be
+     * required to call [enable] with authentication details.
+     */
     enabledByDefault: Boolean = true
 ) : TorrentProvider, CoroutineScope {
 
-    private var enabled = enabledByDefault
+    override val coroutineContext: CoroutineContext = Dispatchers.Default + SupervisorJob()
 
-    override val coroutineContext: CoroutineContext =
-        Dispatchers.Default + SupervisorJob()
-
-    final override val isEnabled: Boolean = enabled
+    final override var isEnabled: Boolean = enabledByDefault
+        private set
 
     override fun enable(
         username: String?,
         password: String?,
         cookies: List<String>
     ) {
-        enabled = true
+        isEnabled = true
     }
 
     override fun disable() {
-        enabled = false
+        isEnabled = false
     }
 
+    /**
+     * Combine the torrent [name] and [infoHash] hash to create a usable magnet link.
+     */
     protected fun formatMagnet(infoHash: String, name: String): String {
         val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
         return "magnet:?xt=urn:btih:${infoHash}&dn=${name.encodeURLQueryComponent()}${trackersQueryString}"

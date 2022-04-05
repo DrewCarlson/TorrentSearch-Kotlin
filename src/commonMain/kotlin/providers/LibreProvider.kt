@@ -6,7 +6,9 @@ import torrentsearch.models.SearchParam
 import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 
-internal class LibreProvider : BaseTorrentProvider() {
+internal class LibreProvider(
+    enabled: Boolean = true,
+) : BaseTorrentProvider(enabled) {
     override val name: String = "libre"
     override val baseUrl: String = ""
     override val tokenPath: String = ""

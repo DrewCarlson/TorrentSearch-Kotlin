@@ -2,31 +2,35 @@ package torrentsearch.models
 
 import io.ktor.http.HttpStatusCode
 
-sealed class ProviderResult {
-    abstract val providerName: String
+/**
+ * A container for the result of a single [torrentsearch.TorrentProvider] query.
+ * [ProviderResult] is either a [Success] instance or any number of [Error] types.
+ */
+public sealed class ProviderResult {
+    public abstract val providerName: String
 
-    data class Success(
+    public data class Success(
         override val providerName: String,
         val torrents: List<TorrentDescription>,
         val fromCache: Boolean = false,
     ) : ProviderResult()
 
-    sealed class Error : ProviderResult() {
-        abstract val message: String?
+    public sealed class Error : ProviderResult() {
+        public abstract val message: String?
 
-        data class RequestError(
+        public data class RequestError(
             override val providerName: String,
             val httpStatusCode: HttpStatusCode?,
             val body: String?,
             override val message: String? = body,
         ) : Error()
 
-        data class InvalidQueryError(
+        public data class InvalidQueryError(
             override val providerName: String,
             override val message: String?,
         ) : Error()
 
-        data class UnknownError(
+        public data class UnknownError(
             override val providerName: String,
             override val message: String?,
         ) : Error()

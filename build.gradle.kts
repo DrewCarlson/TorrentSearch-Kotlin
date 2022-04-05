@@ -45,6 +45,7 @@ kotlin {
 
     sourceSets {
         all {
+            explicitApi()
             languageSettings.optIn("kotlin.RequiresOptIn")
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
@@ -128,4 +129,8 @@ kotlin {
             }
         }
     }
+}
+
+tasks.dokkaHtml {
+    moduleName.set("TorrentSearch")
 }

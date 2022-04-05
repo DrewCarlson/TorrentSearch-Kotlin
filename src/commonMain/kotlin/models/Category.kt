@@ -1,6 +1,10 @@
 package torrentsearch.models
 
-enum class Category {
+/**
+ * A Category representing the content of a torrent,
+ * used to filter query results.
+ */
+public enum class Category {
     ALL,
     AUDIO,
     VIDEO,
