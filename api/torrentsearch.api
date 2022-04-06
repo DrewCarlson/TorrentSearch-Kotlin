@@ -26,8 +26,8 @@ public abstract interface class torrentsearch/TorrentProviderCache {
 
 public final class torrentsearch/TorrentSearch {
 	public fun <init> ()V
-	public fun <init> (Ltorrentsearch/TorrentProviderCache;Lio/ktor/client/HttpClient;ZLjava/util/List;)V
-	public synthetic fun <init> (Ltorrentsearch/TorrentProviderCache;Lio/ktor/client/HttpClient;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;)V
+	public synthetic fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun disableProvider (Ljava/lang/String;)V
 	public final fun dispose ()V
 	public final fun enableProvider (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
@@ -229,7 +229,7 @@ public abstract class torrentsearch/providers/BaseTorrentProvider : torrentsearc
 	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun disable ()V
 	public fun enable (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
-	protected final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun getResultsPerPage ()I
 	public final fun isEnabled ()Z
 }
