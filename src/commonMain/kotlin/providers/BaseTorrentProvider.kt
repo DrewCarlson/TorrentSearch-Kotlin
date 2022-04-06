@@ -56,4 +56,8 @@ public abstract class BaseTorrentProvider(
         val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
         return "magnet:?xt=urn:btih:${infoHash}&dn=${name.encodeURLQueryComponent()}${trackersQueryString}"
     }
+
+    public fun hashFromMagnetUrl(magnetUrl: String): String {
+        return magnetUrl.substringAfter("xt=urn:btih:").substringBefore("&").uppercase()
+    }
 }

@@ -81,6 +81,7 @@ internal class PirateBayProvider(
                         peers = torrent.leechers,
                         imdbId = torrent.imdb,
                         infoUrl = "https://thepiratebay.org/description.php?id=${torrent.id}",
+                        hash = torrent.infoHash,
                     )
                 }
                 ProviderResult.Success(name, torrentDescriptions)

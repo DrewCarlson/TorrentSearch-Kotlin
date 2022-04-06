@@ -135,7 +135,9 @@ public final class torrentsearch/models/SearchParam : java/lang/Enum {
 }
 
 public final class torrentsearch/models/SearchResult {
+	public final fun currentProviderResults ()Ljava/util/List;
 	public final fun errors ()Lkotlinx/coroutines/flow/Flow;
+	public final fun isCompleted ()Z
 	public final fun providerCount ()I
 	public final fun providerResults ()Lkotlinx/coroutines/flow/Flow;
 	public fun toString ()Ljava/lang/String;
@@ -144,11 +146,12 @@ public final class torrentsearch/models/SearchResult {
 
 public final class torrentsearch/models/TorrentDescription {
 	public static final field Companion Ltorrentsearch/models/TorrentDescription$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()J
@@ -157,8 +160,8 @@ public final class torrentsearch/models/TorrentDescription {
 	public final fun component7 ()Ljava/lang/Integer;
 	public final fun component8 ()Ljava/lang/Integer;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/TorrentDescription;
-	public static synthetic fun copy$default (Ltorrentsearch/models/TorrentDescription;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/TorrentDescription;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/TorrentDescription;
+	public static synthetic fun copy$default (Ltorrentsearch/models/TorrentDescription;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/TorrentDescription;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getHash ()Ljava/lang/String;
 	public final fun getImdbId ()Ljava/lang/String;
@@ -231,6 +234,7 @@ public abstract class torrentsearch/providers/BaseTorrentProvider : torrentsearc
 	public fun enable (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun getResultsPerPage ()I
+	public final fun hashFromMagnetUrl (Ljava/lang/String;)Ljava/lang/String;
 	public final fun isEnabled ()Z
 }
 

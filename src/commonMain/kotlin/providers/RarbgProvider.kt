@@ -42,8 +42,8 @@ internal class RarbgProvider(
     override val tokenPath = "/pubapi_v2.php?get_token=get_token&app_id=TorrentSearch"
     override val searchPath = "/pubapi_v2.php?app_id=TorrentSearch&mode=search&format=json_extended&sort=seeders"
     override val categories = mapOf(
-        Category.ALL to "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48;49;50;51;52",
-        Category.MOVIES to "14;17;42;44;45;46;47;48;50;51;52",
+        Category.ALL to "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48;49;50;51;52;54",
+        Category.MOVIES to "14;17;42;44;45;46;47;48;50;51;52;54",
         Category.XXX to "1;4",
         Category.GAMES to "1;27;28;29;30;31;32;40",
         Category.TV to "1;18;41;49",
@@ -93,6 +93,7 @@ internal class RarbgProvider(
                     imdbId = rarbgTorrent.episodeInfo?.imdb,
                     tvdbId = rarbgTorrent.episodeInfo?.tvdb,
                     infoUrl = rarbgTorrent.infoPage,
+                    hash = hashFromMagnetUrl(rarbgTorrent.download),
                 )
             }
             ProviderResult.Success(name, torrentDescriptions)
@@ -104,7 +105,7 @@ internal class RarbgProvider(
     private suspend fun fetchSearchResults(query: TorrentQuery): HttpResponse {
         val queryString = query.content?.filter { it.isLetter() || it.isWhitespace() }
         val categoryString = categories[query.category]
-        val tokenString = readToken() ?: ""
+        val tokenString = readToken() ?: error("Failed to fetch token for $name.")
         val response = mutex.withLock {
             httpClient.get {
                 url {
@@ -152,7 +153,7 @@ internal class RarbgProvider(
                         providerCache?.saveToken(this, token)
                         delay(API_REQUEST_DELAY)
                     }
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                     e.printStackTrace()
                     null
                 }

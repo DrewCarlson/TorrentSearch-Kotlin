@@ -30,12 +30,6 @@ public data class TorrentDescription(
     val imdbId: String? = null,
     /** The providers HTML info page for the torrent. */
     val infoUrl: String? = null,
-) {
-    /**
-     * The torrents hash.
-     */
-    @Transient
-    val hash: String = magnetUrl
-        .substringAfter("xt=urn:btih:")
-        .substringBefore("&")
-}
+    /** The torrent's hash. */
+    val hash: String,
+)

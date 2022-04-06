@@ -84,6 +84,21 @@ public class SearchResult internal constructor(
     }
 
     /**
+     * A list of the completed [ProviderResult]s at the current moment,
+     * size may be less than [providerCount].
+     */
+    public fun currentProviderResults(): List<ProviderResult> {
+        return resultsFlow.replayCache.toList()
+    }
+
+    /**
+     * True when all providers have produced a [ProviderResult].
+     */
+    public fun isCompleted(): Boolean {
+        return resultsFlow.replayCache.size == providers.size
+    }
+
+    /**
      * The number of [TorrentProvider]s that were selected to handle
      * the [TorrentQuery].
      */

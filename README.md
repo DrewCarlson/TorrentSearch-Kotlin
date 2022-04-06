@@ -41,6 +41,11 @@ The default cache will store auth tokens in memory and does not cache torrent re
 implement a [`TorrentProviderCache`](src/commonMain/kotlin/TorrentProviderCache.kt) and use it when
 constructing `TorrentSearch`.
 
+## Web Demo
+
+The [`web`](web) demo helps with debugging the api and provider implementations, it can be run with
+`./gradlew jsBrowserProductionRun` and open [http://localhost:8888](http://localhost:8888) in your browser.
+
 ## Download
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/torrentsearch-jvm?label=maven&color=blue)

@@ -70,9 +70,10 @@ internal class YtsProvider(
                     TorrentDescription(
                         provider = name,
                         magnetUrl = formatMagnet(torrent.hash, movie.title),
+                        hash = torrent.hash,
                         seeds = torrent.seeds,
                         peers = torrent.peers,
-                        title = "$name ${torrent.quality} ${torrent.type}",
+                        title = "${movie.title} ${torrent.quality} ${torrent.type}",
                         size = torrent.size,
                         infoUrl = torrent.url,
                         imdbId = movie.imdbId,
