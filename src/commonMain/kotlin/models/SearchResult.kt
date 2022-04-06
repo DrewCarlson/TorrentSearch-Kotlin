@@ -3,17 +3,7 @@ package torrentsearch.models
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.flow.merge
-import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.*
 import torrentsearch.TorrentProvider
 import torrentsearch.TorrentProviderCache
 
@@ -23,10 +13,11 @@ import torrentsearch.TorrentProviderCache
  * in [providers].
  */
 public class SearchResult internal constructor(
-    scope: CoroutineScope,
+    private val scope: CoroutineScope,
     private val providers: List<TorrentProvider>,
     private val providerCache: TorrentProviderCache?,
     private val query: TorrentQuery,
+    private val previousResults: List<ProviderResult>? = emptyList(),
 ) {
     private val resultsFlow = providers
         .map { provider ->
@@ -58,9 +49,23 @@ public class SearchResult internal constructor(
      */
     @OptIn(FlowPreview::class)
     public fun torrents(): Flow<TorrentDescription> {
-        if (providers.isEmpty()) return emptyFlow()
+        if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
+            return emptyFlow()
+        }
         return resultsFlow.take(providers.size)
-            .mapNotNull { result -> (result as? ProviderResult.Success)?.torrents }
+            .filterIsInstance<ProviderResult.Success>()
+            .map { result -> result.torrents }
+            .run {
+                if (previousResults == null) {
+                    this
+                } else {
+                    onStart {
+                        previousResults
+                            .filterIsInstance<ProviderResult.Success>()
+                            .forEach { result -> emit(result.torrents) }
+                    }
+                }
+            }
             .flatMapMerge { it.asFlow() }
     }
 
@@ -69,8 +74,12 @@ public class SearchResult internal constructor(
      * selected to handle the [TorrentQuery].
      */
     public fun providerResults(): Flow<ProviderResult> {
-        if (providers.isEmpty()) return emptyFlow()
-        return resultsFlow.take(providers.size)
+        if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
+            return emptyFlow()
+        }
+        return resultsFlow.take(providers.size).onStart {
+            previousResults?.forEach { result -> emit(result) }
+        }
     }
 
     /**
@@ -78,9 +87,10 @@ public class SearchResult internal constructor(
      * to any of the selected [TorrentProvider]s.
      */
     public fun errors(): Flow<ProviderResult.Error> {
-        if (providers.isEmpty()) return emptyFlow()
-        return resultsFlow.take(providers.size)
-            .mapNotNull { result -> (result as? ProviderResult.Error) }
+        if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
+            return emptyFlow()
+        }
+        return providerResults().filterIsInstance()
     }
 
     /**
@@ -88,7 +98,7 @@ public class SearchResult internal constructor(
      * size may be less than [providerCount].
      */
     public fun currentProviderResults(): List<ProviderResult> {
-        return resultsFlow.replayCache.toList()
+        return previousResults.orEmpty() + resultsFlow.replayCache.toList()
     }
 
     /**
@@ -104,6 +114,45 @@ public class SearchResult internal constructor(
      */
     public fun providerCount(): Int {
         return providers.size
+    }
+
+    /**
+     * Returns true when one or more providers has results that can be
+     * retrieved with additional requests.
+     */
+    public suspend fun hasNextResult(): Boolean {
+        return resultsFlow.take(providers.size).toList()
+            .filterIsInstance<ProviderResult.Success>()
+            .onEach {
+                println("${it.providerName}: hasMoreResults=${it.hasMoreResults}, ${it}")
+            }
+            .any(ProviderResult.Success::hasMoreResults)
+    }
+
+    /**
+     * Returns a new [SearchResult] that contains all torrents from the
+     * current instance and will produce [ProviderResult]s for any providers
+     * that have additional result pages.
+     *
+     * @return null if [hasNextResult] is false or the next [SearchResult] container.
+     */
+    public suspend fun nextResult(): SearchResult? {
+        val nextProviders = resultsFlow.take(providers.size).toList()
+            .filterIsInstance<ProviderResult.Success>()
+            .filter(ProviderResult.Success::hasMoreResults)
+            .map(ProviderResult::providerName)
+
+        if (nextProviders.isEmpty()) {
+            return null
+        }
+
+        return SearchResult(
+            scope = scope,
+            query = query.copy(page = query.page + 1),
+            providers = providers.filter { nextProviders.contains(it.name) },
+            providerCache = providerCache,
+            previousResults = previousResults.orEmpty() + resultsFlow.replayCache,
+        )
     }
 
     override fun toString(): String {

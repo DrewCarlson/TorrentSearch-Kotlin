@@ -31,6 +31,7 @@ internal class YtsProvider(
         SearchParam.QUERY to "query_term",
         SearchParam.LIMIT to "limit",
         SearchParam.IMDB_ID to "imdb_id",
+        SearchParam.PAGE to "page",
     )
 
     override suspend fun search(query: TorrentQuery): ProviderResult {
@@ -52,6 +53,10 @@ internal class YtsProvider(
                         takeFrom(imdbIdPath)
                         parameter(searchParams.getValue(SearchParam.IMDB_ID), imdbId)
                     }
+                    if (query.limit > -1) {
+                        parameter(searchParams.getValue(SearchParam.LIMIT), query.limit)
+                    }
+                    parameter(searchParams.getValue(SearchParam.PAGE), query.page)
                 }
             }
         } catch (e: ResponseException) {
@@ -64,7 +69,8 @@ internal class YtsProvider(
                 ytsResponse.data.movies
             } else {
                 listOf(ytsResponse.data.movie)
-            }
+            }.filter { movie -> movie.id > 0 }
+
             val torrentDescriptions = movies.flatMap { movie ->
                 movie.torrents.map { torrent ->
                     TorrentDescription(
@@ -80,7 +86,13 @@ internal class YtsProvider(
                     )
                 }
             }
-            ProviderResult.Success(name, torrentDescriptions)
+            ProviderResult.Success(
+                name,
+                torrentDescriptions,
+                totalTorrents = if (movies.isEmpty()) 0 else ytsResponse.data.movieCount,
+                pageSize = ytsResponse.data.limit,
+                page = ytsResponse.data.page,
+            )
         } else {
             ProviderResult.Error.RequestError(name, response.status, response.bodyAsText())
         }
@@ -97,7 +109,7 @@ internal class YtsProvider(
         val movies: List<YtsMovie> = emptyList(),
         val movie: YtsMovie? = null,
         @SerialName("movie_count")
-        val movieCount: Int = if (movie != null) 1 else 0,
+        val movieCount: Int = if (movie != null) 1 else movies.size,
     )
 
     @Serializable

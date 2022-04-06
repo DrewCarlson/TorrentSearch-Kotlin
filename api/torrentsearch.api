@@ -106,17 +106,24 @@ public final class torrentsearch/models/ProviderResult$Error$UnknownError : torr
 }
 
 public final class torrentsearch/models/ProviderResult$Success : torrentsearch/models/ProviderResult {
-	public fun <init> (Ljava/lang/String;Ljava/util/List;Z)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;ZIII)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;ZIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Z
-	public final fun copy (Ljava/lang/String;Ljava/util/List;Z)Ltorrentsearch/models/ProviderResult$Success;
-	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Success;Ljava/lang/String;Ljava/util/List;ZILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Success;
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun copy (Ljava/lang/String;Ljava/util/List;ZIII)Ltorrentsearch/models/ProviderResult$Success;
+	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Success;Ljava/lang/String;Ljava/util/List;ZIIIILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Success;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFromCache ()Z
+	public final fun getHasMoreResults ()Z
+	public final fun getPage ()I
+	public final fun getPageSize ()I
 	public fun getProviderName ()Ljava/lang/String;
 	public final fun getTorrents ()Ljava/util/List;
+	public final fun getTotalTorrents ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -137,7 +144,9 @@ public final class torrentsearch/models/SearchParam : java/lang/Enum {
 public final class torrentsearch/models/SearchResult {
 	public final fun currentProviderResults ()Ljava/util/List;
 	public final fun errors ()Lkotlinx/coroutines/flow/Flow;
+	public final fun hasNextResult (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun isCompleted ()Z
+	public final fun nextResult (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun providerCount ()I
 	public final fun providerResults ()Lkotlinx/coroutines/flow/Flow;
 	public fun toString ()Ljava/lang/String;
@@ -197,8 +206,8 @@ public final class torrentsearch/models/TorrentDescription$Companion {
 
 public final class torrentsearch/models/TorrentQuery {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZI)V
-	public synthetic fun <init> (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZII)V
+	public synthetic fun <init> (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ltorrentsearch/models/Category;
 	public final fun component3 ()Ljava/lang/String;
@@ -206,13 +215,15 @@ public final class torrentsearch/models/TorrentQuery {
 	public final fun component5 ()Ljava/lang/Integer;
 	public final fun component6 ()Z
 	public final fun component7 ()I
-	public final fun copy (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZI)Ltorrentsearch/models/TorrentQuery;
-	public static synthetic fun copy$default (Ltorrentsearch/models/TorrentQuery;Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZIILjava/lang/Object;)Ltorrentsearch/models/TorrentQuery;
+	public final fun component8 ()I
+	public final fun copy (Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZII)Ltorrentsearch/models/TorrentQuery;
+	public static synthetic fun copy$default (Ltorrentsearch/models/TorrentQuery;Ljava/lang/String;Ltorrentsearch/models/Category;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZIIILjava/lang/Object;)Ltorrentsearch/models/TorrentQuery;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCategory ()Ltorrentsearch/models/Category;
 	public final fun getContent ()Ljava/lang/String;
 	public final fun getImdbId ()Ljava/lang/String;
 	public final fun getLimit ()I
+	public final fun getPage ()I
 	public final fun getSkipCache ()Z
 	public final fun getTmdbId ()Ljava/lang/Integer;
 	public final fun getTvdbId ()Ljava/lang/Integer;
@@ -221,6 +232,7 @@ public final class torrentsearch/models/TorrentQuery {
 	public final fun setContent (Ljava/lang/String;)V
 	public final fun setImdbId (Ljava/lang/String;)V
 	public final fun setLimit (I)V
+	public final fun setPage (I)V
 	public final fun setTmdbId (Ljava/lang/Integer;)V
 	public final fun setTvdbId (Ljava/lang/Integer;)V
 	public fun toString ()Ljava/lang/String;

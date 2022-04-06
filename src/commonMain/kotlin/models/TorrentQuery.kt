@@ -17,10 +17,16 @@ public data class TorrentQuery(
     var tvdbId: Int? = null,
     /** When true, ignore cached results and do not cache results for this query. */
     val skipCache: Boolean = false,
+    /** The page to request from each provider, must greater than zero. */
+    var page: Int = 1,
     /**
      * The limit applied to each provider query, expect a higher
      * [TorrentDescription] count when more than one provider
      * is enabled.
      */
     var limit: Int = -1,
-)
+) {
+    init {
+        check(page > 0) { "Search query page must be greater than zero." }
+    }
+}

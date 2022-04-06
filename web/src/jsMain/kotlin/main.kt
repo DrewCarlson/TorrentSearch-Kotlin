@@ -8,6 +8,7 @@ import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import kotlinx.serialization.json.JsonNull.content
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
@@ -57,12 +58,17 @@ fun main() {
                 value = null
                 return@produceState
             }
-            delay(300)
-            value = torrentSearch.search {
-                content = searchQuery
-                imdbId = searchImdbQuery
-                tmdbId = searchTmdbQuery?.toIntOrNull()
-                category = searchCategory
+            var i = 0
+            while (i < 3 || value == null || value?.hasNextResult() == true) {
+                delay(500)
+                val newResult = value?.nextResult() ?: torrentSearch.search {
+                    content = searchQuery
+                    imdbId = searchImdbQuery
+                    tmdbId = searchTmdbQuery?.toIntOrNull()
+                    category = searchCategory
+                }
+                value = newResult
+                i++
             }
         }
         val torrents by produceState(emptyList<TorrentDescription>(), searchResult) {

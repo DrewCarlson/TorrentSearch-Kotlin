@@ -43,6 +43,7 @@ internal class EztvProvider(
                 url {
                     takeFrom(baseUrl)
                     takeFrom(searchPath)
+                    parameter(searchParams.getValue(SearchParam.PAGE), query.page)
                     parameter(searchParams.getValue(SearchParam.IMDB_ID), imdbId)
                     if (query.limit > -1) {
                         parameter(searchParams.getValue(SearchParam.LIMIT), query.limit)
@@ -68,7 +69,13 @@ internal class EztvProvider(
                     hash = hashFromMagnetUrl(eztvTorrent.magnetUrl)
                 )
             }
-            ProviderResult.Success(name, torrentDescriptions)
+            ProviderResult.Success(
+                name,
+                torrentDescriptions,
+                totalTorrents = body.torrentsCount,
+                pageSize = body.limit,
+                page = body.page,
+            )
         } else {
             ProviderResult.Error.RequestError(name, response.status, response.bodyAsText())
         }
@@ -77,6 +84,10 @@ internal class EztvProvider(
     @Serializable
     internal class EztvResponse(
         val torrents: List<EztvTorrent> = emptyList(),
+        val page: Int = 1,
+        @SerialName("torrents_count")
+        val torrentsCount: Int = 0,
+        val limit: Int = -1,
     )
 
     @Serializable

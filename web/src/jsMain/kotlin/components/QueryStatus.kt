@@ -19,11 +19,15 @@ fun QueryStatus(searchResult: SearchResult?) {
             value = null
         } else {
             value = "Loading 0 / ${searchResult.providerCount()}"
-            searchResult.providerResults()
-                .collectIndexed { index, _ ->
-                    value = "Loading ${index + 1} / ${searchResult.providerCount()}"
+            searchResult.providerResults().collectIndexed { index, _ ->
+                value = buildString {
+                    append("Loading ")
+                    append(index + 1)
+                    append(" / ")
+                    append(searchResult.providerCount() + searchResult.currentProviderResults().size)
                 }
-            value = "Completed ${searchResult.providerCount()} (${searchResult.errors().count()} errors)"
+            }
+            value = "Completed ${searchResult.providerResults().count()} (${searchResult.errors().count()} errors)"
         }
     }
     val loading by produceState<String?>(null, searchResult) {
