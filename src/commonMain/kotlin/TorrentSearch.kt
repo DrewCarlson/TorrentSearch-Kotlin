@@ -20,24 +20,21 @@ import torrentsearch.providers.YtsProvider
 
 internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0"
 
-public class TorrentSearch(
-    private val providerCache: TorrentProviderCache? = null,
-    /**
-     * The [HttpClient] to use for [TorrentProvider] search requests.
-     *
-     * NOTE: If providing a [HttpClient] used elsewhere in your app,
-     * do not call [dispose] as this will close your [HttpClient].
-     */
+/**
+ *
+ * @param httpClient The [HttpClient] to use for [TorrentProvider] search requests.
+ * NOTE: If providing a [HttpClient] used elsewhere in your app,
+ * do not call [dispose] as this will close your [HttpClient]
+ * @param enableDefaultProviders When false, the built-in default providers will be disabled.
+ * They can be enabled later with [enableProvider].
+ * @param providers An optional list of custom [TorrentProvider] implementations.
+ * @param providerCache An optional [TorrentProviderCache] for caching.
+ */
+public class TorrentSearch public constructor(
     httpClient: HttpClient = HttpClient(),
-    /**
-     * When false, the built in default providers will be disabled.
-     * They can be enabled later with [enableProvider].
-     */
     enableDefaultProviders: Boolean = true,
-    /**
-     * An optional list of custom [TorrentProvider] implementations.
-     */
     providers: List<TorrentProvider> = emptyList(),
+    private val providerCache: TorrentProviderCache? = null,
 ) {
     private val disposed = MutableStateFlow(false)
     private val http = httpClient.config {

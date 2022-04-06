@@ -1,11 +1,7 @@
 package torrentsearch.providers
 
 import io.ktor.http.encodeURLQueryComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import torrentsearch.TorrentProvider
-import kotlin.coroutines.CoroutineContext
 import kotlin.native.concurrent.SharedImmutable
 
 
@@ -30,17 +26,13 @@ internal val trackers = listOf(
 
 /**
  * The base class for creating new [TorrentProvider]s.
+ *
+ * @param enabledByDefault If the provider requires authentication credentials, set
+ * to false and the user will be required to call [enable] with authentication details.
  */
 public abstract class BaseTorrentProvider(
-    /**
-     * If the provider requires authentication credentials,
-     * set [enabledByDefault] to false and the user will be
-     * required to call [enable] with authentication details.
-     */
     enabledByDefault: Boolean = true
-) : TorrentProvider, CoroutineScope {
-
-    override val coroutineContext: CoroutineContext = Dispatchers.Default + SupervisorJob()
+) : TorrentProvider {
 
     final override var isEnabled: Boolean = enabledByDefault
         private set
@@ -60,7 +52,7 @@ public abstract class BaseTorrentProvider(
     /**
      * Combine the torrent [name] and [infoHash] hash to create a usable magnet link.
      */
-    protected fun formatMagnet(infoHash: String, name: String): String {
+    public fun formatMagnet(infoHash: String, name: String): String {
         val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
         return "magnet:?xt=urn:btih:${infoHash}&dn=${name.encodeURLQueryComponent()}${trackersQueryString}"
     }

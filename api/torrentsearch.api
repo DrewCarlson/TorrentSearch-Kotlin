@@ -223,14 +223,13 @@ public final class torrentsearch/models/TorrentQuery {
 	public fun toString ()Ljava/lang/String;
 }
 
-public abstract class torrentsearch/providers/BaseTorrentProvider : kotlinx/coroutines/CoroutineScope, torrentsearch/TorrentProvider {
+public abstract class torrentsearch/providers/BaseTorrentProvider : torrentsearch/TorrentProvider {
 	public fun <init> ()V
 	public fun <init> (Z)V
 	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun disable ()V
 	public fun enable (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	protected final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun getCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
 	public fun getResultsPerPage ()I
 	public final fun isEnabled ()Z
 }

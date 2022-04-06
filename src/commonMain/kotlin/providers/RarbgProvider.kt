@@ -68,7 +68,7 @@ internal class RarbgProvider(
     init {
         if (prefetchToken) {
             // Prefetch token
-            launch { readToken() }
+            httpClient.launch { readToken() }
         }
     }
 
@@ -129,7 +129,7 @@ internal class RarbgProvider(
             }
         }
 
-        launch { mutex.withLock { delay(API_REQUEST_DELAY) } }
+        httpClient.launch { mutex.withLock { delay(API_REQUEST_DELAY) } }
         return response
     }
 
