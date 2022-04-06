@@ -7,10 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.isActive
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.display
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.gap
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import torrentsearch.models.SearchResult
@@ -47,6 +44,7 @@ fun QueryStatus(searchResult: SearchResult?) {
         style {
             display(DisplayStyle.Flex)
             gap(.5.em)
+            width(220.px)
         }
     }) {
         Div { Text("Status:") }

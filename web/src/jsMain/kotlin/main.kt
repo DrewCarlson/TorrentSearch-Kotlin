@@ -116,28 +116,29 @@ fun main() {
                     searchCategory = selectedCategory
                     updateQueryParam("c", selectedCategory?.name)
                 }
-                QueryStatus(searchResult)
             }
 
             Div({
                 style {
                     width(100.percent)
                     flexShrink(0)
-                    gap(1.em)
                     display(DisplayStyle.Flex)
                     justifyContent(JustifyContent.SpaceBetween)
                     marginTop(.5.em)
                     marginBottom(.5.em)
                 }
             }) {
-                providerResults.sortedBy { it.providerName }.forEach { result ->
+                QueryStatus(searchResult)
+                torrentSearch.enabledProviders().forEach { provider ->
+                    val result = providerResults.find { it.providerName == provider.name }
                     val providerStatus by derivedStateOf {
                         when (result) {
                             is ProviderResult.Success -> result.torrents.size.toString()
                             is ProviderResult.Error -> result::class.simpleName
+                            else -> ""
                         }
                     }
-                    Div { Text("${result.providerName}: $providerStatus") }
+                    Div { Text("${provider.name}: $providerStatus") }
                 }
             }
 

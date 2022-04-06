@@ -6,6 +6,7 @@ import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import torrentsearch.models.TorrentDescription
+import torrentsearch.web.toHumanReadableSize
 
 @Composable
 fun TorrentItem(torrent: TorrentDescription) {
@@ -22,14 +23,21 @@ fun TorrentItem(torrent: TorrentDescription) {
         Div({ style { width(100.px) } }) {
             Text(torrent.provider)
         }
-        Div({ style { width(370.px) } }) {
-            Text(torrent.hash)
-        }
-        Div({ style { property("margin-right", "auto") } }) {
+        Div({
+            title("Info hash: ${torrent.hash}")
+            style { property("margin-right", "auto") }
+        }) {
             Text(torrent.title)
         }
-        Div { Text("Seeds (${torrent.seeds})") }
-        Div { Text("Peers (${torrent.peers})") }
+        Div {
+            Text(torrent.size.toHumanReadableSize())
+        }
+        Div({
+            style { width(100.px) }
+        }) { Text("Seeds (${torrent.seeds})") }
+        Div({
+            style { width(100.px) }
+        }) { Text("Peers (${torrent.peers})") }
         Div {
             A(torrent.magnetUrl) {
                 Text("Download")
@@ -39,7 +47,9 @@ fun TorrentItem(torrent: TorrentDescription) {
             if (torrent.infoUrl.isNullOrBlank()) {
                 Text("(no url)")
             } else {
-
+                A(torrent.infoUrl) {
+                    Text("View")
+                }
             }
         }
     }
