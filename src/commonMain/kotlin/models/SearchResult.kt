@@ -131,9 +131,6 @@ public class SearchResult internal constructor(
     public suspend fun hasNextResult(): Boolean {
         return resultsFlow.take(providers.size).toList()
             .filterIsInstance<ProviderResult.Success>()
-            .onEach {
-                println("${it.providerName}: hasMoreResults=${it.hasMoreResults}, ${it}")
-            }
             .any(ProviderResult.Success::hasMoreResults)
     }
 
