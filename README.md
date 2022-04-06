@@ -44,7 +44,7 @@ constructing `TorrentSearch`.
 ## Web Demo
 
 The [`web`](web) demo helps with debugging the api and provider implementations, it can be run with
-`./gradlew jsBrowserProductionRun` and open [http://localhost:8888](http://localhost:8888) in your browser.
+`./gradlew jsBrowserProductionRun` and open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Download
 

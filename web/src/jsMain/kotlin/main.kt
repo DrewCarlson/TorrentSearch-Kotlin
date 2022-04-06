@@ -1,51 +1,27 @@
 package torrentsearch.web
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import io.ktor.client.HttpClient
-import io.ktor.client.request.HttpRequestPipeline
-import io.ktor.client.request.url
-import io.ktor.http.encodeURLQueryComponent
-import io.ktor.http.path
+import androidx.compose.runtime.*
+import io.ktor.client.*
+import io.ktor.client.request.*
+import io.ktor.http.*
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.isActive
-import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.attributes.placeholder
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.FlexDirection
-import org.jetbrains.compose.web.css.JustifyContent
-import org.jetbrains.compose.web.css.display
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.flexDirection
-import org.jetbrains.compose.web.css.flexGrow
-import org.jetbrains.compose.web.css.flexShrink
-import org.jetbrains.compose.web.css.gap
-import org.jetbrains.compose.web.css.height
-import org.jetbrains.compose.web.css.justifyContent
-import org.jetbrains.compose.web.css.margin
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.width
-import org.jetbrains.compose.web.dom.A
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Input
-import org.jetbrains.compose.web.dom.Option
-import org.jetbrains.compose.web.dom.Select
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
 import org.w3c.dom.url.URLSearchParams
 import torrentsearch.TorrentSearch
 import torrentsearch.models.Category
+import torrentsearch.models.ProviderResult
 import torrentsearch.models.SearchResult
 import torrentsearch.models.TorrentDescription
+import torrentsearch.web.components.CategorySelect
+import torrentsearch.web.components.QueryStatus
+import torrentsearch.web.components.SearchQueryInput
+import torrentsearch.web.components.TorrentItem
 
 fun main() {
     val httpClient = HttpClient {
@@ -60,23 +36,32 @@ fun main() {
             }
         }
     }
-    val torrentSearch = TorrentSearch(
-        httpClient = httpClient
-    )
+    val torrentSearch = TorrentSearch(httpClient = httpClient)
+    val startParams = URLSearchParams(window.location.search)
     renderComposable("root") {
-        var searchQuery by remember {
-            val queryParams = URLSearchParams(window.location.search)
-            mutableStateOf(queryParams.get("q"))
+        var searchQuery by remember { mutableStateOf(startParams.get("q")) }
+        var searchImdbQuery by remember { mutableStateOf(startParams.get("imdb")) }
+        var searchTmdbQuery by remember { mutableStateOf(startParams.get("tmdb")) }
+        var searchCategory: Category? by remember {
+            mutableStateOf(startParams.get("c")?.takeIf(String::isNotBlank)?.run(Category::valueOf))
         }
-        var searchCategory: Category? by remember { mutableStateOf(null) }
-        val searchResult by produceState<SearchResult?>(null, searchQuery, searchCategory) {
-            if (searchQuery.isNullOrBlank()) {
+        val searchResult by produceState<SearchResult?>(
+            null,
+            searchQuery,
+            searchImdbQuery,
+            searchTmdbQuery,
+            searchCategory,
+        ) {
+            val queries = listOfNotNull(searchQuery, searchImdbQuery, searchTmdbQuery)
+            if (queries.isEmpty() || queries.all(String::isBlank)) {
                 value = null
                 return@produceState
             }
             delay(300)
             value = torrentSearch.search {
                 content = searchQuery
+                imdbId = searchImdbQuery
+                tmdbId = searchTmdbQuery?.toIntOrNull()
                 category = searchCategory
             }
         }
@@ -86,33 +71,11 @@ fun main() {
                 value = (value + it).sortedByDescending(TorrentDescription::seeds)
             }?.collect()
         }
-        val completedState by produceState<String?>(null, searchResult) {
-            val result = searchResult
-            if (result == null) {
-                value = null
-            } else {
-                value = "Loading 0 / ${result.providerCount()}"
-                result.providerResults()
-                    .collectIndexed { index, _ ->
-                        value = "Loading ${index + 1} / ${result.providerCount()}"
-                    }
-                value = "Completes ${result.providerCount()}"
-            }
-        }
-        val loading by produceState<String?>(null, searchResult) {
-            val result = searchResult
-            if (result?.isCompleted() == false) {
-                value = "."
-                while (isActive && !result.isCompleted()) {
-                    if (value?.length == 4) {
-                        value = "."
-                    } else {
-                        value += '.'
-                    }
-                    delay(250)
-                }
-            }
-            value = null
+        val providerResults by produceState(emptyList<ProviderResult>(), searchResult) {
+            value = emptyList()
+            searchResult?.providerResults()?.onEach {
+                value = (value + it).sortedBy(ProviderResult::providerName)
+            }?.collect()
         }
 
         Div({
@@ -131,45 +94,53 @@ fun main() {
                     display(DisplayStyle.Flex)
                 }
             }) {
-                Input(InputType.Text) {
-                    placeholder("Search ...")
-                    onInput {
-                        searchQuery = it.value
-                        if (searchQuery.isNullOrBlank()) {
-                            window.history.pushState(null, window.document.title, "")
-                        } else {
-                            val url = "?q=${searchQuery?.encodeURLQueryComponent()}"
-                            window.history.pushState(null, window.document.title, url)
+                SearchQueryInput("Search ...", searchQuery) { newQuery ->
+                    searchQuery = newQuery
+                    searchImdbQuery = null
+                    searchTmdbQuery = null
+                    updateQueryParam("q", newQuery, "imdb", "tmdb")
+                }
+                SearchQueryInput("imdb id", searchImdbQuery) { newQuery ->
+                    searchQuery = null
+                    searchImdbQuery = newQuery
+                    searchTmdbQuery = null
+                    updateQueryParam("imdb", newQuery, "q", "tmdb")
+                }
+                SearchQueryInput("tmdb id", searchTmdbQuery) { newQuery ->
+                    searchQuery = null
+                    searchImdbQuery = null
+                    searchTmdbQuery = newQuery
+                    updateQueryParam("tmdb", newQuery, "q", "imdb")
+                }
+                CategorySelect(searchCategory) { selectedCategory ->
+                    searchCategory = selectedCategory
+                    updateQueryParam("c", selectedCategory?.name)
+                }
+                QueryStatus(searchResult)
+            }
+
+            Div({
+                style {
+                    width(100.percent)
+                    flexShrink(0)
+                    gap(1.em)
+                    display(DisplayStyle.Flex)
+                    justifyContent(JustifyContent.SpaceBetween)
+                    marginTop(.5.em)
+                    marginBottom(.5.em)
+                }
+            }) {
+                providerResults.sortedBy { it.providerName }.forEach { result ->
+                    val providerStatus by derivedStateOf {
+                        when (result) {
+                            is ProviderResult.Success -> result.torrents.size.toString()
+                            is ProviderResult.Error -> result::class.simpleName
                         }
                     }
-                }
-                Select({
-                    onChange {
-                        searchCategory = it.value?.takeIf(String::isNotBlank)?.run(Category::valueOf)
-                    }
-                }) {
-                    val categories = remember { Category.values().toList() - Category.MOVIES - Category.TV }
-                    Option("(category)") { Text("(none)") }
-                    Option("MOVIES") { Text("Movies") }
-                    Option("TV") { Text("Tv") }
-                    (categories - Category.MOVIES).forEach { category ->
-                        Option(category.name) {
-                            val name = remember { category.name.lowercase().replaceFirstChar { it.uppercaseChar() } }
-                            Text(name)
-                        }
-                    }
-                }
-                Div({
-                    style {
-                        display(DisplayStyle.Flex)
-                        gap(.5.em)
-                    }
-                }) {
-                    Div { Text("Status:") }
-                    Div { Text(completedState ?: "(idle)") }
-                    Div { Text(loading.orEmpty()) }
+                    Div { Text("${result.providerName}: $providerStatus") }
                 }
             }
+
             Div({
                 style {
                     width(100.percent)
@@ -193,32 +164,13 @@ fun main() {
     }
 }
 
-@Composable
-fun TorrentItem(torrent: TorrentDescription) {
-    Div({
-        style {
-            width(100.percent)
-            display(DisplayStyle.Flex)
-            gap(1.5.em)
-            margin(6.px)
-            justifyContent(JustifyContent.SpaceBetween)
-        }
-    }) {
-        Div({ style { width(100.px) } }) {
-            Text(torrent.provider)
-        }
-        Div({ style { width(370.px) } }) {
-            Text(torrent.hash)
-        }
-        Div({ style { property("margin-right", "auto") } }) {
-            Text(torrent.title)
-        }
-        Div { Text("Seeds (${torrent.seeds})") }
-        Div { Text("Peers (${torrent.peers})") }
-        Div {
-            A(torrent.magnetUrl) {
-                Text("Download")
-            }
-        }
+private fun updateQueryParam(name: String, value: String?, vararg reset: String) {
+    val params = URLSearchParams(window.location.search)
+    reset.forEach { params.delete(it) }
+    if (value.isNullOrBlank()) {
+        params.delete(name)
+    } else {
+        params.set(name, value.encodeURLQueryComponent())
     }
+    window.history.pushState(null, window.document.title, "?${params}")
 }
