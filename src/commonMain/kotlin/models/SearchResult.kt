@@ -117,6 +117,14 @@ public class SearchResult internal constructor(
     }
 
     /**
+     * The number of [ProviderResult]s that may be contained in this
+     * [SearchResult].
+     */
+    public fun providerResultCount(): Int {
+        return providers.size + previousResults.orEmpty().size
+    }
+
+    /**
      * Returns true when one or more providers has results that can be
      * retrieved with additional requests.
      */

@@ -58,17 +58,13 @@ fun main() {
                 value = null
                 return@produceState
             }
-            var i = 0
-            while (i < 3 || value == null || value?.hasNextResult() == true) {
-                delay(500)
-                val newResult = value?.nextResult() ?: torrentSearch.search {
-                    content = searchQuery
-                    imdbId = searchImdbQuery
-                    tmdbId = searchTmdbQuery?.toIntOrNull()
-                    category = searchCategory
-                }
-                value = newResult
-                i++
+
+            delay(500)
+            value = torrentSearch.search {
+                content = searchQuery
+                imdbId = searchImdbQuery
+                tmdbId = searchTmdbQuery?.toIntOrNull()
+                category = searchCategory
             }
         }
         val torrents by produceState(emptyList<TorrentDescription>(), searchResult) {

@@ -24,7 +24,7 @@ fun QueryStatus(searchResult: SearchResult?) {
                     append("Loading ")
                     append(index + 1)
                     append(" / ")
-                    append(searchResult.providerCount() + searchResult.currentProviderResults().size)
+                    append(searchResult.providerResultCount())
                 }
             }
             value = "Completed ${searchResult.providerResults().count()} (${searchResult.errors().count()} errors)"
