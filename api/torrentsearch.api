@@ -148,6 +148,7 @@ public final class torrentsearch/models/SearchResult {
 	public final fun isCompleted ()Z
 	public final fun nextResult (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun providerCount ()I
+	public final fun providerResultCount ()I
 	public final fun providerResults ()Lkotlinx/coroutines/flow/Flow;
 	public fun toString ()Ljava/lang/String;
 	public final fun torrents ()Lkotlinx/coroutines/flow/Flow;
