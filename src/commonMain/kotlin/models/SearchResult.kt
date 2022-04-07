@@ -1,8 +1,6 @@
 package torrentsearch.models
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import torrentsearch.TorrentProvider
 import torrentsearch.TorrentProviderCache
@@ -11,34 +9,23 @@ import torrentsearch.TorrentProviderCache
  * A container for [ProviderResult]s across multiple [TorrentProvider]s.
  * [SearchResult] eagerly executes the [query] with each [TorrentProvider]
  * in [providers].
+ *
+ * Provider requests begin executing immediately and run until all are
+ * completed or [SearchResult.cancel] is called. Alternatively when
+ * collecting results with [torrents], [providerResults], or [errors]
+ * `cancelOnComplete` can be set to true which will call [cancel] after
+ * the downstream flow is completed.
  */
 public class SearchResult internal constructor(
-    private val scope: CoroutineScope,
+    scope: CoroutineScope,
     private val providers: List<TorrentProvider>,
     private val providerCache: TorrentProviderCache?,
     private val query: TorrentQuery,
     private val previousResults: List<ProviderResult>? = emptyList(),
 ) {
+    private val scope = CoroutineScope(scope.coroutineContext + SupervisorJob())
     private val resultsFlow = providers
-        .map { provider ->
-            flow {
-                if (!query.skipCache) {
-                    providerCache?.loadResults(provider, query)?.let { cacheResult ->
-                        return@let emit(ProviderResult.Success(provider.name, cacheResult, fromCache = true))
-                    }
-                }
-                val result = try {
-                    provider.search(query)
-                } catch (e: Throwable) {
-                    ProviderResult.Error.UnknownError(provider.name, e.message)
-                }
-                emit(result)
-
-                if (!query.skipCache && result is ProviderResult.Success && result.torrents.isNotEmpty()) {
-                    providerCache?.saveResults(provider, query, result.torrents)
-                }
-            }
-        }
+        .map(::createProviderQueryFlow)
         .merge()
         .flowOn(Dispatchers.Default)
         .shareIn(scope, SharingStarted.Eagerly, providers.size)
@@ -46,9 +33,12 @@ public class SearchResult internal constructor(
     /**
      * A flow of all [TorrentDescription]s from each [TorrentProvider]
      * selected to handle the [TorrentQuery].
+     *
+     * @param cancelOnComplete When true, cancel pending provider task
+     * when the returned flow is completed.
      */
     @OptIn(FlowPreview::class)
-    public fun torrents(): Flow<TorrentDescription> {
+    public fun torrents(cancelOnComplete: Boolean = false): Flow<TorrentDescription> {
         if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
             return emptyFlow()
         }
@@ -67,30 +57,37 @@ public class SearchResult internal constructor(
                 }
             }
             .flatMapMerge { it.asFlow() }
+            .onCompletion { if (cancelOnComplete) scope.cancel() }
     }
 
     /**
      * A flow of raw [ProviderResult]s from each [TorrentProvider]
-     * selected to handle the [TorrentQuery].
+     * selected to handle the [TorrentQuery]
+     *
+     * @param cancelOnComplete When true, cancel pending provider task
+     * when the returned flow is completed.
      */
-    public fun providerResults(): Flow<ProviderResult> {
+    public fun providerResults(cancelOnComplete: Boolean = false): Flow<ProviderResult> {
         if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
             return emptyFlow()
         }
         return resultsFlow.take(providers.size).onStart {
             previousResults?.forEach { result -> emit(result) }
-        }
+        }.onCompletion { if (cancelOnComplete) scope.cancel() }
     }
 
     /**
      * A flow of [ProviderResult.Error]s for any failed requests made
      * to any of the selected [TorrentProvider]s.
+     *
+     * @param cancelOnComplete When true, cancel pending provider task
+     * when the returned flow is completed.
      */
-    public fun errors(): Flow<ProviderResult.Error> {
+    public fun errors(cancelOnComplete: Boolean = false): Flow<ProviderResult.Error> {
         if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
             return emptyFlow()
         }
-        return providerResults().filterIsInstance()
+        return providerResults(cancelOnComplete).filterIsInstance()
     }
 
     /**
@@ -106,6 +103,13 @@ public class SearchResult internal constructor(
      */
     public fun isCompleted(): Boolean {
         return resultsFlow.replayCache.size == providers.size
+    }
+
+    /**
+     * True after [cancel] is called, no further requests will be completed.
+     */
+    public fun isCancelled(): Boolean {
+        return scope.isActive
     }
 
     /**
@@ -134,6 +138,16 @@ public class SearchResult internal constructor(
             .any(ProviderResult.Success::hasMoreResults)
     }
 
+    private fun hasNextResultSync(): Boolean? {
+        return if (isCompleted()) {
+            resultsFlow.replayCache
+                .filterIsInstance<ProviderResult.Success>()
+                .any(ProviderResult.Success::hasMoreResults)
+        } else {
+            null
+        }
+    }
+
     /**
      * Returns a new [SearchResult] that contains all torrents from the
      * current instance and will produce [ProviderResult]s for any providers
@@ -142,6 +156,7 @@ public class SearchResult internal constructor(
      * @return null if [hasNextResult] is false or the next [SearchResult] container.
      */
     public suspend fun nextResult(): SearchResult? {
+        if (isCancelled()) return null
         val nextProviders = resultsFlow.take(providers.size).toList()
             .filterIsInstance<ProviderResult.Success>()
             .filter(ProviderResult.Success::hasMoreResults)
@@ -160,10 +175,38 @@ public class SearchResult internal constructor(
         )
     }
 
+    /**
+     * Cancel pending provider requests.
+     */
+    public fun cancel() {
+        scope.cancel()
+    }
+
     override fun toString(): String {
         return "SearchResult(" +
+                "isCompleted=${isCompleted()}, " +
+                "isCancelled=${isCancelled()}, " +
+                "hasNextResult=${hasNextResultSync() ?: "(pending)"}, " +
                 "providers=${providers.joinToString { it.name }}, " +
                 "query=$query, " +
                 "completed=${resultsFlow.replayCache.size})"
+    }
+
+    private fun createProviderQueryFlow(provider: TorrentProvider): Flow<ProviderResult> = flow {
+        if (!query.skipCache) {
+            providerCache?.loadResults(provider, query)?.let { cacheResult ->
+                return@flow emit(ProviderResult.Success(provider.name, cacheResult, fromCache = true))
+            }
+        }
+        val result = try {
+            provider.search(query)
+        } catch (e: Throwable) {
+            ProviderResult.Error.UnknownError(provider.name, e.message)
+        }
+        emit(result)
+
+        if (!query.skipCache && result is ProviderResult.Success && result.torrents.isNotEmpty()) {
+            providerCache?.saveResults(provider, query, result.torrents)
+        }
     }
 }
