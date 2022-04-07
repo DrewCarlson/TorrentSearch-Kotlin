@@ -12,7 +12,7 @@ if(savedDarkMode === true){
     <div class="navigation-wrapper" id="navigation-wrapper">
       <div id="leftToggler"><span class="icon-toggler"></span></div>
       <div class="library-name"><a href="../../../index.html">TorrentSearch</a></div>
-      <div>0.4.0</div>
+      <div>0.4.1</div>
       <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
       </div>
@@ -26,21 +26,99 @@ if(savedDarkMode === true){
           <div class="breadcrumbs"><a href="../../../index.html">TorrentSearch</a>/<a href="../index.html">torrentsearch.models</a>/<a href="index.html">SearchResult</a></div>
           <div class="cover ">
             <h1 class="cover"><span>Search</span><wbr></wbr><span><span>Result</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SearchResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A container for <a href="../-provider-result/index.html">ProviderResult</a>s across multiple <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a>s. <a href="index.html">SearchResult</a> eagerly executes the <span data-unresolved-link="torrentsearch.models/SearchResult/query/#/PointingToDeclaration/">query</span> with each <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a> in <span data-unresolved-link="torrentsearch.models/SearchResult/providers/#/PointingToDeclaration/">providers</span>.</p></div></div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SearchResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A container for <a href="../-provider-result/index.html">ProviderResult</a>s across multiple <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a>s. <a href="index.html">SearchResult</a> eagerly executes the <span data-unresolved-link="torrentsearch.models/SearchResult/query/#/PointingToDeclaration/">query</span> with each <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a> in <span data-unresolved-link="torrentsearch.models/SearchResult/providers/#/PointingToDeclaration/">providers</span>.</p><p class="paragraph">Provider requests begin executing immediately and run until all are completed or <a href="cancel.html">SearchResult.cancel</a> is called. Alternatively when collecting results with <a href="torrents.html">torrents</a>, <a href="provider-results.html">providerResults</a>, or <a href="errors.html">errors</a><code class="lang-kotlin">cancelOnComplete</code> can be set to true which will call <a href="cancel.html">cancel</a> after the downstream flow is completed.</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
             <div class="tabs-section-body">
               <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="-697811977%2FFunctions%2F788909594" anchor-label="errors" id="-697811977%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+              <div class="table" data-togglable="Functions"><a data-name="-1140573240%2FFunctions%2F788909594" anchor-label="cancel" id="-1140573240%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="errors.html"><span><span>errors</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-697811977%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="cancel.html"><span><span>cancel</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1140573240%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="errors.html"><span class="token function">errors</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-provider-result/-error/index.html">ProviderResult.Error</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A flow of <a href="../-provider-result/-error/index.html">ProviderResult.Error</a>s for any failed requests made to any of the selected <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a>s.</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="cancel.html"><span class="token function">cancel</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Cancel pending provider requests.</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-968367498%2FFunctions%2F788909594" anchor-label="currentProviderResults" id="-968367498%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="current-provider-results.html"><span>current</span><wbr></wbr><span>Provider</span><wbr></wbr><span><span>Results</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-968367498%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="current-provider-results.html"><span class="token function">currentProviderResults</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-provider-result/index.html">ProviderResult</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A list of the completed <a href="../-provider-result/index.html">ProviderResult</a>s at the current moment, size may be less than <a href="provider-count.html">providerCount</a>.</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1753507580%2FFunctions%2F788909594" anchor-label="errors" id="1753507580%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="errors.html"><span><span>errors</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1753507580%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="errors.html"><span class="token function">errors</span></a><span class="token punctuation">(</span>cancelOnComplete<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-provider-result/-error/index.html">ProviderResult.Error</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A flow of <a href="../-provider-result/-error/index.html">ProviderResult.Error</a>s for any failed requests made to any of the selected <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a>s.</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1722760466%2FFunctions%2F788909594" anchor-label="hasNextResult" id="-1722760466%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="has-next-result.html"><span>has</span><wbr></wbr><span>Next</span><wbr></wbr><span><span>Result</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1722760466%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="has-next-result.html"><span class="token function">hasNextResult</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Returns true when one or more providers has results that can be retrieved with additional requests.</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1487487025%2FFunctions%2F788909594" anchor-label="isCancelled" id="1487487025%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="is-cancelled.html"><span>is</span><wbr></wbr><span><span>Cancelled</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1487487025%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="is-cancelled.html"><span class="token function">isCancelled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">True after <a href="cancel.html">cancel</a> is called, no further requests will be completed.</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="740892791%2FFunctions%2F788909594" anchor-label="isCompleted" id="740892791%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="is-completed.html"><span>is</span><wbr></wbr><span><span>Completed</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="740892791%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="is-completed.html"><span class="token function">isCompleted</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">True when all providers have produced a <a href="../-provider-result/index.html">ProviderResult</a>.</p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1961012334%2FFunctions%2F788909594" anchor-label="nextResult" id="-1961012334%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="next-result.html"><span>next</span><wbr></wbr><span><span>Result</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1961012334%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="next-result.html"><span class="token function">nextResult</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">SearchResult</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">SearchResult</a> that contains all torrents from the current instance and will produce <a href="../-provider-result/index.html">ProviderResult</a>s for any providers that have additional result pages.</p></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -58,28 +136,41 @@ if(savedDarkMode === true){
                     </div>
                   </div>
                 </div>
-<a data-name="-1516838157%2FFunctions%2F788909594" anchor-label="providerResults" id="-1516838157%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+<a data-name="2029222263%2FFunctions%2F788909594" anchor-label="providerResultCount" id="2029222263%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="provider-results.html"><span>provider</span><wbr></wbr><span><span>Results</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1516838157%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="provider-result-count.html"><span>provider</span><wbr></wbr><span>Result</span><wbr></wbr><span><span>Count</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2029222263%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="provider-results.html"><span class="token function">providerResults</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-provider-result/index.html">ProviderResult</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A flow of raw <a href="../-provider-result/index.html">ProviderResult</a>s from each <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a> selected to handle the <a href="../-torrent-query/index.html">TorrentQuery</a>.</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="provider-result-count.html"><span class="token function">providerResultCount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The number of <a href="../-provider-result/index.html">ProviderResult</a>s that may be contained in this <a href="index.html">SearchResult</a>.</p></div></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1108046913%2FFunctions%2F788909594" anchor-label="torrents" id="-1108046913%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+<a data-name="-904583944%2FFunctions%2F788909594" anchor-label="providerResults" id="-904583944%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="torrents.html"><span><span>torrents</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1108046913%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex"><a href="provider-results.html"><span>provider</span><wbr></wbr><span><span>Results</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-904583944%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="torrents.html"><span class="token function">torrents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A flow of all <a href="../-torrent-description/index.html">TorrentDescription</a>s from each <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a> selected to handle the <a href="../-torrent-query/index.html">TorrentQuery</a>.</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="provider-results.html"><span class="token function">providerResults</span></a><span class="token punctuation">(</span>cancelOnComplete<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-provider-result/index.html">ProviderResult</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A flow of raw <a href="../-provider-result/index.html">ProviderResult</a>s from each <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a> selected to handle the <a href="../-torrent-query/index.html">TorrentQuery</a></p></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="340097220%2FFunctions%2F788909594" anchor-label="torrents" id="340097220%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="torrents.html"><span><span>torrents</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="340097220%2FFunctions%2F788909594"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="torrents.html"><span class="token function">torrents</span></a><span class="token punctuation">(</span>cancelOnComplete<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A flow of all <a href="../-torrent-description/index.html">TorrentDescription</a>s from each <a href="../../torrentsearch/-torrent-provider/index.html">TorrentProvider</a> selected to handle the <a href="../-torrent-query/index.html">TorrentQuery</a>.</p></div></div></div>
                       </div>
                     </div>
                   </div>
