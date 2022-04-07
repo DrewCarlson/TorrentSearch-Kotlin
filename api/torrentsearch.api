@@ -144,16 +144,19 @@ public final class torrentsearch/models/SearchParam : java/lang/Enum {
 public final class torrentsearch/models/SearchResult {
 	public final fun cancel ()V
 	public final fun currentProviderResults ()Ljava/util/List;
-	public final fun errors ()Lkotlinx/coroutines/flow/Flow;
+	public final fun errors (Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun errors$default (Ltorrentsearch/models/SearchResult;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 	public final fun hasNextResult (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun isCancelled ()Z
 	public final fun isCompleted ()Z
 	public final fun nextResult (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun providerCount ()I
 	public final fun providerResultCount ()I
-	public final fun providerResults ()Lkotlinx/coroutines/flow/Flow;
+	public final fun providerResults (Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun providerResults$default (Ltorrentsearch/models/SearchResult;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 	public fun toString ()Ljava/lang/String;
-	public final fun torrents ()Lkotlinx/coroutines/flow/Flow;
+	public final fun torrents (Z)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun torrents$default (Ltorrentsearch/models/SearchResult;ZILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class torrentsearch/models/TorrentDescription {
