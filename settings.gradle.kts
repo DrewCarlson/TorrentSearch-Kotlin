@@ -7,4 +7,4 @@ pluginManagement {
 
 rootProject.name = "torrentsearch"
 
-include(":web")
+//include(":web")
