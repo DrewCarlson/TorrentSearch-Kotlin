@@ -7,12 +7,12 @@ const savedDarkMode = storage ? JSON.parse(storage) : false
 if(savedDarkMode === true){
     document.getElementsByTagName("html")[0].classList.add("theme-dark")
 }</script>
-<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>  </head>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>  </head>
   <body>
     <div class="navigation-wrapper" id="navigation-wrapper">
       <div id="leftToggler"><span class="icon-toggler"></span></div>
       <div class="library-name"><a href="../../../index.html">TorrentSearch</a></div>
-      <div>0.4.1</div>
+      <div>0.4.2</div>
       <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
       </div>
@@ -21,7 +21,7 @@ if(savedDarkMode === true){
       <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
-      <div id="main"><script type="text/javascript" src="../../../scripts/main.js"></script>
+      <div id="main">
         <div class="main-content" id="content" pageIds="TorrentSearch::torrentsearch.providers/BaseTorrentProvider///PointingToDeclaration//788909594">
           <div class="breadcrumbs"><a href="../../../index.html">TorrentSearch</a>/<a href="../index.html">torrentsearch.providers</a>/<a href="index.html">BaseTorrentProvider</a></div>
           <div class="cover ">
@@ -33,13 +33,15 @@ if(savedDarkMode === true){
             <div class="tabs-section-body">
               <h2 class="">Parameters</h2>
               <div data-togglable="Parameters">
-                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><span>enabled</span><wbr></wbr><span>By</span><wbr></wbr><span><span>Default</span></span></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">If the provider requires authentication credentials, set to false and the user will be required to call <a href="enable.html">enable</a> with authentication details.</p></div></div></div></div></div></div></div></div></div>
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span>enabled</span><wbr></wbr><span>By</span><wbr></wbr><span><span>Default</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">If the provider requires authentication credentials, set to false and the user will be required to call <a href="enable.html">enable</a> with authentication details.</p></div></div></div></div></div></div></div></div></div>
               </div>
               <h2 class="tabbedcontent">Constructors</h2>
               <div class="table" data-togglable="Constructors"><a data-name="-1587647660%2FConstructors%2F788909594" anchor-label="BaseTorrentProvider" id="-1587647660%2FConstructors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-base-torrent-provider.html">BaseTorrentProvider</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1587647660%2FConstructors%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-base-torrent-provider.html"><span>Base</span><wbr></wbr><span>Torrent</span><wbr></wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1587647660%2FConstructors%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -54,7 +56,9 @@ if(savedDarkMode === true){
               <div class="table" data-togglable="Functions"><a data-name="-606412457%2FFunctions%2F788909594" anchor-label="disable" id="-606412457%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="disable.html"><span><span>disable</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-606412457%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="disable.html"><span><span>disable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-606412457%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -67,7 +71,9 @@ if(savedDarkMode === true){
 <a data-name="1904980898%2FFunctions%2F788909594" anchor-label="enable" id="1904980898%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="enable.html"><span><span>enable</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1904980898%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="enable.html"><span><span>enable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1904980898%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -80,7 +86,9 @@ if(savedDarkMode === true){
 <a data-name="1212550223%2FFunctions%2F788909594" anchor-label="formatMagnet" id="1212550223%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="format-magnet.html"><span>format</span><wbr></wbr><span><span>Magnet</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1212550223%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="format-magnet.html"><span>format</span><wbr></wbr><span><span>Magnet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1212550223%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -93,7 +101,9 @@ if(savedDarkMode === true){
 <a data-name="-1442006126%2FFunctions%2F788909594" anchor-label="hashFromMagnetUrl" id="-1442006126%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="hash-from-magnet-url.html"><span>hash</span><wbr></wbr><span>From</span><wbr></wbr><span>Magnet</span><wbr></wbr><span><span>Url</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1442006126%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="hash-from-magnet-url.html"><span>hash</span><wbr></wbr><span>From</span><wbr></wbr><span>Magnet</span><wbr></wbr><span><span>Url</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1442006126%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -106,12 +116,14 @@ if(savedDarkMode === true){
 <a data-name="13642764%2FFunctions%2F788909594" anchor-label="search" id="13642764%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/search.html"><span><span>search</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13642764%2FFunctions%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/search.html"><span><span>search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13642764%2FFunctions%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../torrentsearch/-torrent-provider/search.html"><span class="token function">search</span></a><span class="token punctuation">(</span>query<span class="token operator">: </span><a href="../../torrentsearch.models/-torrent-query/index.html">TorrentQuery</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../torrentsearch.models/-provider-result/index.html">ProviderResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Execute a search for the given <a href="../../torrentsearch/-torrent-provider/search.html">query</a> in <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html">category</a>, returning <a href="../../torrentsearch.models/-torrent-description/index.html">TorrentDescription</a>s for each of the Provider's entries.</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../torrentsearch/-torrent-provider/search.html"><span class="token function">search</span></a><span class="token punctuation">(</span>query<span class="token operator">: </span><a href="../../torrentsearch.models/-torrent-query/index.html">TorrentQuery</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../torrentsearch.models/-provider-result/index.html">ProviderResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Execute a search for the given <a href="../../torrentsearch/-torrent-provider/search.html">query</a> in category, returning <a href="../../torrentsearch.models/-torrent-description/index.html">TorrentDescription</a>s for each of the Provider's entries.</p></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -121,7 +133,9 @@ if(savedDarkMode === true){
               <div class="table" data-togglable="Properties"><a data-name="-82040732%2FProperties%2F788909594" anchor-label="baseUrl" id="-82040732%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/base-url.html">baseUrl</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-82040732%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/base-url.html">baseUrl</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-82040732%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -134,7 +148,9 @@ if(savedDarkMode === true){
 <a data-name="-660575428%2FProperties%2F788909594" anchor-label="categories" id="-660575428%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/categories.html">categories</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-660575428%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/categories.html">categories</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-660575428%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -147,7 +163,9 @@ if(savedDarkMode === true){
 <a data-name="1761636328%2FProperties%2F788909594" anchor-label="isEnabled" id="1761636328%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="is-enabled.html">isEnabled</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1761636328%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="is-enabled.html">isEnabled</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1761636328%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -160,7 +178,9 @@ if(savedDarkMode === true){
 <a data-name="-1227935251%2FProperties%2F788909594" anchor-label="name" id="-1227935251%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/name.html">name</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1227935251%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/name.html">name</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1227935251%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -173,7 +193,9 @@ if(savedDarkMode === true){
 <a data-name="56449186%2FProperties%2F788909594" anchor-label="resultsPerPage" id="56449186%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/results-per-page.html">resultsPerPage</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="56449186%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/results-per-page.html">resultsPerPage</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="56449186%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -186,7 +208,9 @@ if(savedDarkMode === true){
 <a data-name="-1223866998%2FProperties%2F788909594" anchor-label="searchParams" id="-1223866998%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/search-params.html">searchParams</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1223866998%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/search-params.html">searchParams</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1223866998%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -199,7 +223,9 @@ if(savedDarkMode === true){
 <a data-name="-1174092661%2FProperties%2F788909594" anchor-label="searchPath" id="-1174092661%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/search-path.html">searchPath</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1174092661%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/search-path.html">searchPath</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1174092661%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -212,7 +238,9 @@ if(savedDarkMode === true){
 <a data-name="-1663163836%2FProperties%2F788909594" anchor-label="tokenPath" id="-1663163836%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../torrentsearch/-torrent-provider/token-path.html">tokenPath</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1663163836%2FProperties%2F788909594"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="../../torrentsearch/-torrent-provider/token-path.html">tokenPath</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1663163836%2FProperties%2F788909594"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
