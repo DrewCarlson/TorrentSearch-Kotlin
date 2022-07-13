@@ -1,23 +1,22 @@
 import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform") version KOTLIN_VERSION
-    kotlin("plugin.serialization") version KOTLIN_VERSION
-    id("org.jetbrains.dokka") version DOKKA_VERSION
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version BCV_VERSION
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.binaryCompat)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.spotless)
 }
 
 allprojects {
+    yarn.lockFileDirectory = file("gradle/kotlin-js-store")
     repositories {
         mavenCentral()
     }
 }
 
 apply(from = "gradle/publishing.gradle.kts")
-
-yarn.apply {
-    lockFileDirectory = file("gradle/kotlin-js-store")
-}
 
 kotlin {
     jvm()
@@ -53,16 +52,15 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-                implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-content-negotiation:$KTOR_VERSION")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
+                implementation(libs.coroutines.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.serialization)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_VERSION")
+                implementation(libs.coroutines.test)
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
@@ -70,14 +68,13 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
-                implementation("io.ktor:ktor-client-okhttp:$KTOR_VERSION")
             }
         }
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("io.ktor:ktor-client-okhttp:$KTOR_VERSION")
+                implementation(libs.ktor.client.okhttp)
             }
         }
         val jsMain by getting
@@ -85,7 +82,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-js"))
-                implementation("io.ktor:ktor-client-js:$KTOR_VERSION")
+                implementation(libs.ktor.client.js)
             }
         }
 
@@ -101,7 +98,7 @@ kotlin {
         val desktopCommonTest by creating {
             dependsOn(nativeCommonTest)
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$KTOR_VERSION")
+                implementation(libs.ktor.client.curl)
             }
         }
 
@@ -125,7 +122,7 @@ kotlin {
         val iosTest by getting {
             dependsOn(nativeCommonTest)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$KTOR_VERSION")
+                implementation(libs.ktor.client.darwin)
             }
         }
     }
