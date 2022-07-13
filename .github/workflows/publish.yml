@@ -10,6 +10,7 @@ env:
   ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
   ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEPASSWORD }}
   ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEUSERNAME }}
+  ORG_GRADLE_PROJECT_sonatypeStagingProfile: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPESTAGINGPROFILE }}
 
 jobs:
   gradle:
@@ -39,13 +40,13 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         name: Build docs
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         with:
           arguments: clean dokkaHtml
 
       - name: Publish Docs
         uses: JamesIves/github-pages-deploy-action@v4.3.4
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: docs
