@@ -6,7 +6,7 @@ serialization = "1.4.1"
 ktorio = "2.2.3"
 binary_compat = "0.12.1"
 
-spotless = "6.15.0"
+spotless = "6.16.0"
 ktlint = "0.45.2"
 
 [plugins]
