@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.binaryCompat)
     alias(libs.plugins.dokka)
     alias(libs.plugins.kotlinter)
+    alias(libs.plugins.mavenPublish)
 }
 
 buildscript {
@@ -19,7 +20,7 @@ allprojects {
     }
 }
 
-apply(from = "gradle/publishing.gradle.kts")
+version = System.getenv("GITHUB_REF").substringAfter("refs/tags/v", "").ifBlank { version }
 
 kotlin {
     jvm()
