@@ -20,7 +20,7 @@ allprojects {
     }
 }
 
-version = System.getenv("GITHUB_REF").substringAfter("refs/tags/v", "").ifBlank { version }
+version = System.getenv("GITHUB_REF")?.substringAfter("refs/tags/v", version.toString()) ?: version
 
 kotlin {
     jvm()
