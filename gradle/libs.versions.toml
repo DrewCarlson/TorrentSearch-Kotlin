@@ -1,26 +1,27 @@
 [versions]
-kotlin = { strictly = "1.7.22" }
-dokka = "1.7.20"
+kotlin = { strictly = "1.8.10" }
+dokka = "1.8.10"
 coroutines = "1.6.4"
-serialization = "1.4.1"
-ktorio = "2.2.3"
-binary_compat = "0.12.1"
-
-spotless = "6.15.0"
-ktlint = "0.46.1"
+serialization = "1.5.0"
+ktorio = "2.2.4"
+binary_compat = "0.13.0"
+atomicfu = "0.20.0"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+kotlinter = { id = "org.jmailen.kotlinter", version = "3.13.0" }
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 coroutines-turbine = { module = "app.cash.turbine:turbine", version = "0.12.1" }
+
+atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
+atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
 
 serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }

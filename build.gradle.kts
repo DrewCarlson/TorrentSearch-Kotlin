@@ -1,16 +1,19 @@
-import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.serialization)
     alias(libs.plugins.binaryCompat)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.spotless)
+    alias(libs.plugins.kotlinter)
+}
+
+buildscript {
+    dependencies {
+        classpath(libs.atomicfu.plugin)
+    }
 }
 
 allprojects {
-    yarn.lockFileDirectory = file("gradle/kotlin-js-store")
     repositories {
         mavenCentral()
     }
@@ -55,6 +58,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(libs.coroutines.core)
+                implementation(libs.atomicfu)
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.contentNegotiation)
                 implementation(libs.ktor.serialization)

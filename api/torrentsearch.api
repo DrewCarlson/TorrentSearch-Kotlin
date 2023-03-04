@@ -196,7 +196,6 @@ public final class torrentsearch/models/TorrentDescription {
 
 public final class torrentsearch/models/TorrentDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Ltorrentsearch/models/TorrentDescription$$serializer;
-	public static final synthetic field descriptor Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
 	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltorrentsearch/models/TorrentDescription;
