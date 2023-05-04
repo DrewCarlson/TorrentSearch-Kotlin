@@ -56,14 +56,14 @@ public class TorrentSearch public constructor(
         PirateBayProvider(http, enableDefaultProviders),
         YtsProvider(http, enableDefaultProviders),
         EztvProvider(http, enableDefaultProviders),
-        LibreProvider(enableDefaultProviders),
+        LibreProvider(enabled = false),
     )
 
     /**
      * Search all enabled providers with the [TorrentQuery].
      */
     public fun search(buildQuery: TorrentQuery.() -> Unit): SearchResult {
-        check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
+        checkIsNotDisposed()
         val query = TorrentQuery().apply(buildQuery)
         val selectedProviders = providers.filter { provider ->
             provider.isEnabled && (
@@ -79,7 +79,7 @@ public class TorrentSearch public constructor(
      * Returns a list of enabled providers.
      */
     public fun enabledProviders(): List<TorrentProvider> {
-        check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
+        checkIsNotDisposed()
         return providers.filter(TorrentProvider::isEnabled).toList()
     }
 
@@ -87,7 +87,7 @@ public class TorrentSearch public constructor(
      * Returns a list of available [TorrentProvider] instances.
      */
     public fun providers(): List<TorrentProvider> {
-        check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
+        checkIsNotDisposed()
         return providers.toList()
     }
 
@@ -100,7 +100,7 @@ public class TorrentSearch public constructor(
         password: String? = null,
         cookies: List<String> = emptyList(),
     ) {
-        check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
+        checkIsNotDisposed()
         providers.singleOrNull { it.name == name }?.enable(username, password, cookies)
     }
 
@@ -108,7 +108,7 @@ public class TorrentSearch public constructor(
      * Disable the provider [name], future queries will not be handled by this provider.
      */
     public fun disableProvider(name: String) {
-        check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
+        checkIsNotDisposed()
         providers.singleOrNull { it.name == name }?.disable()
     }
 
@@ -118,5 +118,9 @@ public class TorrentSearch public constructor(
     public fun dispose() {
         disposed.value = true
         http.close()
+    }
+
+    private fun checkIsNotDisposed() {
+        check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
     }
 }
