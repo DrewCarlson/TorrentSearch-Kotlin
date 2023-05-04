@@ -28,8 +28,10 @@ fun main() {
         install("cors-proxy") {
             requestPipeline.intercept(HttpRequestPipeline.State) {
                 val originalUrl = context.url.buildString()
-                context.url("https://corsproxy.io/?${originalUrl.encodeURLParameter()}") {
+                context.url {
+                    path("")
                     parameters.clear()
+                    takeFrom("https://corsproxy.io/?${originalUrl.encodeURLParameter()}")
                 }
                 proceed()
             }
