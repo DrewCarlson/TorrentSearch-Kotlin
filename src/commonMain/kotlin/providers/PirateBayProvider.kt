@@ -74,7 +74,7 @@ internal class PirateBayProvider(
                 val torrentDescriptions = torrents.map { torrent ->
                     TorrentDescription(
                         provider = name,
-                        magnetUrl = formatMagnet(torrent.name, torrent.infoHash),
+                        magnetUrl = formatMagnet(torrent.infoHash, torrent.name),
                         title = torrent.name,
                         size = torrent.size,
                         seeds = torrent.seeders,
