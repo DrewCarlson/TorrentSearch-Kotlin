@@ -249,9 +249,9 @@ public abstract class torrentsearch/providers/BaseTorrentProvider : torrentsearc
 	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun disable ()V
 	public fun enable (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
-	public final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	protected final fun formatMagnet (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public fun getResultsPerPage ()I
-	public final fun hashFromMagnetUrl (Ljava/lang/String;)Ljava/lang/String;
+	protected final fun hashFromMagnetUrl (Ljava/lang/String;)Ljava/lang/String;
 	public final fun isEnabled ()Z
 }
 

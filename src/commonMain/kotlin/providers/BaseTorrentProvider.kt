@@ -51,12 +51,12 @@ public abstract class BaseTorrentProvider(
     /**
      * Combine the torrent [name] and [infoHash] hash to create a usable magnet link.
      */
-    public fun formatMagnet(infoHash: String, name: String): String {
+    protected fun formatMagnet(infoHash: String, name: String): String {
         val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
         return "magnet:?xt=urn:btih:$infoHash&dn=${name.encodeURLQueryComponent()}$trackersQueryString"
     }
 
-    public fun hashFromMagnetUrl(magnetUrl: String): String {
+    protected fun hashFromMagnetUrl(magnetUrl: String): String {
         return magnetUrl.substringAfter("xt=urn:btih:").substringBefore("&").uppercase()
     }
 }
