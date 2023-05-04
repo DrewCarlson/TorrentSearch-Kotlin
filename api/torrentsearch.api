@@ -191,7 +191,7 @@ public final class torrentsearch/models/TorrentDescription {
 	public final fun getTvdbId ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Ltorrentsearch/models/TorrentDescription;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+	public static final synthetic fun write$Self (Ltorrentsearch/models/TorrentDescription;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class torrentsearch/models/TorrentDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
