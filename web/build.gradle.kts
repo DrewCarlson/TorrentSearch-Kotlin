@@ -1,6 +1,7 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform") version KOTLIN_VERSION
-    id("org.jetbrains.compose") version JBCOMPOSE_VERSION
+    kotlin("multiplatform")
+    alias(libs.plugins.composejb)
 }
 
 kotlin {
@@ -14,13 +15,14 @@ kotlin {
             dependencies {
                 implementation(project(":"))
                 implementation(kotlin("stdlib-common"))
-                implementation(compose.web.core)
+                implementation(compose.html.core)
                 implementation(compose.runtime)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-                implementation("io.ktor:ktor-client-json:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-js:$KTOR_VERSION")
-                implementation("io.ktor:ktor-client-content-negotiation:$KTOR_VERSION")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
+                implementation(libs.coroutines.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.js)
+                implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.serialization)
+                implementation(libs.serialization.json)
             }
         }
     }
