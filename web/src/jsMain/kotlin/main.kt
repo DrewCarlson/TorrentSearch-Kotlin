@@ -175,5 +175,5 @@ private fun updateQueryParam(name: String, value: String?, vararg reset: String)
     } else {
         params.set(name, value.encodeURLQueryComponent())
     }
-    window.history.pushState(null, window.document.title, "?${params}")
+    window.history.replaceState(null, window.document.title, "?${params}")
 }
