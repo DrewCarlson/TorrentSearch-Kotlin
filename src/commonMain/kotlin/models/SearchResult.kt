@@ -17,18 +17,18 @@ import torrentsearch.TorrentProviderCache
  * the downstream flow is completed.
  */
 public class SearchResult internal constructor(
-    scope: CoroutineScope,
+    private val parentScope: CoroutineScope,
     private val providers: List<TorrentProvider>,
     private val providerCache: TorrentProviderCache?,
     private val query: TorrentQuery,
     private val previousResults: List<ProviderResult>? = emptyList(),
 ) {
-    private val scope = CoroutineScope(scope.coroutineContext + SupervisorJob())
+    private val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob())
     private val resultsFlow = providers
         .map(::createProviderQueryFlow)
         .merge()
         .flowOn(Dispatchers.Default)
-        .shareIn(scope, SharingStarted.Eagerly, providers.size)
+        .shareIn(parentScope, SharingStarted.Eagerly, providers.size)
 
     /**
      * A flow of all [TorrentDescription]s from each [TorrentProvider]
@@ -153,10 +153,10 @@ public class SearchResult internal constructor(
      * current instance and will produce [ProviderResult]s for any providers
      * that have additional result pages.
      *
-     * @return null if [hasNextResult] is false or the next [SearchResult] container.
+     * @return null if [hasNextResult] is false or the [SearchResult] container is cancelled.
      */
     public suspend fun nextResult(): SearchResult? {
-        if (isCancelled()) return null
+        if (isCompleted()) return null
         val nextProviders = resultsFlow.take(providers.size).toList()
             .filterIsInstance<ProviderResult.Success>()
             .filter(ProviderResult.Success::hasMoreResults)
@@ -167,7 +167,7 @@ public class SearchResult internal constructor(
         }
 
         return SearchResult(
-            scope = scope,
+            parentScope = parentScope,
             query = query.copy(page = query.page + 1),
             providers = providers.filter { nextProviders.contains(it.name) },
             providerCache = providerCache,
@@ -201,7 +201,7 @@ public class SearchResult internal constructor(
         val result = try {
             provider.search(query)
         } catch (e: Throwable) {
-            ProviderResult.Error.UnknownError(provider.name, e.message)
+            ProviderResult.Error.UnknownError(provider.name, e.message, e)
         }
         emit(result)
 

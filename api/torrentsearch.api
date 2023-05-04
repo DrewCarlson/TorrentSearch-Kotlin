@@ -93,12 +93,14 @@ public final class torrentsearch/models/ProviderResult$Error$RequestError : torr
 }
 
 public final class torrentsearch/models/ProviderResult$Error$UnknownError : torrentsearch/models/ProviderResult$Error {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ltorrentsearch/models/ProviderResult$Error$UnknownError;
-	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Error$UnknownError;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Error$UnknownError;
+	public final fun component3 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)Ltorrentsearch/models/ProviderResult$Error$UnknownError;
+	public static synthetic fun copy$default (Ltorrentsearch/models/ProviderResult$Error$UnknownError;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Ltorrentsearch/models/ProviderResult$Error$UnknownError;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getException ()Ljava/lang/Throwable;
 	public fun getMessage ()Ljava/lang/String;
 	public fun getProviderName ()Ljava/lang/String;
 	public fun hashCode ()I

@@ -66,6 +66,7 @@ public sealed class ProviderResult {
         public data class UnknownError(
             override val providerName: String,
             override val message: String?,
+            val exception: Throwable?,
         ) : Error()
     }
 }
