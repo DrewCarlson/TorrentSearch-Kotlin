@@ -8,7 +8,6 @@ import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
-import kotlinx.serialization.json.JsonNull.content
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
@@ -29,8 +28,7 @@ fun main() {
         install("cors-proxy") {
             requestPipeline.intercept(HttpRequestPipeline.State) {
                 val originalUrl = context.url.buildString()
-                context.url(scheme = "https", host = "thingproxy.freeboard.io") {
-                    path("fetch", originalUrl)
+                context.url("https://corsproxy.io/?${originalUrl.encodeURLParameter()}") {
                     parameters.clear()
                 }
                 proceed()
