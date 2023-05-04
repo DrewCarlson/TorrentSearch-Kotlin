@@ -184,12 +184,12 @@ public class SearchResult internal constructor(
 
     override fun toString(): String {
         return "SearchResult(" +
-                "isCompleted=${isCompleted()}, " +
-                "isCancelled=${isCancelled()}, " +
-                "hasNextResult=${hasNextResultSync() ?: "(pending)"}, " +
-                "providers=${providers.joinToString { it.name }}, " +
-                "query=$query, " +
-                "completed=${resultsFlow.replayCache.size})"
+            "isCompleted=${isCompleted()}, " +
+            "isCancelled=${isCancelled()}, " +
+            "hasNextResult=${hasNextResultSync() ?: "(pending)"}, " +
+            "providers=${providers.joinToString { it.name }}, " +
+            "query=$query, " +
+            "completed=${resultsFlow.replayCache.size})"
     }
 
     private fun createProviderQueryFlow(provider: TorrentProvider): Flow<ProviderResult> = flow {

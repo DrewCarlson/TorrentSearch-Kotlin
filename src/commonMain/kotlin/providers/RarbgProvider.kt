@@ -25,7 +25,6 @@ import torrentsearch.models.TorrentDescription
 import torrentsearch.models.TorrentQuery
 import kotlin.time.Duration.Companion.seconds
 
-
 internal class RarbgProvider(
     private val httpClient: HttpClient,
     private val providerCache: TorrentProviderCache?,
@@ -49,7 +48,7 @@ internal class RarbgProvider(
         Category.TV to "1;18;41;49",
         Category.MUSIC to "1;23;24;25;26",
         Category.APPS to "1;33;34;43",
-        Category.BOOKS to "35"
+        Category.BOOKS to "35",
     )
 
     override val searchParams = mapOf(
@@ -168,7 +167,7 @@ internal class RarbgProvider(
         @SerialName("torrent_results")
         val torrentResults: List<RarbgTorrent> = emptyList(),
         @SerialName("error_code")
-        val errorCode: Int? = null
+        val errorCode: Int? = null,
     )
 
     @Serializable

@@ -4,7 +4,6 @@ import io.ktor.http.encodeURLQueryComponent
 import torrentsearch.TorrentProvider
 import kotlin.native.concurrent.SharedImmutable
 
-
 @Suppress("HttpUrlsUsage")
 @SharedImmutable
 internal val trackers = listOf(
@@ -31,7 +30,7 @@ internal val trackers = listOf(
  * to false and the user will be required to call [enable] with authentication details.
  */
 public abstract class BaseTorrentProvider(
-    enabledByDefault: Boolean = true
+    enabledByDefault: Boolean = true,
 ) : TorrentProvider {
 
     final override var isEnabled: Boolean = enabledByDefault
@@ -40,7 +39,7 @@ public abstract class BaseTorrentProvider(
     override fun enable(
         username: String?,
         password: String?,
-        cookies: List<String>
+        cookies: List<String>,
     ) {
         isEnabled = true
     }
@@ -54,7 +53,7 @@ public abstract class BaseTorrentProvider(
      */
     public fun formatMagnet(infoHash: String, name: String): String {
         val trackersQueryString = "&tr=${trackers.joinToString("&tr=")}"
-        return "magnet:?xt=urn:btih:${infoHash}&dn=${name.encodeURLQueryComponent()}${trackersQueryString}"
+        return "magnet:?xt=urn:btih:$infoHash&dn=${name.encodeURLQueryComponent()}$trackersQueryString"
     }
 
     public fun hashFromMagnetUrl(magnetUrl: String): String {

@@ -15,5 +15,5 @@ public enum class Category {
     TV,
     MUSIC,
     APPS,
-    BOOKS
+    BOOKS,
 }

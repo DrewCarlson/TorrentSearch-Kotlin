@@ -60,7 +60,7 @@ class ProviderTests {
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
-            )
+            ),
         )
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
@@ -84,7 +84,7 @@ class ProviderTests {
             TorrentQuery(
                 imdbId = "tt0080339",
                 category = Category.MOVIES,
-            )
+            ),
         )
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
@@ -108,7 +108,7 @@ class ProviderTests {
             TorrentQuery(
                 tmdbId = 813,
                 category = Category.MOVIES,
-            )
+            ),
         )
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
@@ -122,7 +122,7 @@ class ProviderTests {
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
-            )
+            ),
         )
 
         assertIs<ProviderResult.Success>(result)
@@ -137,7 +137,7 @@ class ProviderTests {
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
-            )
+            ),
         )
 
         assertIs<ProviderResult.Success>(result)
@@ -152,7 +152,7 @@ class ProviderTests {
             TorrentQuery(
                 imdbId = "tt0080339",
                 category = Category.MOVIES,
-            )
+            ),
         )
 
         assertIs<ProviderResult.Success>(result)
@@ -167,7 +167,7 @@ class ProviderTests {
             TorrentQuery(
                 imdbId = "tt4254242",
                 category = Category.MOVIES,
-            )
+            ),
         )
 
         assertIs<ProviderResult.Success>(result)
@@ -176,7 +176,7 @@ class ProviderTests {
 
     private suspend fun searchWithTimeout(
         provider: TorrentProvider,
-        query: TorrentQuery
+        query: TorrentQuery,
     ): ProviderResult {
         var result = ProviderResult.Success("", emptyList())
 

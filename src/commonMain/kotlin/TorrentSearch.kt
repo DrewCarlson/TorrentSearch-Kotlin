@@ -66,9 +66,11 @@ public class TorrentSearch public constructor(
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
         val query = TorrentQuery().apply(buildQuery)
         val selectedProviders = providers.filter { provider ->
-            provider.isEnabled && (query.category == null
-                    || query.category == Category.ALL
-                    || provider.categories.containsKey(query.category))
+            provider.isEnabled && (
+                query.category == null ||
+                    query.category == Category.ALL ||
+                    provider.categories.containsKey(query.category)
+                )
         }
         return SearchResult(http, selectedProviders, providerCache, query)
     }
@@ -96,7 +98,7 @@ public class TorrentSearch public constructor(
         name: String,
         username: String? = null,
         password: String? = null,
-        cookies: List<String> = emptyList()
+        cookies: List<String> = emptyList(),
     ) {
         check(!disposed.value) { "TorrentSearch instance is disposed and cannot be reused." }
         providers.singleOrNull { it.name == name }?.enable(username, password, cookies)

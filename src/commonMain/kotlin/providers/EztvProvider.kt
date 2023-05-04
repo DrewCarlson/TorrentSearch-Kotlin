@@ -66,7 +66,7 @@ internal class EztvProvider(
                     peers = eztvTorrent.peers,
                     imdbId = "tt${eztvTorrent.imdbId}",
                     infoUrl = eztvTorrent.episodeUrl,
-                    hash = hashFromMagnetUrl(eztvTorrent.magnetUrl)
+                    hash = hashFromMagnetUrl(eztvTorrent.magnetUrl),
                 )
             }
             ProviderResult.Success(

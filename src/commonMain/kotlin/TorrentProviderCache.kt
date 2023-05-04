@@ -24,7 +24,7 @@ public interface TorrentProviderCache {
     public fun saveResults(
         provider: TorrentProvider,
         query: TorrentQuery,
-        results: List<TorrentDescription>
+        results: List<TorrentDescription>,
     )
 
     /**
