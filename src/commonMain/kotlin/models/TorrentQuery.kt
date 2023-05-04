@@ -27,6 +27,6 @@ public data class TorrentQuery(
     var limit: Int = -1,
 ) {
     init {
-        check(page > 0) { "Search query page must be greater than zero." }
+        require(page > 0) { "Search query page must be greater than zero." }
     }
 }
