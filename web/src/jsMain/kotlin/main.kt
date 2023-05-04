@@ -40,7 +40,7 @@ fun main() {
     val torrentSearch = TorrentSearch(httpClient = httpClient)
     val startParams = URLSearchParams(window.location.search)
     renderComposable("root") {
-        var searchQuery by remember { mutableStateOf(startParams.get("q")) }
+        var searchQuery by remember { mutableStateOf(startParams.get("q")?.decodeURLQueryComponent()) }
         var searchImdbQuery by remember { mutableStateOf(startParams.get("imdb")) }
         var searchTmdbQuery by remember { mutableStateOf(startParams.get("tmdb")) }
         var searchCategory: Category? by remember {
