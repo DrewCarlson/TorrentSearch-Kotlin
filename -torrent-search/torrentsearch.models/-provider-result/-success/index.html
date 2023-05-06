@@ -1,166 +1,205 @@
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Success</title>
-<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
-<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><link href="../../../../styles/prism.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script><script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>  </head>
-  <body>
-    <div class="navigation-wrapper" id="navigation-wrapper">
-      <div id="leftToggler"><span class="icon-toggler"></span></div>
-      <div class="library-name"><a href="../../../../index.html">TorrentSearch</a></div>
-      <div>0.4.2</div>
-      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
-      </div>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../../index.html">
+                    <span>TorrentSearch</span>
+            </a>
     </div>
-    <div id="container">
-      <div id="leftColumn">
+    <div>
+0.5.0    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div class="main-content" id="content" pageIds="TorrentSearch::torrentsearch.models/ProviderResult.Success///PointingToDeclaration//788909594">
-          <div class="breadcrumbs"><a href="../../../../index.html">TorrentSearch</a>/<a href="../../index.html">torrentsearch.models</a>/<a href="../index.html">ProviderResult</a>/<a href="index.html">Success</a></div>
-          <div class="cover ">
-            <h1 class="cover"><span><span>Success</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Success</a><span class="token punctuation">(</span>providerName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>torrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="token punctuation">, </span>fromCache<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span>page<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span>pageSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span>totalTorrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span> : <a href="../index.html">ProviderResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The data acquired from a successful <a href="../../../torrentsearch/-torrent-provider/index.html">torrentsearch.TorrentProvider</a> query.</p></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
-            <div class="tabs-section-body">
-              <h2 class="tabbedcontent">Constructors</h2>
-              <div class="table" data-togglable="Constructors"><a data-name="-1333198063%2FConstructors%2F788909594" anchor-label="Success" id="-1333198063%2FConstructors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="-success.html"><span><span>Success</span></span></a></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="TorrentSearch::torrentsearch.models/ProviderResult.Success///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../../index.html">TorrentSearch</a><span class="delimiter">/</span><a href="../../index.html">torrentsearch.models</a><span class="delimiter">/</span><a href="../index.html">ProviderResult</a><span class="delimiter">/</span><span class="current">Success</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Success</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Success</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>providerName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>torrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>fromCache<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>page<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>pageSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>torrents.size<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>totalTorrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>torrents.size</span></span><span class="token punctuation">)</span> : <a href="../index.html">ProviderResult</a></div><p class="paragraph">The data acquired from a successful <a href="../../../torrentsearch/-torrent-provider/index.html">torrentsearch.TorrentProvider</a> query.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1333198063%2FConstructors%2F788909594" anchor-label="Success" id="-1333198063%2FConstructors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-success.html"><span><span>Success</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1333198063%2FConstructors%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-success.html"><span class="token function">Success</span></a><span class="token punctuation">(</span>providerName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>torrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="token punctuation">, </span>fromCache<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span>page<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span>pageSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>torrents.size<span class="token punctuation">, </span>totalTorrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>torrents.size<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="17019874%2FProperties%2F788909594" anchor-label="fromCache" id="17019874%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="from-cache.html">fromCache</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="17019874%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="17019874%2FProperties%2F788909594" anchor-label="fromCache" id="17019874%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="from-cache.html">fromCache</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="17019874%2FProperties%2F788909594" anchor-label="fromCache" id="17019874%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">True if this result is from a <a href="../../../torrentsearch/-torrent-provider-cache/index.html">torrentsearch.TorrentProviderCache</a>/</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1704801465%2FProperties%2F788909594" anchor-label="hasMoreResults" id="1704801465%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="has-more-results.html">hasMoreResults</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1704801465%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="1704801465%2FProperties%2F788909594" anchor-label="hasMoreResults" id="1704801465%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="has-more-results.html">hasMoreResults</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1704801465%2FProperties%2F788909594" anchor-label="hasMoreResults" id="1704801465%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">Returns true when the provider indicated more results are available with additional requests.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1413126447%2FProperties%2F788909594" anchor-label="page" id="-1413126447%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="page.html">page</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1413126447%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="-1413126447%2FProperties%2F788909594" anchor-label="page" id="-1413126447%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="page.html">page</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1413126447%2FProperties%2F788909594" anchor-label="page" id="-1413126447%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">The page number containing the <a href="torrents.html">torrents</a>.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-532111408%2FProperties%2F788909594" anchor-label="pageSize" id="-532111408%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="page-size.html">pageSize</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532111408%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="-532111408%2FProperties%2F788909594" anchor-label="pageSize" id="-532111408%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="page-size.html">pageSize</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-532111408%2FProperties%2F788909594" anchor-label="pageSize" id="-532111408%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">The size (or limit) of each page.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="2006821604%2FProperties%2F788909594" anchor-label="providerName" id="2006821604%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="provider-name.html">providerName</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2006821604%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="2006821604%2FProperties%2F788909594" anchor-label="providerName" id="2006821604%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="provider-name.html">providerName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="2006821604%2FProperties%2F788909594" anchor-label="providerName" id="2006821604%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">The name of the provider which produced this result.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1765819139%2FProperties%2F788909594" anchor-label="torrents" id="-1765819139%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="torrents.html">torrents</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1765819139%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="-1765819139%2FProperties%2F788909594" anchor-label="torrents" id="-1765819139%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="torrents.html">torrents</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1765819139%2FProperties%2F788909594" anchor-label="torrents" id="-1765819139%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">The torrents found on the provider.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="790163827%2FProperties%2F788909594" anchor-label="totalTorrents" id="790163827%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex">
-                        <div><a href="total-torrents.html">totalTorrents</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="790163827%2FProperties%2F788909594"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="790163827%2FProperties%2F788909594" anchor-label="totalTorrents" id="790163827%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="total-torrents.html">totalTorrents</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="790163827%2FProperties%2F788909594" anchor-label="totalTorrents" id="790163827%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a><p class="paragraph">The total number of torrents available on the provider.</p></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">providerName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">torrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">fromCache<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">page<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span></span><span class="parameter ">pageSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>torrents.size<span class="token punctuation">, </span></span><span class="parameter ">totalTorrents<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>torrents.size</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="17019874%2FProperties%2F788909594" anchor-label="fromCache" id="17019874%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-cache.html"><span>from</span><wbr></wbr><span><span>Cache</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="17019874%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="from-cache.html">fromCache</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></div><div class="brief "><p class="paragraph">True if this result is from a <a href="../../../torrentsearch/-torrent-provider-cache/index.html">torrentsearch.TorrentProviderCache</a>/</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1704801465%2FProperties%2F788909594" anchor-label="hasMoreResults" id="1704801465%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-more-results.html"><span>has</span><wbr></wbr><span>More</span><wbr></wbr><span><span>Results</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1704801465%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="has-more-results.html">hasMoreResults</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true when the provider indicated more results are available with additional requests.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1413126447%2FProperties%2F788909594" anchor-label="page" id="-1413126447%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="page.html"><span><span>page</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1413126447%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="page.html">page</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span></div><div class="brief "><p class="paragraph">The page number containing the <a href="torrents.html">torrents</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532111408%2FProperties%2F788909594" anchor-label="pageSize" id="-532111408%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="page-size.html"><span>page</span><wbr></wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532111408%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="page-size.html">pageSize</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The size (or limit) of each page.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2006821604%2FProperties%2F788909594" anchor-label="providerName" id="2006821604%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="provider-name.html"><span>provider</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2006821604%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="provider-name.html">providerName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The name of the provider which produced this result.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1765819139%2FProperties%2F788909594" anchor-label="torrents" id="-1765819139%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="torrents.html"><span><span>torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1765819139%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="torrents.html">torrents</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-torrent-description/index.html">TorrentDescription</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The torrents found on the provider.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="790163827%2FProperties%2F788909594" anchor-label="totalTorrents" id="790163827%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="total-torrents.html"><span>total</span><wbr></wbr><span><span>Torrents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="790163827%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="total-torrents.html">totalTorrents</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The total number of torrents available on the provider.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
 </html>
-
