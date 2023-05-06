@@ -66,7 +66,9 @@ internal class RarbgProvider(
     init {
         if (enabled) {
             // Prefetch token
-            httpClient.launch { readToken() }
+            httpClient.launch {
+                runCatching { readToken() }
+            }
         }
     }
 
@@ -146,14 +148,9 @@ internal class RarbgProvider(
     internal suspend fun readToken(): String? {
         if (token == null) {
             token = mutex.withLock {
-                token ?: providerCache?.loadToken(this) ?: try {
-                    fetchToken().also { token ->
-                        providerCache?.saveToken(this, token)
-                        delay(API_REQUEST_DELAY)
-                    }
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                    null
+                token ?: providerCache?.loadToken(this) ?: fetchToken().also { token ->
+                    providerCache?.saveToken(this, token)
+                    delay(API_REQUEST_DELAY)
                 }
             }
         }
