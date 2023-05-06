@@ -60,14 +60,14 @@ class ProviderTests {
             TorrentQuery(
                 content = "Airplane",
                 category = Category.MOVIES,
-            ),
+            )
         )
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
-    fun testRarbgImdbIdProvider() = runTest {
+    fun testRarbgImdbIdProvider() = runTest(timeout = 30.seconds) {
         val provider = RarbgProvider(
             httpClient = http,
             enabled = false,
@@ -84,14 +84,14 @@ class ProviderTests {
             TorrentQuery(
                 imdbId = "tt0080339",
                 category = Category.MOVIES,
-            ),
+            )
         )
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
     }
 
     @Test
-    fun testRarbgTmdbIdProvider() = runTest {
+    fun testRarbgTmdbIdProvider() = runTest(timeout = 30.seconds) {
         val provider = RarbgProvider(
             httpClient = http,
             enabled = false,
@@ -108,7 +108,7 @@ class ProviderTests {
             TorrentQuery(
                 tmdbId = 813,
                 category = Category.MOVIES,
-            ),
+            )
         )
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
