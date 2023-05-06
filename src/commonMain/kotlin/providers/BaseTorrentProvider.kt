@@ -57,6 +57,6 @@ public abstract class BaseTorrentProvider(
     }
 
     protected fun hashFromMagnetUrl(magnetUrl: String): String {
-        return magnetUrl.substringAfter("xt=urn:btih:").substringBefore("&").uppercase()
+        return magnetUrl.substringBefore("&").substringAfter("xt=urn:btih:").uppercase()
     }
 }

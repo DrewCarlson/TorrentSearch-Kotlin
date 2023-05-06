@@ -52,7 +52,7 @@ public class TorrentSearch public constructor(
     }
 
     private val providers = providers + listOf(
-        RarbgProvider(http, providerCache, enableDefaultProviders, enableDefaultProviders),
+        RarbgProvider(http, providerCache, enableDefaultProviders),
         PirateBayProvider(http, enableDefaultProviders),
         YtsProvider(http, enableDefaultProviders),
         EztvProvider(http, enableDefaultProviders),

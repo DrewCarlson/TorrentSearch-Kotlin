@@ -46,7 +46,7 @@ class ProviderTests {
     fun testRarbgProvider() = runTest {
         val provider = RarbgProvider(
             httpClient = http,
-            prefetchToken = false,
+            enabled = false,
             providerCache = null,
         )
         val token = assertNotNull(provider.readToken())
@@ -70,7 +70,7 @@ class ProviderTests {
     fun testRarbgImdbIdProvider() = runTest {
         val provider = RarbgProvider(
             httpClient = http,
-            prefetchToken = false,
+            enabled = false,
             providerCache = null,
         )
         val token = assertNotNull(provider.readToken())
@@ -94,7 +94,7 @@ class ProviderTests {
     fun testRarbgTmdbIdProvider() = runTest {
         val provider = RarbgProvider(
             httpClient = http,
-            prefetchToken = false,
+            enabled = false,
             providerCache = null,
         )
         val token = assertNotNull(provider.readToken())

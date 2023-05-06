@@ -28,7 +28,6 @@ import kotlin.time.Duration.Companion.seconds
 internal class RarbgProvider(
     private val httpClient: HttpClient,
     private val providerCache: TorrentProviderCache?,
-    prefetchToken: Boolean = true,
     enabled: Boolean = true,
 ) : BaseTorrentProvider(enabled) {
 
@@ -65,7 +64,7 @@ internal class RarbgProvider(
     private var token: String? = null
 
     init {
-        if (prefetchToken) {
+        if (enabled) {
             // Prefetch token
             httpClient.launch { readToken() }
         }
