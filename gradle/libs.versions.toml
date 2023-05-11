@@ -21,7 +21,7 @@ composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-coroutines-turbine = { module = "app.cash.turbine:turbine", version = "0.12.3" }
+coroutines-turbine = { module = "app.cash.turbine:turbine", version = "0.13.0" }
 
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
 atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
