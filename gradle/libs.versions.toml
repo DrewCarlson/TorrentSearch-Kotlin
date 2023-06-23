@@ -5,7 +5,7 @@ coroutines = "1.7.1"
 serialization = "1.5.1"
 ktorio = "2.3.0"
 binary_compat = "0.13.1"
-atomicfu = "0.20.2"
+atomicfu = "0.21.0"
 composejb = "1.4.0"
 
 [plugins]
