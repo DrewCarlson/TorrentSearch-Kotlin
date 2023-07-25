@@ -6,7 +6,7 @@ serialization = "1.5.1"
 ktorio = "2.3.0"
 binary_compat = "0.13.1"
 atomicfu = "0.20.2"
-composejb = "1.4.0"
+composejb = "1.4.3"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
