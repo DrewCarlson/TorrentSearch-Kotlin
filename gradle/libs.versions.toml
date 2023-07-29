@@ -1,19 +1,19 @@
 [versions]
-kotlin = { strictly = "1.8.20" }
-dokka = "1.8.10"
-coroutines = "1.7.1"
+kotlin = { strictly = "1.9.0" }
+dokka = "1.8.20"
+coroutines = "1.7.3"
 serialization = "1.5.1"
-ktorio = "2.3.0"
-binary_compat = "0.13.1"
-atomicfu = "0.20.2"
-composejb = "1.4.0"
+ktorio = "2.3.2"
+binary_compat = "0.13.2"
+atomicfu = "0.21.0"
+composejb = "1.4.3"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
-kotlinter = { id = "org.jmailen.kotlinter", version = "3.14.0" }
+kotlinter = { id = "org.jmailen.kotlinter", version = "3.15.0" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.25.2" }
 composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
 
@@ -21,7 +21,7 @@ composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-coroutines-turbine = { module = "app.cash.turbine:turbine", version = "0.13.0" }
+coroutines-turbine = { module = "app.cash.turbine:turbine", version = "1.0.0" }
 
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
 atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
