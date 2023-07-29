@@ -49,6 +49,7 @@ public final class torrentsearch/models/Category : java/lang/Enum {
 	public static final field TV Ltorrentsearch/models/Category;
 	public static final field VIDEO Ltorrentsearch/models/Category;
 	public static final field XXX Ltorrentsearch/models/Category;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Ltorrentsearch/models/Category;
 	public static fun values ()[Ltorrentsearch/models/Category;
 }
@@ -139,6 +140,7 @@ public final class torrentsearch/models/SearchParam : java/lang/Enum {
 	public static final field TMDB_ID Ltorrentsearch/models/SearchParam;
 	public static final field TOKEN Ltorrentsearch/models/SearchParam;
 	public static final field TVDB_ID Ltorrentsearch/models/SearchParam;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Ltorrentsearch/models/SearchParam;
 	public static fun values ()[Ltorrentsearch/models/SearchParam;
 }
