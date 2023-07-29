@@ -15,7 +15,6 @@ import torrentsearch.models.TorrentQuery
 import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.LibreProvider
 import torrentsearch.providers.PirateBayProvider
-import torrentsearch.providers.RarbgProvider
 import torrentsearch.providers.YtsProvider
 
 internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0"
@@ -52,7 +51,6 @@ public class TorrentSearch public constructor(
     }
 
     private val providers = providers + listOf(
-        RarbgProvider(http, providerCache, enableDefaultProviders),
         PirateBayProvider(http, enableDefaultProviders),
         YtsProvider(http, enableDefaultProviders),
         EztvProvider(http, enableDefaultProviders),
