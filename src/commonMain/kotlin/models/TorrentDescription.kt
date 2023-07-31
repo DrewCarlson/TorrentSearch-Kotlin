@@ -12,7 +12,7 @@ public data class TorrentDescription(
     /** The provider which returned the torrent. */
     val provider: String,
     /** The Bittorrent magnet url to download the torrent. */
-    val magnetUrl: String,
+    val magnetUrl: String?,
     /** The provider's name for this torrent, not always the actual torrent file name. */
     val title: String,
     /** The size in bytes of the torrent contents. */
@@ -30,5 +30,8 @@ public data class TorrentDescription(
     /** The providers HTML info page for the torrent. */
     val infoUrl: String? = null,
     /** The torrent's hash. */
-    val hash: String,
-)
+    val hash: String?,
+) {
+
+    public val isResolved: Boolean = !magnetUrl.isNullOrBlank()
+}

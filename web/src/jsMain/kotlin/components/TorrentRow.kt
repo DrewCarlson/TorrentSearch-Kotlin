@@ -9,7 +9,10 @@ import torrentsearch.models.TorrentDescription
 import torrentsearch.web.toHumanReadableSize
 
 @Composable
-fun TorrentItem(torrent: TorrentDescription) {
+fun TorrentItem(
+    torrent: TorrentDescription,
+    onResolve: (TorrentDescription) -> Unit,
+) {
     Div({
         style {
             width(100.percent)
@@ -24,7 +27,7 @@ fun TorrentItem(torrent: TorrentDescription) {
             Text(torrent.provider)
         }
         Div({
-            title("Info hash: ${torrent.hash}")
+            title("Info hash: ${torrent.hash ?: "(unresolved)"}")
             style { property("margin-right", "auto") }
         }) {
             Text(torrent.title)
@@ -39,8 +42,16 @@ fun TorrentItem(torrent: TorrentDescription) {
             style { width(100.px) }
         }) { Text("Peers (${torrent.peers})") }
         Div {
-            A(torrent.magnetUrl) {
-                Text("Download")
+            if (torrent.isResolved) {
+                A(torrent.magnetUrl) {
+                    Text("Download")
+                }
+            } else {
+                A(href = "#", attrs = {
+                    onClick { onResolve(torrent) }
+                }) {
+                    Text("Resolve")
+                }
             }
         }
         Div {

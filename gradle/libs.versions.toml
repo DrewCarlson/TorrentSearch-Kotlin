@@ -7,6 +7,7 @@ ktorio = "2.3.2"
 binary_compat = "0.13.2"
 atomicfu = "0.21.0"
 composejb = "1.4.3"
+ktsoup = "0.3.0"
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -39,3 +40,6 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorio" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorio" }
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorio" }
 ktor-client-curl = { module = "io.ktor:ktor-client-curl", version.ref = "ktorio" }
+
+ktsoup-core = { module = "org.drewcarlson:ktsoup-core", version.ref = "ktsoup" }
+ktsoup-ktor = { module = "org.drewcarlson:ktsoup-ktor", version.ref = "ktsoup" }

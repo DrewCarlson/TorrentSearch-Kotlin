@@ -12,10 +12,7 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import torrentsearch.models.Category
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
+import kotlin.test.*
 
 class TorrentSearchTests {
 
@@ -37,6 +34,11 @@ class TorrentSearchTests {
     @BeforeTest
     fun setup() {
         torrentSearch = TorrentSearch(httpClient = http, enableDefaultProviders = false)
+    }
+
+    @AfterTest
+    fun cleanup() {
+        torrentSearch.providers().forEach { torrentSearch.disableProvider(it.name) }
     }
 
     @Test

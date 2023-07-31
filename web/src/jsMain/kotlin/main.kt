@@ -5,7 +5,7 @@ import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.browser.window
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import org.jetbrains.compose.web.css.*
@@ -39,12 +39,16 @@ fun main() {
     }
     val torrentSearch = TorrentSearch(httpClient = httpClient)
     val startParams = URLSearchParams(window.location.search)
+    val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     renderComposable("root") {
         var searchQuery by remember { mutableStateOf(startParams.get("q")?.decodeURLQueryComponent()) }
         var searchImdbQuery by remember { mutableStateOf(startParams.get("imdb")) }
         var searchTmdbQuery by remember { mutableStateOf(startParams.get("tmdb")) }
         var searchCategory: Category? by remember {
             mutableStateOf(startParams.get("c")?.takeIf(String::isNotBlank)?.run(Category::valueOf))
+        }
+        val resolvedTorrents = remember {
+            mutableStateMapOf<String, TorrentDescription>()
         }
         val searchResult by produceState<SearchResult?>(
             null,
@@ -56,10 +60,12 @@ fun main() {
             val queries = listOfNotNull(searchQuery, searchImdbQuery, searchTmdbQuery)
             if (queries.isEmpty() || queries.all(String::isBlank)) {
                 value = null
+                resolvedTorrents.clear()
                 return@produceState
             }
 
             delay(500)
+            resolvedTorrents.clear()
             value = torrentSearch.search {
                 content = searchQuery
                 imdbId = searchImdbQuery
@@ -78,6 +84,19 @@ fun main() {
             searchResult?.providerResults()?.onEach {
                 value = (value + it).sortedBy(ProviderResult::providerName)
             }?.collect()
+        }
+
+        val onResolve = remember {
+            { torrent: TorrentDescription ->
+                scope.launch {
+                    val resultSet = torrentSearch.resolve(listOf(torrent))
+                    val resolved = resultSet.resolved.firstOrNull()
+                    if (resolved != null) {
+                        resolvedTorrents[resolved.title] = resolved
+                    }
+                }
+                Unit
+            }
         }
 
         Div({
@@ -159,7 +178,8 @@ fun main() {
                     }
                 }) {
                     torrents.forEach { torrent ->
-                        TorrentItem(torrent)
+                        val actualTorrent = resolvedTorrents[torrent.title] ?: torrent
+                        TorrentItem(actualTorrent, onResolve)
                     }
                 }
             }

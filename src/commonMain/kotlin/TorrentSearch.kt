@@ -9,11 +9,9 @@ import io.ktor.http.userAgent
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.json.Json
-import torrentsearch.models.Category
-import torrentsearch.models.SearchResult
-import torrentsearch.models.TorrentQuery
+import torrentsearch.models.*
+import torrentsearch.providers.*
 import torrentsearch.providers.EztvProvider
-import torrentsearch.providers.LibreProvider
 import torrentsearch.providers.PirateBayProvider
 import torrentsearch.providers.YtsProvider
 
@@ -50,12 +48,17 @@ public class TorrentSearch public constructor(
         }
     }
 
-    private val providers = providers + listOf(
-        PirateBayProvider(http, enableDefaultProviders),
-        YtsProvider(http, enableDefaultProviders),
-        EztvProvider(http, enableDefaultProviders),
-        LibreProvider(enabled = false),
-    )
+    private val providersMap = (
+        providers + listOf(
+            PirateBayProvider(http, enableDefaultProviders),
+            YtsProvider(http, enableDefaultProviders),
+            EztvProvider(http, enableDefaultProviders),
+            X1337Provider(http, enableDefaultProviders),
+            LibreProvider(enabled = false),
+        )
+        ).associateBy { it.name }
+
+    private val providers = providersMap.values.toList()
 
     /**
      * Search all enabled providers with the [TorrentQuery].
@@ -71,6 +74,23 @@ public class TorrentSearch public constructor(
                 )
         }
         return SearchResult(http, selectedProviders, providerCache, query)
+    }
+
+    /**
+     * Resolve missing details such as the torrent hash/magnetUrl for
+     * [TorrentDescription]s which require an additional request to obtain.
+     *
+     * This is typically required for some HTML scraping based providers which
+     * do not provide full details in the initial search results.
+     *
+     * @see TorrentDescription.isResolved to determine if a torrent needs additional resolution.
+     */
+    public suspend fun resolve(torrents: List<TorrentDescription>): ResolveResultSet {
+        val torrentsByProvider = torrents.groupBy { it.provider }
+        val results = torrentsByProvider.mapNotNull { (providerName, torrentsList) ->
+            providersMap[providerName]?.resolve(torrentsList)
+        }
+        return ResolveResultSet(results)
     }
 
     /**

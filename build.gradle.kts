@@ -63,6 +63,8 @@ kotlin {
                 api(libs.ktor.client.core)
                 implementation(libs.ktor.client.contentNegotiation)
                 implementation(libs.ktor.serialization)
+                implementation(libs.ktsoup.core)
+                implementation(libs.ktsoup.ktor)
             }
         }
         val commonTest by getting {

@@ -11,13 +11,13 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import torrentsearch.models.Category
 import torrentsearch.models.ProviderResult
+import torrentsearch.models.ResolveResult
 import torrentsearch.models.TorrentQuery
+import torrentsearch.providers.*
 import torrentsearch.providers.EztvProvider
 import torrentsearch.providers.PirateBayProvider
 import torrentsearch.providers.YtsProvider
-import kotlin.test.Test
-import kotlin.test.assertIs
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class ProviderTests {
 
@@ -93,5 +93,40 @@ class ProviderTests {
 
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
+    }
+
+    @Test
+    fun test1337xProvider() = runTest {
+        val provider = X1337Provider(http)
+
+        val result = provider.search(
+            TorrentQuery(
+                content = "The Flash",
+                category = Category.TV,
+            ),
+        )
+
+        assertIs<ProviderResult.Success>(result)
+        assertEquals(40, result.torrents.size)
+        assertEquals(1, result.page)
+        assertTrue(result.totalTorrents > 40)
+
+        val torrent = result.torrents.first()
+
+        assertEquals(provider.name, torrent.provider)
+        assertFalse(torrent.isResolved)
+        assertTrue(torrent.seeds > 0)
+        assertTrue(torrent.peers > 0)
+        assertNull(torrent.hash)
+        assertNull(torrent.magnetUrl)
+        assertTrue(torrent.title.isNotEmpty())
+
+        val resolveResult = provider.resolve(listOf(torrent))
+        assertIs<ResolveResult.Success>(resolveResult)
+        val resolved = resolveResult.torrents.firstOrNull()
+        assertNotNull(resolved)
+        assertTrue(resolved.isResolved)
+        assertFalse(resolved.magnetUrl.isNullOrBlank())
+        assertFalse(resolved.hash.isNullOrBlank())
     }
 }

@@ -25,6 +25,8 @@ public sealed class ProviderResult {
         val pageSize: Int = torrents.size,
         /** The total number of torrents available on the provider. */
         val totalTorrents: Int = torrents.size,
+        /** Indicates if the [TorrentDescription]s must be resolved to retrieve download information. */
+        val requiresResolution: Boolean = false,
     ) : ProviderResult() {
         /**
          * Returns true when the provider indicated more results are available

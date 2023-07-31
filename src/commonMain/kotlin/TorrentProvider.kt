@@ -1,10 +1,6 @@
 package torrentsearch
 
-import torrentsearch.models.Category
-import torrentsearch.models.ProviderResult
-import torrentsearch.models.SearchParam
-import torrentsearch.models.TorrentDescription
-import torrentsearch.models.TorrentQuery
+import torrentsearch.models.*
 
 /**
  * [TorrentProvider]s define how to communicate with a single torrent provider.
@@ -40,6 +36,19 @@ public interface TorrentProvider {
      * [TorrentDescription]s for each of the Provider's entries.
      */
     public suspend fun search(query: TorrentQuery): ProviderResult
+
+    /**
+     * Resolve missing details such as the torrent hash/magnetUrl for
+     * [TorrentDescription]s which require an additional request to obtain.
+     *
+     * This is typically required for some HTML scraping based providers which
+     * do not provide full details in the initial search results.
+     *
+     * @see TorrentDescription.isResolved to determine if a torrent needs additional resolution.
+     */
+    public suspend fun resolve(torrents: List<TorrentDescription>): ResolveResult {
+        return ResolveResult.Success(name, torrents)
+    }
 
     /**
      * Enable this provider using the provided authentication details.
