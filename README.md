@@ -32,6 +32,21 @@ println(result.torrents().toList())
 // [TorrentDescription(provider=Libre, title=Big Buck Bunny, magnetUrl=magnet:?xt=urn:btih:...]
 ```
 
+Some providers may require additional requests to resolve download information for a `TorrentDescription`.
+This can be checked on the individual `TorrentDescription`s or for the whole collection returned by a provider.
+
+```kotlin
+val searchResult = torrentSearch.search { /* ... */ }
+
+val unresolved = searchResult.providerResults().filter { it.requiresResolution }.toList()
+
+val resultSet = torrentSearch.resolve(unresolved.flatMap { it.torrents })
+
+val torrent = resultSet.torrents.first()
+
+// Now you can access `torrent.magnetUrl` and `torrent.infoHash`
+```
+
 ## Caching
 
 An optional [`TorrentProviderCache`](src/commonMain/kotlin/TorrentProviderCache.kt)

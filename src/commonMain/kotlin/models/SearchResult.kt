@@ -37,7 +37,6 @@ public class SearchResult internal constructor(
      * @param cancelOnComplete When true, cancel pending provider task
      * when the returned flow is completed.
      */
-    @OptIn(FlowPreview::class)
     public fun torrents(cancelOnComplete: Boolean = false): Flow<TorrentDescription> {
         if (providers.isEmpty() && previousResults.isNullOrEmpty()) {
             return emptyFlow()
