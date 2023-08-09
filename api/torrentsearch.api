@@ -42,6 +42,7 @@ public final class torrentsearch/TorrentSearch {
 
 public final class torrentsearch/models/Category : java/lang/Enum {
 	public static final field ALL Ltorrentsearch/models/Category;
+	public static final field ANIME Ltorrentsearch/models/Category;
 	public static final field APPS Ltorrentsearch/models/Category;
 	public static final field AUDIO Ltorrentsearch/models/Category;
 	public static final field BOOKS Ltorrentsearch/models/Category;
