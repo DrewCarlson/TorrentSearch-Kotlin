@@ -129,4 +129,24 @@ class ProviderTests {
         assertFalse(resolved.magnetUrl.isNullOrBlank())
         assertFalse(resolved.hash.isNullOrBlank())
     }
+
+    @Test
+    fun testNyaaProvider() = runTest {
+        val provider = NyaaProvider(http)
+
+        val result = provider.search(
+            TorrentQuery(
+                content = "Bleach",
+                category = Category.MOVIES,
+            ),
+        )
+
+        assertIs<ProviderResult.Success>(result)
+        assertTrue(result.torrents.isNotEmpty())
+        assertFalse(result.requiresResolution)
+
+        val torrent = result.torrents.firstOrNull()
+        assertFalse(torrent?.magnetUrl.isNullOrBlank())
+        assertFalse(torrent?.hash.isNullOrBlank())
+    }
 }

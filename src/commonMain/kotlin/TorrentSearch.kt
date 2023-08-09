@@ -54,6 +54,7 @@ public class TorrentSearch public constructor(
             YtsProvider(http, enableDefaultProviders),
             EztvProvider(http, enableDefaultProviders),
             X1337Provider(http, enableDefaultProviders),
+            NyaaProvider(http, enabled = false),
             LibreProvider(enabled = false),
         )
         ).associateBy { it.name }

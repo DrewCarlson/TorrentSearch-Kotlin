@@ -47,7 +47,7 @@ public interface TorrentProvider {
      * @see TorrentDescription.isResolved to determine if a torrent needs additional resolution.
      */
     public suspend fun resolve(torrents: List<TorrentDescription>): ResolveResult {
-        return ResolveResult.Success(name, torrents)
+        return ResolveResult.Success(name, emptyList())
     }
 
     /**

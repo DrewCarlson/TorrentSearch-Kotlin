@@ -31,19 +31,23 @@ fun main() {
                 context.url {
                     path("")
                     parameters.clear()
-                    takeFrom("https://corsproxy.io/?${originalUrl.encodeURLParameter()}")
+                    //takeFrom("https://corsproxy.io/?${originalUrl.encodeURLParameter()}")
+                    takeFrom("https://thingproxy.freeboard.io/fetch/${originalUrl.encodeURLParameter()}")
                 }
                 proceed()
             }
         }
     }
-    val torrentSearch = TorrentSearch(httpClient = httpClient)
+    val torrentSearch = TorrentSearch(httpClient = httpClient).apply {
+        providers().forEach { enableProvider(it.name) }
+    }
     val startParams = URLSearchParams(window.location.search)
     val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     renderComposable("root") {
         var searchQuery by remember { mutableStateOf(startParams.get("q")?.decodeURLQueryComponent()) }
         var searchImdbQuery by remember { mutableStateOf(startParams.get("imdb")) }
         var searchTmdbQuery by remember { mutableStateOf(startParams.get("tmdb")) }
+        var searchPageQuery by remember { mutableStateOf(startParams.get("page")) }
         var searchCategory: Category? by remember {
             mutableStateOf(startParams.get("c")?.takeIf(String::isNotBlank)?.run(Category::valueOf))
         }
@@ -56,6 +60,7 @@ fun main() {
             searchImdbQuery,
             searchTmdbQuery,
             searchCategory,
+            searchPageQuery,
         ) {
             val queries = listOfNotNull(searchQuery, searchImdbQuery, searchTmdbQuery)
             if (queries.isEmpty() || queries.all(String::isBlank)) {
@@ -71,6 +76,7 @@ fun main() {
                 imdbId = searchImdbQuery
                 tmdbId = searchTmdbQuery?.toIntOrNull()
                 category = searchCategory
+                page = searchPageQuery?.toIntOrNull() ?: 1
             }
         }
         val torrents by produceState(emptyList<TorrentDescription>(), searchResult) {
@@ -132,6 +138,10 @@ fun main() {
                     searchImdbQuery = null
                     searchTmdbQuery = newQuery
                     updateQueryParam("tmdb", newQuery, "q", "imdb")
+                }
+                SearchQueryInput("page", searchPageQuery) { newQuery ->
+                    searchPageQuery = newQuery
+                    updateQueryParam("page", newQuery)
                 }
                 CategorySelect(searchCategory) { selectedCategory ->
                     searchCategory = selectedCategory
