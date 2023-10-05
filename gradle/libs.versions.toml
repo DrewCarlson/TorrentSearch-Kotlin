@@ -3,7 +3,7 @@ kotlin = { strictly = "1.9.10" }
 dokka = "1.8.20"
 coroutines = "1.7.3"
 serialization = "1.6.0"
-ktorio = "2.3.4"
+ktorio = "2.3.5"
 binary_compat = "0.13.2"
 atomicfu = "0.22.0"
 composejb = "1.5.1"
