@@ -48,7 +48,7 @@ jobs:
           arguments: clean dokkaHtml
 
       - name: Publish Docs
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
