@@ -11,11 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  gradle:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+  jvm-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4

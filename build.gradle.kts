@@ -40,12 +40,13 @@ kotlin {
             }
         }
     }
-    macosX64("macos")
+    macosX64()
     macosArm64()
-    mingwX64("win64")
+    mingwX64()
     linuxX64()
 
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
@@ -95,47 +96,21 @@ kotlin {
             }
         }
 
-        val nativeCommonMain by creating {
-            dependsOn(commonMain)
-        }
-        val nativeCommonTest by creating {
-            dependsOn(commonTest)
-        }
-        val desktopCommonMain by creating {
-            dependsOn(nativeCommonMain)
-        }
-        val desktopCommonTest by creating {
-            dependsOn(nativeCommonTest)
+        val mingwX64Test by getting
+        val macosX64Test by getting
+        val macosArm64Test by getting
+        val linuxX64Test by getting
+        configure(listOf(mingwX64Test, macosX64Test, macosArm64Test, linuxX64Test)) {
             dependencies {
                 implementation(libs.ktor.client.curl)
             }
         }
 
-        val win64Main by getting
-        val macosMain by getting
-        val macosArm64Main by getting { dependsOn(macosMain) }
-        val linuxX64Main by getting
-        configure(listOf(win64Main, macosMain, macosArm64Main, linuxX64Main)) {
-            dependsOn(desktopCommonMain)
-        }
-
-        val win64Test by getting
-        val macosTest by getting
-        val macosArm64Test by getting { dependsOn(macosTest) }
-        val linuxX64Test by getting
-        configure(listOf(win64Test, macosTest, macosArm64Test, linuxX64Test)) {
-            dependsOn(desktopCommonTest)
-        }
-
-        val iosMain by getting { dependsOn(nativeCommonMain) }
-        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
-        val iosTest by getting {
-            dependsOn(nativeCommonTest)
+        iosTest {
             dependencies {
                 implementation(libs.ktor.client.darwin)
             }
         }
-        val iosSimulatorArm64Test by getting { dependsOn(iosTest) }
     }
 }
 

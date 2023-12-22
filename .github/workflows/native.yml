@@ -11,10 +11,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  gradle:
+  native-tests:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -34,12 +34,12 @@ jobs:
         name: Test Windows Target
         if: ${{ startsWith(matrix.os, 'windows') }}
         with:
-          arguments: win64Test
+          arguments: mingwX64Test
       - uses: gradle/gradle-build-action@v2
         name: Test Apple Targets
         if: ${{ startsWith(matrix.os, 'macos') }}
         with:
-          arguments: macosTest # iosTest
+          arguments: macosX64Test # iosTest
       - uses: gradle/gradle-build-action@v2
         name: Test Linux Target
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
