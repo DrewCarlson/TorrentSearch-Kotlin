@@ -238,7 +238,6 @@ public final class torrentsearch/models/SearchResult {
 
 public final class torrentsearch/models/TorrentDescription {
 	public static final field Companion Ltorrentsearch/models/TorrentDescription$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -269,7 +268,6 @@ public final class torrentsearch/models/TorrentDescription {
 	public fun hashCode ()I
 	public final fun isResolved ()Z
 	public fun toString ()Ljava/lang/String;
-	public static final synthetic fun write$Self (Ltorrentsearch/models/TorrentDescription;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class torrentsearch/models/TorrentDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
