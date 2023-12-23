@@ -2,10 +2,8 @@ package torrentsearch.providers
 
 import io.ktor.http.encodeURLQueryComponent
 import torrentsearch.TorrentProvider
-import kotlin.native.concurrent.SharedImmutable
 
 @Suppress("HttpUrlsUsage")
-@SharedImmutable
 internal val trackers = listOf(
     "udp://p4p.arenabg.ch:1337",
     "udp://tracker.leechers-paradise.org:6969",
