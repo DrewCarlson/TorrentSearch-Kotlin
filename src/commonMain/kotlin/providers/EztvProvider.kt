@@ -22,7 +22,7 @@ internal class EztvProvider(
 ) : BaseTorrentProvider(enabled) {
 
     override val name: String = "eztv"
-    override val baseUrl: String = "https://eztv.re/api/"
+    override val baseUrl: String = "https://eztvx.to/api/"
     override val categories: Map<Category, String> = mapOf(Category.TV to "")
     override val tokenPath: String = ""
     override val searchParams: Map<SearchParam, String> = mapOf(
