@@ -85,6 +85,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
                 implementation(libs.ktor.client.okhttp)
+                implementation(libs.ktor.client.logging)
             }
         }
         val jsMain by getting

@@ -5,6 +5,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
 import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.*
 import io.ktor.http.userAgent
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.firstOrNull
@@ -23,6 +24,11 @@ class TorrentSearchTests {
 
         defaultRequest {
             userAgent(USER_AGENT)
+        }
+
+        Logging {
+            level = LogLevel.ALL
+            logger = Logger.SIMPLE
         }
 
         install(HttpCookies) {
