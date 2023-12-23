@@ -99,6 +99,11 @@ class ProviderTests {
 
         assertIs<ProviderResult.Success>(result)
         assertTrue(result.torrents.isNotEmpty())
+        val t1 = result.torrents.first()
+        assertEquals(
+            "https://eztvx.to/ep/1439724/the-magicians-s04e13-no-better-to-be-safe-than-sorry-480p-x264-msd/",
+            t1.infoUrl
+        )
     }
 
     @Test

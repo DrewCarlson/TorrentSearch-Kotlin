@@ -10,6 +10,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.takeFrom
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import torrentsearch.models.Category
 import torrentsearch.models.ProviderResult
 import torrentsearch.models.SearchParam
@@ -65,7 +66,7 @@ internal class EztvProvider(
                     seeds = eztvTorrent.seeds,
                     peers = eztvTorrent.peers,
                     imdbId = "tt${eztvTorrent.imdbId}",
-                    infoUrl = eztvTorrent.episodeUrl,
+                    infoUrl = "${baseUrl.removeSuffix("/api/")}${eztvTorrent.episodePath}",
                     hash = hashFromMagnetUrl(eztvTorrent.magnetUrl),
                 )
             }
@@ -92,6 +93,8 @@ internal class EztvProvider(
 
     @Serializable
     internal class EztvTorrent(
+        @Suppress("MemberVisibilityCanBePrivate")
+        val id: Long,
         @SerialName("magnet_url")
         val magnetUrl: String,
         val seeds: Int,
@@ -101,7 +104,14 @@ internal class EztvProvider(
         val title: String,
         @SerialName("imdb_id")
         val imdbId: String,
-        @SerialName("episode_url")
-        val episodeUrl: String,
-    )
+    ) {
+        @Transient
+        val episodePath: String =
+            "/ep/$id/${
+                title.lowercase()
+                    .replace(' ', '-')
+                    .replace('_', '-')
+                    .removeSuffix("-eztv")
+            }/"
+    }
 }
