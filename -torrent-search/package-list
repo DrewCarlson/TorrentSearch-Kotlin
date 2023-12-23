@@ -2,6 +2,7 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:torrentsearch.models////PointingToDeclaration/-torrent-search/torrentsearch.models/index.html
 $dokka.location:torrentsearch.models/Category.ALL///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-a-l-l/index.html
+$dokka.location:torrentsearch.models/Category.ANIME///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-a-n-i-m-e/index.html
 $dokka.location:torrentsearch.models/Category.APPS///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-a-p-p-s/index.html
 $dokka.location:torrentsearch.models/Category.AUDIO///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-a-u-d-i-o/index.html
 $dokka.location:torrentsearch.models/Category.BOOKS///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-b-o-o-k-s/index.html
@@ -13,6 +14,7 @@ $dokka.location:torrentsearch.models/Category.TV///PointingToDeclaration/{"org.j
 $dokka.location:torrentsearch.models/Category.VIDEO///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-v-i-d-e-o/index.html
 $dokka.location:torrentsearch.models/Category.XXX///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-category/-x-x-x/index.html
 $dokka.location:torrentsearch.models/Category///PointingToDeclaration/-torrent-search/torrentsearch.models/-category/index.html
+$dokka.location:torrentsearch.models/Category/entries/#/PointingToDeclaration/-torrent-search/torrentsearch.models/-category/entries.html
 $dokka.location:torrentsearch.models/Category/valueOf/#kotlin.String/PointingToDeclaration/-torrent-search/torrentsearch.models/-category/value-of.html
 $dokka.location:torrentsearch.models/Category/values/#/PointingToDeclaration/-torrent-search/torrentsearch.models/-category/values.html
 $dokka.location:torrentsearch.models/ProviderResult.Error.InvalidQueryError///PointingToDeclaration/-torrent-search/torrentsearch.models/-provider-result/-error/-invalid-query-error/index.html
@@ -81,6 +83,7 @@ $dokka.location:torrentsearch.models/SearchParam.TMDB_ID///PointingToDeclaration
 $dokka.location:torrentsearch.models/SearchParam.TOKEN///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-search-param/-t-o-k-e-n/index.html
 $dokka.location:torrentsearch.models/SearchParam.TVDB_ID///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-torrent-search/torrentsearch.models/-search-param/-t-v-d-b_-i-d/index.html
 $dokka.location:torrentsearch.models/SearchParam///PointingToDeclaration/-torrent-search/torrentsearch.models/-search-param/index.html
+$dokka.location:torrentsearch.models/SearchParam/entries/#/PointingToDeclaration/-torrent-search/torrentsearch.models/-search-param/entries.html
 $dokka.location:torrentsearch.models/SearchParam/valueOf/#kotlin.String/PointingToDeclaration/-torrent-search/torrentsearch.models/-search-param/value-of.html
 $dokka.location:torrentsearch.models/SearchParam/values/#/PointingToDeclaration/-torrent-search/torrentsearch.models/-search-param/values.html
 $dokka.location:torrentsearch.models/SearchResult///PointingToDeclaration/-torrent-search/torrentsearch.models/-search-result/index.html
