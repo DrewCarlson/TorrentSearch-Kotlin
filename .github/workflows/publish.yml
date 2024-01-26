@@ -36,12 +36,12 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         name: Publish
         with:
           arguments: clean publishAllPublicationsToMavenCentralRepository
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         name: Build docs
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         with:
