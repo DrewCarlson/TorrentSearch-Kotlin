@@ -14,7 +14,7 @@ multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotl
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
-kotlinter = { id = "org.jmailen.kotlinter", version = "3.16.0" }
+kotlinter = { id = "org.jmailen.kotlinter", version = "4.3.0" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.26.0" }
 composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
 
