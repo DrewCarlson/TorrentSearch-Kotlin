@@ -15,7 +15,7 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
 kotlinter = { id = "org.jmailen.kotlinter", version = "4.3.0" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.26.0" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.28.0" }
 composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
 
 [libraries]
