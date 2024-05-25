@@ -270,14 +270,14 @@ public final class torrentsearch/models/TorrentDescription {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class torrentsearch/models/TorrentDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public synthetic class torrentsearch/models/TorrentDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Ltorrentsearch/models/TorrentDescription$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltorrentsearch/models/TorrentDescription;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltorrentsearch/models/TorrentDescription;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltorrentsearch/models/TorrentDescription;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltorrentsearch/models/TorrentDescription;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
