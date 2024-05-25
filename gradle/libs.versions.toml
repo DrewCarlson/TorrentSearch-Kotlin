@@ -1,5 +1,5 @@
 [versions]
-kotlin = { strictly = "1.9.23" }
+kotlin = { strictly = "2.0.0" }
 dokka = "1.9.20"
 coroutines = "1.8.1"
 serialization = "1.6.3"
@@ -16,7 +16,8 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat" }
 kotlinter = { id = "org.jmailen.kotlinter", version = "4.3.0" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.28.0" }
-composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composejb" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
