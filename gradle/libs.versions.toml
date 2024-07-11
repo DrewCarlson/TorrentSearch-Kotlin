@@ -6,7 +6,7 @@ serialization = "1.7.1"
 ktorio = "2.3.11"
 binary_compat = "0.14.0"
 atomicfu = "0.25.0"
-composejb = "1.6.10"
+composejb = "1.6.11"
 ktsoup = "0.3.0"
 
 [plugins]
