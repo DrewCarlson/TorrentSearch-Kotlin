@@ -28,6 +28,7 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
+      - uses: gradle/actions/setup-gradle@v4
       - name: Cache Build files
         uses: actions/cache@v4
         with:
@@ -36,22 +37,18 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
 
-      - uses: gradle/gradle-build-action@v3
-        name: Publish
-        with:
-          arguments: clean publishAllPublicationsToMavenCentralRepository
+      - name: Publish
+        run: ./gradlew clean publishAllPublicationsToMavenCentralRepository
 
-      - uses: gradle/gradle-build-action@v3
-        name: Build docs
+      - name: Build docs
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-        with:
-          arguments: clean dokkaHtml
+        run: ./gradlew clean dokkaHtml
 
       - name: Publish Docs
         uses: JamesIves/github-pages-deploy-action@v4.6.3
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: docs
-          FOLDER: build/dokka/html
-          SINGLE_COMMIT: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: docs
+          folder: build/dokka/html
+          single-commit: true

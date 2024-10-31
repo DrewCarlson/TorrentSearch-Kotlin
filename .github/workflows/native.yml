@@ -22,6 +22,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
+      - uses: gradle/actions/setup-gradle@v4
       - name: Cache Build files
         uses: actions/cache@v4
         if: ${{ !startsWith(matrix.os, 'windows') }}
@@ -30,18 +31,12 @@ jobs:
             ~/.konan
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
-      - uses: gradle/gradle-build-action@v3
-        name: Test Windows Target
+      - name: Test Windows Target
         if: ${{ startsWith(matrix.os, 'windows') }}
-        with:
-          arguments: mingwX64Test
-      - uses: gradle/gradle-build-action@v3
-        name: Test Apple Targets
+        run: ./gradlew mingwX64Test
+      - name: Test Apple Targets
         if: ${{ startsWith(matrix.os, 'macos') }}
-        with:
-          arguments: macosX64Test # iosTest
-      - uses: gradle/gradle-build-action@v3
-        name: Test Linux Target
+        run: ./gradlew macosX64Test # iosTest
+      - name: Test Linux Target
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        with:
-          arguments: linuxX64Test
+        run: ./gradlew linuxX64Test
