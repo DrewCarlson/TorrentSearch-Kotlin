@@ -28,8 +28,8 @@ public abstract interface class torrentsearch/TorrentProviderCache {
 
 public final class torrentsearch/TorrentSearch {
 	public fun <init> ()V
-	public fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;)V
-	public synthetic fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;Ljava/lang/String;)V
+	public synthetic fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun disableProvider (Ljava/lang/String;)V
 	public final fun dispose ()V
 	public final fun enableProvider (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
