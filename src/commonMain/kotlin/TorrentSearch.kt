@@ -26,12 +26,14 @@ internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98
  * They can be enabled later with [enableProvider].
  * @param providers An optional list of custom [TorrentProvider] implementations.
  * @param providerCache An optional [TorrentProviderCache] for caching.
+ * @param userAgent An optional User Agent string to use for all requests.
  */
 public class TorrentSearch public constructor(
     httpClient: HttpClient = HttpClient(),
     enableDefaultProviders: Boolean = true,
     providers: List<TorrentProvider> = emptyList(),
     private val providerCache: TorrentProviderCache? = null,
+    userAgent: String = USER_AGENT,
 ) {
     private val disposed = MutableStateFlow(false)
     private val http = httpClient.config {
@@ -40,7 +42,7 @@ public class TorrentSearch public constructor(
         }
 
         defaultRequest {
-            userAgent(USER_AGENT)
+            userAgent(userAgent)
         }
 
         install(HttpCookies) {
