@@ -89,7 +89,16 @@ public class TorrentSearch public constructor(
     public suspend fun resolve(torrents: List<TorrentDescription>): ResolveResultSet {
         val torrentsByProvider = torrents.groupBy { it.provider }
         val results = torrentsByProvider.mapNotNull { (providerName, torrentsList) ->
-            providersMap[providerName]?.resolve(torrentsList)
+            try {
+                providersMap[providerName]?.resolve(torrentsList)
+            } catch (e: Throwable) {
+                ResolveResult.Error.UnknownError(
+                    providerName = providerName,
+                    message = e.message,
+                    exception = e,
+                    torrents = torrentsList
+                )
+            }
         }
         return ResolveResultSet(results)
     }
