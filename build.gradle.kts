@@ -119,6 +119,6 @@ kotlin {
     }
 }
 
-/*tasks.dokkaHtml {
-    moduleName.set("TorrentSearch")
-}*/
+dokka {
+    moduleName = "TorrentSearch"
+}
