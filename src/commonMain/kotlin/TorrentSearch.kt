@@ -7,6 +7,8 @@ import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.http.userAgent
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.json.Json
 import torrentsearch.models.*
@@ -27,6 +29,7 @@ internal const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98
  * @param providers An optional list of custom [TorrentProvider] implementations.
  * @param providerCache An optional [TorrentProviderCache] for caching.
  * @param userAgent An optional User Agent string to use for all requests.
+ * @param dispatcher The coroutine dispatcher to process results on, default [Dispatchers.Default].
  */
 public class TorrentSearch public constructor(
     httpClient: HttpClient = HttpClient(),
@@ -34,6 +37,7 @@ public class TorrentSearch public constructor(
     providers: List<TorrentProvider> = emptyList(),
     private val providerCache: TorrentProviderCache? = null,
     userAgent: String = USER_AGENT,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
     private val disposed = MutableStateFlow(false)
     private val http = httpClient.config {
@@ -76,7 +80,14 @@ public class TorrentSearch public constructor(
                     provider.categories.containsKey(query.category)
                 )
         }
-        return SearchResult(http, selectedProviders, providerCache, query)
+        return SearchResult(
+            parentScope = http,
+            providers = selectedProviders,
+            providerCache = providerCache,
+            query = query,
+            previousResults = null,
+            dispatcher = dispatcher,
+        )
     }
 
     /**

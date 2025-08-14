@@ -21,13 +21,14 @@ public class SearchResult internal constructor(
     private val providers: List<TorrentProvider>,
     private val providerCache: TorrentProviderCache?,
     private val query: TorrentQuery,
-    private val previousResults: List<ProviderResult>? = emptyList(),
+    private val previousResults: List<ProviderResult>?,
+    private val dispatcher: CoroutineDispatcher
 ) {
     private val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob())
     private val resultsFlow = providers
         .map(::createProviderQueryFlow)
         .merge()
-        .flowOn(Dispatchers.Default)
+        .flowOn(dispatcher)
         .shareIn(parentScope, SharingStarted.Eagerly, providers.size)
 
     /**
@@ -44,11 +45,11 @@ public class SearchResult internal constructor(
         return resultsFlow.take(providers.size)
             .filterIsInstance<ProviderResult.Success>()
             .map { result -> result.torrents }
-            .run {
+            .let { flow ->
                 if (previousResults == null) {
-                    this
+                    flow
                 } else {
-                    onStart {
+                    flow.onStart {
                         previousResults
                             .filterIsInstance<ProviderResult.Success>()
                             .forEach { result -> emit(result.torrents) }
@@ -171,6 +172,7 @@ public class SearchResult internal constructor(
             providers = providers.filter { nextProviders.contains(it.name) },
             providerCache = providerCache,
             previousResults = previousResults.orEmpty() + resultsFlow.replayCache,
+            dispatcher = dispatcher,
         )
     }
 
