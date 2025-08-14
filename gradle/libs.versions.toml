@@ -12,7 +12,7 @@ ktsoup = "0.6.0"
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-kotlinter = { id = "org.jmailen.kotlinter", version = "4.4.1" }
+kotlinter = { id = "org.jmailen.kotlinter", version = "4.5.0" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.34.0" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composejb" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
