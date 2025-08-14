@@ -27,4 +27,4 @@ jobs:
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
       - name: Run JVM Tests
-        run: ./gradlew jvmTest apiCheck
+        run: ./gradlew jvmTest checkLegacyApi

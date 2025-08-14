@@ -42,7 +42,7 @@ jobs:
 
       - name: Build docs
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-        run: ./gradlew clean dokkaHtml
+        run: ./gradlew clean dokkaGeneratePublicationHtml
 
       - name: Publish Docs
         uses: JamesIves/github-pages-deploy-action@v4.6.8

@@ -1,10 +1,8 @@
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.binaryCompat)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.kotlinter)
+    //alias(libs.plugins.kotlinter)
     alias(libs.plugins.mavenPublish)
 }
 
@@ -17,12 +15,17 @@ buildscript {
 allprojects {
     repositories {
         mavenCentral()
+        google()
     }
 }
 
 version = System.getenv("GITHUB_REF")?.substringAfter("refs/tags/v", version.toString()) ?: version
 
 kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled = true
+    }
     jvm()
     js(IR) {
         browser {
@@ -116,6 +119,6 @@ kotlin {
     }
 }
 
-tasks.dokkaHtml {
+/*tasks.dokkaHtml {
     moduleName.set("TorrentSearch")
-}
+}*/
