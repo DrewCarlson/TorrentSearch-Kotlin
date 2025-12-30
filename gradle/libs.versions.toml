@@ -5,7 +5,7 @@ coroutines = "1.10.2"
 serialization = "1.9.0"
 ktorio = "3.2.3"
 atomicfu = "0.29.0"
-composejb = "1.8.2"
+composejb = "1.9.3"
 ktsoup = "0.6.0"
 
 [plugins]
