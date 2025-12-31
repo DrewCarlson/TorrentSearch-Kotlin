@@ -28,7 +28,7 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - name: Cache Build files
         uses: actions/cache@v4
         with:
