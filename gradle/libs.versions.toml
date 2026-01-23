@@ -1,11 +1,10 @@
 [versions]
-kotlin = { strictly = "2.2.10" }
+kotlin = { strictly = "2.3.0" }
 dokka = "2.1.0"
 coroutines = "1.10.2"
-serialization = "1.9.0"
-ktorio = "3.2.3"
-atomicfu = "0.29.0"
-composejb = "1.8.2"
+serialization = "1.10.0"
+ktorio = "3.4.0"
+composejb = "1.11.0-alpha01"
 ktsoup = "0.6.0"
 
 [plugins]
@@ -22,9 +21,6 @@ coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", ve
 coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 coroutines-turbine = { module = "app.cash.turbine:turbine", version = "1.2.1" }
-
-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
-atomicfu-plugin = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
 
 serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }

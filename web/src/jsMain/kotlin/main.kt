@@ -31,8 +31,7 @@ fun main() {
                 context.url {
                     path("")
                     parameters.clear()
-                    //takeFrom("https://corsproxy.io/?${originalUrl.encodeURLParameter()}")
-                    takeFrom("https://thingproxy.freeboard.io/fetch/${originalUrl.encodeURLParameter()}")
+                    takeFrom("https://proxy.corsfix.com/?${originalUrl}")
                 }
                 proceed()
             }

@@ -6,6 +6,9 @@ import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
 import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.*
+import io.ktor.client.request.HttpRequestPipeline
+import io.ktor.http.path
+import io.ktor.http.takeFrom
 import io.ktor.http.userAgent
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.test.runTest
@@ -29,6 +32,7 @@ class ProviderTests {
 
         defaultRequest {
             userAgent(USER_AGENT)
+            headers.append("Origin", "https://github.com")
         }
 
         Logging {
@@ -38,6 +42,18 @@ class ProviderTests {
 
         install(HttpCookies) {
             storage = AcceptAllCookiesStorage()
+        }
+
+        install("cors-proxy") {
+            requestPipeline.intercept(HttpRequestPipeline.State) {
+                val originalUrl = context.url.buildString()
+                context.url {
+                    path("")
+                    parameters.clear()
+                    takeFrom("https://proxy.corsfix.com/?${originalUrl}")
+                }
+                proceed()
+            }
         }
     }
 
@@ -158,6 +174,6 @@ class ProviderTests {
 
         val torrent = result.torrents.firstOrNull()
         assertFalse(torrent?.magnetUrl.isNullOrBlank())
-        assertFalse(torrent?.hash.isNullOrBlank())
+        assertFalse(torrent.hash.isNullOrBlank())
     }
 }

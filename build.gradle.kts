@@ -6,12 +6,6 @@ plugins {
     alias(libs.plugins.mavenPublish)
 }
 
-buildscript {
-    dependencies {
-        classpath(libs.atomicfu.plugin)
-    }
-}
-
 allprojects {
     repositories {
         mavenCentral()
@@ -64,7 +58,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api(libs.coroutines.core)
-                implementation(libs.atomicfu)
                 api(libs.ktor.client.core)
                 implementation(libs.ktor.client.contentNegotiation)
                 implementation(libs.ktor.serialization)
