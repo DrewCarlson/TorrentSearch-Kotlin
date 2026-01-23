@@ -26,5 +26,11 @@ jobs:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-${{ hashFiles('gradle.properties') }}
+      - name: Setup WireGuard VPN
+        run: |
+          sudo apt-get update && sudo apt-get install -y wireguard
+          echo "${{ secrets.WG_CONFIG }}" | sudo tee /etc/wireguard/wg0.conf > /dev/null
+          sudo chmod 600 /etc/wireguard/wg0.conf
+          sudo wg-quick up wg0
       - name: Run JVM Tests
         run: ./gradlew jvmTest checkLegacyAbi
