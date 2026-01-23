@@ -50,7 +50,7 @@ class ProviderTests {
                 context.url {
                     path("")
                     parameters.clear()
-                    takeFrom("https://proxy.corsfix.com/?${originalUrl}")
+                    takeFrom("https://corsproxy.io/?url=${originalUrl}")
                 }
                 proceed()
             }

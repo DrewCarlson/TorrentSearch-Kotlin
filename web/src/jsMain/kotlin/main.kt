@@ -31,7 +31,7 @@ fun main() {
                 context.url {
                     path("")
                     parameters.clear()
-                    takeFrom("https://proxy.corsfix.com/?${originalUrl}")
+                    takeFrom("https://crossorigin.me/${originalUrl}")
                 }
                 proceed()
             }
