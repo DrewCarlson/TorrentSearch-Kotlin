@@ -64,7 +64,7 @@ The [`web`](web) demo helps with debugging the api and provider implementations,
 ## Download
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/torrentsearch-jvm?label=maven&color=blue)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/torrentsearch-jvm?server=https%3A%2F%2Fs01.oss.sonatype.org)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Forg%2Fdrewcarlson%2Ftorrentsearch-jvm%2Fmaven-metadata.xml&label=nexus)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
