@@ -56,6 +56,11 @@ public interface TorrentProvider {
     public fun enable(username: String? = null, password: String? = null, cookies: List<String> = emptyList())
 
     /**
+     * Enable this provider using the provided api key.
+     */
+    public fun enable(apiKey: String? = null)
+
+    /**
      * Disable this provider, so it cannot be used until [enable] is called.
      */
     public fun disable()

@@ -1,0 +1,405 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.drewcarlson:torrentsearch>
+final enum class torrentsearch.models/Category : kotlin/Enum<torrentsearch.models/Category> { // torrentsearch.models/Category|null[0]
+    enum entry ALL // torrentsearch.models/Category.ALL|null[0]
+    enum entry ANIME // torrentsearch.models/Category.ANIME|null[0]
+    enum entry APPS // torrentsearch.models/Category.APPS|null[0]
+    enum entry AUDIO // torrentsearch.models/Category.AUDIO|null[0]
+    enum entry BOOKS // torrentsearch.models/Category.BOOKS|null[0]
+    enum entry GAMES // torrentsearch.models/Category.GAMES|null[0]
+    enum entry MOVIES // torrentsearch.models/Category.MOVIES|null[0]
+    enum entry MUSIC // torrentsearch.models/Category.MUSIC|null[0]
+    enum entry OTHER // torrentsearch.models/Category.OTHER|null[0]
+    enum entry TV // torrentsearch.models/Category.TV|null[0]
+    enum entry VIDEO // torrentsearch.models/Category.VIDEO|null[0]
+    enum entry XXX // torrentsearch.models/Category.XXX|null[0]
+
+    final val entries // torrentsearch.models/Category.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<torrentsearch.models/Category> // torrentsearch.models/Category.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): torrentsearch.models/Category // torrentsearch.models/Category.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<torrentsearch.models/Category> // torrentsearch.models/Category.values|values#static(){}[0]
+}
+
+final enum class torrentsearch.models/SearchParam : kotlin/Enum<torrentsearch.models/SearchParam> { // torrentsearch.models/SearchParam|null[0]
+    enum entry CATEGORY // torrentsearch.models/SearchParam.CATEGORY|null[0]
+    enum entry IMDB_ID // torrentsearch.models/SearchParam.IMDB_ID|null[0]
+    enum entry LIMIT // torrentsearch.models/SearchParam.LIMIT|null[0]
+    enum entry PAGE // torrentsearch.models/SearchParam.PAGE|null[0]
+    enum entry QUERY // torrentsearch.models/SearchParam.QUERY|null[0]
+    enum entry TMDB_ID // torrentsearch.models/SearchParam.TMDB_ID|null[0]
+    enum entry TOKEN // torrentsearch.models/SearchParam.TOKEN|null[0]
+    enum entry TVDB_ID // torrentsearch.models/SearchParam.TVDB_ID|null[0]
+
+    final val entries // torrentsearch.models/SearchParam.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<torrentsearch.models/SearchParam> // torrentsearch.models/SearchParam.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): torrentsearch.models/SearchParam // torrentsearch.models/SearchParam.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<torrentsearch.models/SearchParam> // torrentsearch.models/SearchParam.values|values#static(){}[0]
+}
+
+abstract interface torrentsearch/TorrentProvider { // torrentsearch/TorrentProvider|null[0]
+    abstract val baseUrl // torrentsearch/TorrentProvider.baseUrl|{}baseUrl[0]
+        abstract fun <get-baseUrl>(): kotlin/String // torrentsearch/TorrentProvider.baseUrl.<get-baseUrl>|<get-baseUrl>(){}[0]
+    abstract val categories // torrentsearch/TorrentProvider.categories|{}categories[0]
+        abstract fun <get-categories>(): kotlin.collections/Map<torrentsearch.models/Category, kotlin/String> // torrentsearch/TorrentProvider.categories.<get-categories>|<get-categories>(){}[0]
+    abstract val isEnabled // torrentsearch/TorrentProvider.isEnabled|{}isEnabled[0]
+        abstract fun <get-isEnabled>(): kotlin/Boolean // torrentsearch/TorrentProvider.isEnabled.<get-isEnabled>|<get-isEnabled>(){}[0]
+    abstract val name // torrentsearch/TorrentProvider.name|{}name[0]
+        abstract fun <get-name>(): kotlin/String // torrentsearch/TorrentProvider.name.<get-name>|<get-name>(){}[0]
+    abstract val searchParams // torrentsearch/TorrentProvider.searchParams|{}searchParams[0]
+        abstract fun <get-searchParams>(): kotlin.collections/Map<torrentsearch.models/SearchParam, kotlin/String> // torrentsearch/TorrentProvider.searchParams.<get-searchParams>|<get-searchParams>(){}[0]
+    abstract val searchPath // torrentsearch/TorrentProvider.searchPath|{}searchPath[0]
+        abstract fun <get-searchPath>(): kotlin/String // torrentsearch/TorrentProvider.searchPath.<get-searchPath>|<get-searchPath>(){}[0]
+    abstract val tokenPath // torrentsearch/TorrentProvider.tokenPath|{}tokenPath[0]
+        abstract fun <get-tokenPath>(): kotlin/String // torrentsearch/TorrentProvider.tokenPath.<get-tokenPath>|<get-tokenPath>(){}[0]
+    open val resultsPerPage // torrentsearch/TorrentProvider.resultsPerPage|{}resultsPerPage[0]
+        open fun <get-resultsPerPage>(): kotlin/Int // torrentsearch/TorrentProvider.resultsPerPage.<get-resultsPerPage>|<get-resultsPerPage>(){}[0]
+
+    abstract fun disable() // torrentsearch/TorrentProvider.disable|disable(){}[0]
+    abstract fun enable(kotlin/String? = ...) // torrentsearch/TorrentProvider.enable|enable(kotlin.String?){}[0]
+    abstract fun enable(kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<kotlin/String> = ...) // torrentsearch/TorrentProvider.enable|enable(kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>){}[0]
+    abstract suspend fun search(torrentsearch.models/TorrentQuery): torrentsearch.models/ProviderResult // torrentsearch/TorrentProvider.search|search(torrentsearch.models.TorrentQuery){}[0]
+    open suspend fun resolve(kotlin.collections/List<torrentsearch.models/TorrentDescription>): torrentsearch.models/ResolveResult // torrentsearch/TorrentProvider.resolve|resolve(kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+}
+
+abstract interface torrentsearch/TorrentProviderCache { // torrentsearch/TorrentProviderCache|null[0]
+    abstract fun loadResults(torrentsearch/TorrentProvider, torrentsearch.models/TorrentQuery): kotlin.collections/List<torrentsearch.models/TorrentDescription>? // torrentsearch/TorrentProviderCache.loadResults|loadResults(torrentsearch.TorrentProvider;torrentsearch.models.TorrentQuery){}[0]
+    abstract fun loadToken(torrentsearch/TorrentProvider): kotlin/String? // torrentsearch/TorrentProviderCache.loadToken|loadToken(torrentsearch.TorrentProvider){}[0]
+    abstract fun saveResults(torrentsearch/TorrentProvider, torrentsearch.models/TorrentQuery, kotlin.collections/List<torrentsearch.models/TorrentDescription>) // torrentsearch/TorrentProviderCache.saveResults|saveResults(torrentsearch.TorrentProvider;torrentsearch.models.TorrentQuery;kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+    abstract fun saveToken(torrentsearch/TorrentProvider, kotlin/String) // torrentsearch/TorrentProviderCache.saveToken|saveToken(torrentsearch.TorrentProvider;kotlin.String){}[0]
+}
+
+abstract class torrentsearch.providers/BaseTorrentProvider : torrentsearch/TorrentProvider { // torrentsearch.providers/BaseTorrentProvider|null[0]
+    constructor <init>(kotlin/Boolean = ...) // torrentsearch.providers/BaseTorrentProvider.<init>|<init>(kotlin.Boolean){}[0]
+
+    final var isEnabled // torrentsearch.providers/BaseTorrentProvider.isEnabled|{}isEnabled[0]
+        final fun <get-isEnabled>(): kotlin/Boolean // torrentsearch.providers/BaseTorrentProvider.isEnabled.<get-isEnabled>|<get-isEnabled>(){}[0]
+
+    final fun formatMagnet(kotlin/String, kotlin/String): kotlin/String // torrentsearch.providers/BaseTorrentProvider.formatMagnet|formatMagnet(kotlin.String;kotlin.String){}[0]
+    final fun hashFromMagnetUrl(kotlin/String): kotlin/String // torrentsearch.providers/BaseTorrentProvider.hashFromMagnetUrl|hashFromMagnetUrl(kotlin.String){}[0]
+    open fun disable() // torrentsearch.providers/BaseTorrentProvider.disable|disable(){}[0]
+    open fun enable(kotlin/String?) // torrentsearch.providers/BaseTorrentProvider.enable|enable(kotlin.String?){}[0]
+    open fun enable(kotlin/String?, kotlin/String?, kotlin.collections/List<kotlin/String>) // torrentsearch.providers/BaseTorrentProvider.enable|enable(kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>){}[0]
+}
+
+final class torrentsearch.models/ResolveResultSet { // torrentsearch.models/ResolveResultSet|null[0]
+    constructor <init>(kotlin.collections/List<torrentsearch.models/ResolveResult>) // torrentsearch.models/ResolveResultSet.<init>|<init>(kotlin.collections.List<torrentsearch.models.ResolveResult>){}[0]
+
+    final val failed // torrentsearch.models/ResolveResultSet.failed|{}failed[0]
+        final fun <get-failed>(): kotlin.collections/List<torrentsearch.models/ResolveResult.Error> // torrentsearch.models/ResolveResultSet.failed.<get-failed>|<get-failed>(){}[0]
+    final val hasErrors // torrentsearch.models/ResolveResultSet.hasErrors|{}hasErrors[0]
+        final fun <get-hasErrors>(): kotlin/Boolean // torrentsearch.models/ResolveResultSet.hasErrors.<get-hasErrors>|<get-hasErrors>(){}[0]
+    final val resolved // torrentsearch.models/ResolveResultSet.resolved|{}resolved[0]
+        final fun <get-resolved>(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResultSet.resolved.<get-resolved>|<get-resolved>(){}[0]
+    final val results // torrentsearch.models/ResolveResultSet.results|{}results[0]
+        final fun <get-results>(): kotlin.collections/List<torrentsearch.models/ResolveResult> // torrentsearch.models/ResolveResultSet.results.<get-results>|<get-results>(){}[0]
+}
+
+final class torrentsearch.models/SearchResult { // torrentsearch.models/SearchResult|null[0]
+    final fun cancel() // torrentsearch.models/SearchResult.cancel|cancel(){}[0]
+    final fun currentProviderResults(): kotlin.collections/List<torrentsearch.models/ProviderResult> // torrentsearch.models/SearchResult.currentProviderResults|currentProviderResults(){}[0]
+    final fun errors(kotlin/Boolean = ...): kotlinx.coroutines.flow/Flow<torrentsearch.models/ProviderResult.Error> // torrentsearch.models/SearchResult.errors|errors(kotlin.Boolean){}[0]
+    final fun isCancelled(): kotlin/Boolean // torrentsearch.models/SearchResult.isCancelled|isCancelled(){}[0]
+    final fun isCompleted(): kotlin/Boolean // torrentsearch.models/SearchResult.isCompleted|isCompleted(){}[0]
+    final fun providerCount(): kotlin/Int // torrentsearch.models/SearchResult.providerCount|providerCount(){}[0]
+    final fun providerResultCount(): kotlin/Int // torrentsearch.models/SearchResult.providerResultCount|providerResultCount(){}[0]
+    final fun providerResults(kotlin/Boolean = ...): kotlinx.coroutines.flow/Flow<torrentsearch.models/ProviderResult> // torrentsearch.models/SearchResult.providerResults|providerResults(kotlin.Boolean){}[0]
+    final fun toString(): kotlin/String // torrentsearch.models/SearchResult.toString|toString(){}[0]
+    final fun torrents(kotlin/Boolean = ...): kotlinx.coroutines.flow/Flow<torrentsearch.models/TorrentDescription> // torrentsearch.models/SearchResult.torrents|torrents(kotlin.Boolean){}[0]
+    final suspend fun hasNextResult(): kotlin/Boolean // torrentsearch.models/SearchResult.hasNextResult|hasNextResult(){}[0]
+    final suspend fun nextResult(): torrentsearch.models/SearchResult? // torrentsearch.models/SearchResult.nextResult|nextResult(){}[0]
+}
+
+final class torrentsearch.models/TorrentDescription { // torrentsearch.models/TorrentDescription|null[0]
+    constructor <init>(kotlin/String, kotlin/String?, kotlin/String, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/Int? = ..., kotlin/Int? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String?) // torrentsearch.models/TorrentDescription.<init>|<init>(kotlin.String;kotlin.String?;kotlin.String;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Int?;kotlin.Int?;kotlin.String?;kotlin.String?;kotlin.String?){}[0]
+
+    final val hash // torrentsearch.models/TorrentDescription.hash|{}hash[0]
+        final fun <get-hash>(): kotlin/String? // torrentsearch.models/TorrentDescription.hash.<get-hash>|<get-hash>(){}[0]
+    final val imdbId // torrentsearch.models/TorrentDescription.imdbId|{}imdbId[0]
+        final fun <get-imdbId>(): kotlin/String? // torrentsearch.models/TorrentDescription.imdbId.<get-imdbId>|<get-imdbId>(){}[0]
+    final val infoUrl // torrentsearch.models/TorrentDescription.infoUrl|{}infoUrl[0]
+        final fun <get-infoUrl>(): kotlin/String? // torrentsearch.models/TorrentDescription.infoUrl.<get-infoUrl>|<get-infoUrl>(){}[0]
+    final val isResolved // torrentsearch.models/TorrentDescription.isResolved|{}isResolved[0]
+        final fun <get-isResolved>(): kotlin/Boolean // torrentsearch.models/TorrentDescription.isResolved.<get-isResolved>|<get-isResolved>(){}[0]
+    final val magnetUrl // torrentsearch.models/TorrentDescription.magnetUrl|{}magnetUrl[0]
+        final fun <get-magnetUrl>(): kotlin/String? // torrentsearch.models/TorrentDescription.magnetUrl.<get-magnetUrl>|<get-magnetUrl>(){}[0]
+    final val peers // torrentsearch.models/TorrentDescription.peers|{}peers[0]
+        final fun <get-peers>(): kotlin/Int // torrentsearch.models/TorrentDescription.peers.<get-peers>|<get-peers>(){}[0]
+    final val provider // torrentsearch.models/TorrentDescription.provider|{}provider[0]
+        final fun <get-provider>(): kotlin/String // torrentsearch.models/TorrentDescription.provider.<get-provider>|<get-provider>(){}[0]
+    final val seeds // torrentsearch.models/TorrentDescription.seeds|{}seeds[0]
+        final fun <get-seeds>(): kotlin/Int // torrentsearch.models/TorrentDescription.seeds.<get-seeds>|<get-seeds>(){}[0]
+    final val size // torrentsearch.models/TorrentDescription.size|{}size[0]
+        final fun <get-size>(): kotlin/Long // torrentsearch.models/TorrentDescription.size.<get-size>|<get-size>(){}[0]
+    final val themoviedbId // torrentsearch.models/TorrentDescription.themoviedbId|{}themoviedbId[0]
+        final fun <get-themoviedbId>(): kotlin/Int? // torrentsearch.models/TorrentDescription.themoviedbId.<get-themoviedbId>|<get-themoviedbId>(){}[0]
+    final val title // torrentsearch.models/TorrentDescription.title|{}title[0]
+        final fun <get-title>(): kotlin/String // torrentsearch.models/TorrentDescription.title.<get-title>|<get-title>(){}[0]
+    final val tvdbId // torrentsearch.models/TorrentDescription.tvdbId|{}tvdbId[0]
+        final fun <get-tvdbId>(): kotlin/Int? // torrentsearch.models/TorrentDescription.tvdbId.<get-tvdbId>|<get-tvdbId>(){}[0]
+
+    final fun component1(): kotlin/String // torrentsearch.models/TorrentDescription.component1|component1(){}[0]
+    final fun component10(): kotlin/String? // torrentsearch.models/TorrentDescription.component10|component10(){}[0]
+    final fun component11(): kotlin/String? // torrentsearch.models/TorrentDescription.component11|component11(){}[0]
+    final fun component2(): kotlin/String? // torrentsearch.models/TorrentDescription.component2|component2(){}[0]
+    final fun component3(): kotlin/String // torrentsearch.models/TorrentDescription.component3|component3(){}[0]
+    final fun component4(): kotlin/Long // torrentsearch.models/TorrentDescription.component4|component4(){}[0]
+    final fun component5(): kotlin/Int // torrentsearch.models/TorrentDescription.component5|component5(){}[0]
+    final fun component6(): kotlin/Int // torrentsearch.models/TorrentDescription.component6|component6(){}[0]
+    final fun component7(): kotlin/Int? // torrentsearch.models/TorrentDescription.component7|component7(){}[0]
+    final fun component8(): kotlin/Int? // torrentsearch.models/TorrentDescription.component8|component8(){}[0]
+    final fun component9(): kotlin/String? // torrentsearch.models/TorrentDescription.component9|component9(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/Long = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ...): torrentsearch.models/TorrentDescription // torrentsearch.models/TorrentDescription.copy|copy(kotlin.String;kotlin.String?;kotlin.String;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Int?;kotlin.Int?;kotlin.String?;kotlin.String?;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/TorrentDescription.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // torrentsearch.models/TorrentDescription.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // torrentsearch.models/TorrentDescription.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<torrentsearch.models/TorrentDescription> { // torrentsearch.models/TorrentDescription.$serializer|null[0]
+        final val descriptor // torrentsearch.models/TorrentDescription.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // torrentsearch.models/TorrentDescription.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // torrentsearch.models/TorrentDescription.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): torrentsearch.models/TorrentDescription // torrentsearch.models/TorrentDescription.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, torrentsearch.models/TorrentDescription) // torrentsearch.models/TorrentDescription.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;torrentsearch.models.TorrentDescription){}[0]
+    }
+
+    final object Companion { // torrentsearch.models/TorrentDescription.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<torrentsearch.models/TorrentDescription> // torrentsearch.models/TorrentDescription.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class torrentsearch.models/TorrentQuery { // torrentsearch.models/TorrentQuery|null[0]
+    constructor <init>(kotlin/String? = ..., torrentsearch.models/Category? = ..., kotlin/String? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Boolean = ..., kotlin/Int = ..., kotlin/Int = ...) // torrentsearch.models/TorrentQuery.<init>|<init>(kotlin.String?;torrentsearch.models.Category?;kotlin.String?;kotlin.Int?;kotlin.Int?;kotlin.Boolean;kotlin.Int;kotlin.Int){}[0]
+
+    final val skipCache // torrentsearch.models/TorrentQuery.skipCache|{}skipCache[0]
+        final fun <get-skipCache>(): kotlin/Boolean // torrentsearch.models/TorrentQuery.skipCache.<get-skipCache>|<get-skipCache>(){}[0]
+
+    final var category // torrentsearch.models/TorrentQuery.category|{}category[0]
+        final fun <get-category>(): torrentsearch.models/Category? // torrentsearch.models/TorrentQuery.category.<get-category>|<get-category>(){}[0]
+        final fun <set-category>(torrentsearch.models/Category?) // torrentsearch.models/TorrentQuery.category.<set-category>|<set-category>(torrentsearch.models.Category?){}[0]
+    final var content // torrentsearch.models/TorrentQuery.content|{}content[0]
+        final fun <get-content>(): kotlin/String? // torrentsearch.models/TorrentQuery.content.<get-content>|<get-content>(){}[0]
+        final fun <set-content>(kotlin/String?) // torrentsearch.models/TorrentQuery.content.<set-content>|<set-content>(kotlin.String?){}[0]
+    final var imdbId // torrentsearch.models/TorrentQuery.imdbId|{}imdbId[0]
+        final fun <get-imdbId>(): kotlin/String? // torrentsearch.models/TorrentQuery.imdbId.<get-imdbId>|<get-imdbId>(){}[0]
+        final fun <set-imdbId>(kotlin/String?) // torrentsearch.models/TorrentQuery.imdbId.<set-imdbId>|<set-imdbId>(kotlin.String?){}[0]
+    final var limit // torrentsearch.models/TorrentQuery.limit|{}limit[0]
+        final fun <get-limit>(): kotlin/Int // torrentsearch.models/TorrentQuery.limit.<get-limit>|<get-limit>(){}[0]
+        final fun <set-limit>(kotlin/Int) // torrentsearch.models/TorrentQuery.limit.<set-limit>|<set-limit>(kotlin.Int){}[0]
+    final var page // torrentsearch.models/TorrentQuery.page|{}page[0]
+        final fun <get-page>(): kotlin/Int // torrentsearch.models/TorrentQuery.page.<get-page>|<get-page>(){}[0]
+        final fun <set-page>(kotlin/Int) // torrentsearch.models/TorrentQuery.page.<set-page>|<set-page>(kotlin.Int){}[0]
+    final var tmdbId // torrentsearch.models/TorrentQuery.tmdbId|{}tmdbId[0]
+        final fun <get-tmdbId>(): kotlin/Int? // torrentsearch.models/TorrentQuery.tmdbId.<get-tmdbId>|<get-tmdbId>(){}[0]
+        final fun <set-tmdbId>(kotlin/Int?) // torrentsearch.models/TorrentQuery.tmdbId.<set-tmdbId>|<set-tmdbId>(kotlin.Int?){}[0]
+    final var tvdbId // torrentsearch.models/TorrentQuery.tvdbId|{}tvdbId[0]
+        final fun <get-tvdbId>(): kotlin/Int? // torrentsearch.models/TorrentQuery.tvdbId.<get-tvdbId>|<get-tvdbId>(){}[0]
+        final fun <set-tvdbId>(kotlin/Int?) // torrentsearch.models/TorrentQuery.tvdbId.<set-tvdbId>|<set-tvdbId>(kotlin.Int?){}[0]
+
+    final fun component1(): kotlin/String? // torrentsearch.models/TorrentQuery.component1|component1(){}[0]
+    final fun component2(): torrentsearch.models/Category? // torrentsearch.models/TorrentQuery.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // torrentsearch.models/TorrentQuery.component3|component3(){}[0]
+    final fun component4(): kotlin/Int? // torrentsearch.models/TorrentQuery.component4|component4(){}[0]
+    final fun component5(): kotlin/Int? // torrentsearch.models/TorrentQuery.component5|component5(){}[0]
+    final fun component6(): kotlin/Boolean // torrentsearch.models/TorrentQuery.component6|component6(){}[0]
+    final fun component7(): kotlin/Int // torrentsearch.models/TorrentQuery.component7|component7(){}[0]
+    final fun component8(): kotlin/Int // torrentsearch.models/TorrentQuery.component8|component8(){}[0]
+    final fun copy(kotlin/String? = ..., torrentsearch.models/Category? = ..., kotlin/String? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Boolean = ..., kotlin/Int = ..., kotlin/Int = ...): torrentsearch.models/TorrentQuery // torrentsearch.models/TorrentQuery.copy|copy(kotlin.String?;torrentsearch.models.Category?;kotlin.String?;kotlin.Int?;kotlin.Int?;kotlin.Boolean;kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/TorrentQuery.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // torrentsearch.models/TorrentQuery.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // torrentsearch.models/TorrentQuery.toString|toString(){}[0]
+}
+
+final class torrentsearch/TorrentSearch { // torrentsearch/TorrentSearch|null[0]
+    constructor <init>(io.ktor.client/HttpClient = ..., kotlin/Boolean = ..., kotlin.collections/List<torrentsearch/TorrentProvider> = ..., torrentsearch/TorrentProviderCache? = ..., kotlin/String = ..., kotlinx.coroutines/CoroutineDispatcher = ...) // torrentsearch/TorrentSearch.<init>|<init>(io.ktor.client.HttpClient;kotlin.Boolean;kotlin.collections.List<torrentsearch.TorrentProvider>;torrentsearch.TorrentProviderCache?;kotlin.String;kotlinx.coroutines.CoroutineDispatcher){}[0]
+
+    final fun disableProvider(kotlin/String) // torrentsearch/TorrentSearch.disableProvider|disableProvider(kotlin.String){}[0]
+    final fun dispose() // torrentsearch/TorrentSearch.dispose|dispose(){}[0]
+    final fun enableProvider(kotlin/String, kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<kotlin/String> = ...) // torrentsearch/TorrentSearch.enableProvider|enableProvider(kotlin.String;kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>){}[0]
+    final fun enabledProviders(): kotlin.collections/List<torrentsearch/TorrentProvider> // torrentsearch/TorrentSearch.enabledProviders|enabledProviders(){}[0]
+    final fun providers(): kotlin.collections/List<torrentsearch/TorrentProvider> // torrentsearch/TorrentSearch.providers|providers(){}[0]
+    final fun search(kotlin/Function1<torrentsearch.models/TorrentQuery, kotlin/Unit>): torrentsearch.models/SearchResult // torrentsearch/TorrentSearch.search|search(kotlin.Function1<torrentsearch.models.TorrentQuery,kotlin.Unit>){}[0]
+    final suspend fun resolve(kotlin.collections/List<torrentsearch.models/TorrentDescription>): torrentsearch.models/ResolveResultSet // torrentsearch/TorrentSearch.resolve|resolve(kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+}
+
+sealed class torrentsearch.models/ProviderResult { // torrentsearch.models/ProviderResult|null[0]
+    abstract val providerName // torrentsearch.models/ProviderResult.providerName|{}providerName[0]
+        abstract fun <get-providerName>(): kotlin/String // torrentsearch.models/ProviderResult.providerName.<get-providerName>|<get-providerName>(){}[0]
+
+    final class Success : torrentsearch.models/ProviderResult { // torrentsearch.models/ProviderResult.Success|null[0]
+        constructor <init>(kotlin/String, kotlin.collections/List<torrentsearch.models/TorrentDescription>, kotlin/Boolean = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Boolean = ...) // torrentsearch.models/ProviderResult.Success.<init>|<init>(kotlin.String;kotlin.collections.List<torrentsearch.models.TorrentDescription>;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+
+        final val fromCache // torrentsearch.models/ProviderResult.Success.fromCache|{}fromCache[0]
+            final fun <get-fromCache>(): kotlin/Boolean // torrentsearch.models/ProviderResult.Success.fromCache.<get-fromCache>|<get-fromCache>(){}[0]
+        final val hasMoreResults // torrentsearch.models/ProviderResult.Success.hasMoreResults|{}hasMoreResults[0]
+            final fun <get-hasMoreResults>(): kotlin/Boolean // torrentsearch.models/ProviderResult.Success.hasMoreResults.<get-hasMoreResults>|<get-hasMoreResults>(){}[0]
+        final val page // torrentsearch.models/ProviderResult.Success.page|{}page[0]
+            final fun <get-page>(): kotlin/Int // torrentsearch.models/ProviderResult.Success.page.<get-page>|<get-page>(){}[0]
+        final val pageSize // torrentsearch.models/ProviderResult.Success.pageSize|{}pageSize[0]
+            final fun <get-pageSize>(): kotlin/Int // torrentsearch.models/ProviderResult.Success.pageSize.<get-pageSize>|<get-pageSize>(){}[0]
+        final val providerName // torrentsearch.models/ProviderResult.Success.providerName|{}providerName[0]
+            final fun <get-providerName>(): kotlin/String // torrentsearch.models/ProviderResult.Success.providerName.<get-providerName>|<get-providerName>(){}[0]
+        final val requiresResolution // torrentsearch.models/ProviderResult.Success.requiresResolution|{}requiresResolution[0]
+            final fun <get-requiresResolution>(): kotlin/Boolean // torrentsearch.models/ProviderResult.Success.requiresResolution.<get-requiresResolution>|<get-requiresResolution>(){}[0]
+        final val torrents // torrentsearch.models/ProviderResult.Success.torrents|{}torrents[0]
+            final fun <get-torrents>(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ProviderResult.Success.torrents.<get-torrents>|<get-torrents>(){}[0]
+        final val totalTorrents // torrentsearch.models/ProviderResult.Success.totalTorrents|{}totalTorrents[0]
+            final fun <get-totalTorrents>(): kotlin/Int // torrentsearch.models/ProviderResult.Success.totalTorrents.<get-totalTorrents>|<get-totalTorrents>(){}[0]
+
+        final fun component1(): kotlin/String // torrentsearch.models/ProviderResult.Success.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ProviderResult.Success.component2|component2(){}[0]
+        final fun component3(): kotlin/Boolean // torrentsearch.models/ProviderResult.Success.component3|component3(){}[0]
+        final fun component4(): kotlin/Int // torrentsearch.models/ProviderResult.Success.component4|component4(){}[0]
+        final fun component5(): kotlin/Int // torrentsearch.models/ProviderResult.Success.component5|component5(){}[0]
+        final fun component6(): kotlin/Int // torrentsearch.models/ProviderResult.Success.component6|component6(){}[0]
+        final fun component7(): kotlin/Boolean // torrentsearch.models/ProviderResult.Success.component7|component7(){}[0]
+        final fun copy(kotlin/String = ..., kotlin.collections/List<torrentsearch.models/TorrentDescription> = ..., kotlin/Boolean = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Boolean = ...): torrentsearch.models/ProviderResult.Success // torrentsearch.models/ProviderResult.Success.copy|copy(kotlin.String;kotlin.collections.List<torrentsearch.models.TorrentDescription>;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ProviderResult.Success.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // torrentsearch.models/ProviderResult.Success.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // torrentsearch.models/ProviderResult.Success.toString|toString(){}[0]
+    }
+
+    sealed class Error : torrentsearch.models/ProviderResult { // torrentsearch.models/ProviderResult.Error|null[0]
+        abstract val message // torrentsearch.models/ProviderResult.Error.message|{}message[0]
+            abstract fun <get-message>(): kotlin/String? // torrentsearch.models/ProviderResult.Error.message.<get-message>|<get-message>(){}[0]
+
+        final class InvalidQueryError : torrentsearch.models/ProviderResult.Error { // torrentsearch.models/ProviderResult.Error.InvalidQueryError|null[0]
+            constructor <init>(kotlin/String, kotlin/String?) // torrentsearch.models/ProviderResult.Error.InvalidQueryError.<init>|<init>(kotlin.String;kotlin.String?){}[0]
+
+            final val message // torrentsearch.models/ProviderResult.Error.InvalidQueryError.message|{}message[0]
+                final fun <get-message>(): kotlin/String? // torrentsearch.models/ProviderResult.Error.InvalidQueryError.message.<get-message>|<get-message>(){}[0]
+            final val providerName // torrentsearch.models/ProviderResult.Error.InvalidQueryError.providerName|{}providerName[0]
+                final fun <get-providerName>(): kotlin/String // torrentsearch.models/ProviderResult.Error.InvalidQueryError.providerName.<get-providerName>|<get-providerName>(){}[0]
+
+            final fun component1(): kotlin/String // torrentsearch.models/ProviderResult.Error.InvalidQueryError.component1|component1(){}[0]
+            final fun component2(): kotlin/String? // torrentsearch.models/ProviderResult.Error.InvalidQueryError.component2|component2(){}[0]
+            final fun copy(kotlin/String = ..., kotlin/String? = ...): torrentsearch.models/ProviderResult.Error.InvalidQueryError // torrentsearch.models/ProviderResult.Error.InvalidQueryError.copy|copy(kotlin.String;kotlin.String?){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ProviderResult.Error.InvalidQueryError.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // torrentsearch.models/ProviderResult.Error.InvalidQueryError.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // torrentsearch.models/ProviderResult.Error.InvalidQueryError.toString|toString(){}[0]
+        }
+
+        final class RequestError : torrentsearch.models/ProviderResult.Error { // torrentsearch.models/ProviderResult.Error.RequestError|null[0]
+            constructor <init>(kotlin/String, io.ktor.http/HttpStatusCode?, kotlin/String?, kotlin/String? = ...) // torrentsearch.models/ProviderResult.Error.RequestError.<init>|<init>(kotlin.String;io.ktor.http.HttpStatusCode?;kotlin.String?;kotlin.String?){}[0]
+
+            final val body // torrentsearch.models/ProviderResult.Error.RequestError.body|{}body[0]
+                final fun <get-body>(): kotlin/String? // torrentsearch.models/ProviderResult.Error.RequestError.body.<get-body>|<get-body>(){}[0]
+            final val httpStatusCode // torrentsearch.models/ProviderResult.Error.RequestError.httpStatusCode|{}httpStatusCode[0]
+                final fun <get-httpStatusCode>(): io.ktor.http/HttpStatusCode? // torrentsearch.models/ProviderResult.Error.RequestError.httpStatusCode.<get-httpStatusCode>|<get-httpStatusCode>(){}[0]
+            final val message // torrentsearch.models/ProviderResult.Error.RequestError.message|{}message[0]
+                final fun <get-message>(): kotlin/String? // torrentsearch.models/ProviderResult.Error.RequestError.message.<get-message>|<get-message>(){}[0]
+            final val providerName // torrentsearch.models/ProviderResult.Error.RequestError.providerName|{}providerName[0]
+                final fun <get-providerName>(): kotlin/String // torrentsearch.models/ProviderResult.Error.RequestError.providerName.<get-providerName>|<get-providerName>(){}[0]
+
+            final fun component1(): kotlin/String // torrentsearch.models/ProviderResult.Error.RequestError.component1|component1(){}[0]
+            final fun component2(): io.ktor.http/HttpStatusCode? // torrentsearch.models/ProviderResult.Error.RequestError.component2|component2(){}[0]
+            final fun component3(): kotlin/String? // torrentsearch.models/ProviderResult.Error.RequestError.component3|component3(){}[0]
+            final fun component4(): kotlin/String? // torrentsearch.models/ProviderResult.Error.RequestError.component4|component4(){}[0]
+            final fun copy(kotlin/String = ..., io.ktor.http/HttpStatusCode? = ..., kotlin/String? = ..., kotlin/String? = ...): torrentsearch.models/ProviderResult.Error.RequestError // torrentsearch.models/ProviderResult.Error.RequestError.copy|copy(kotlin.String;io.ktor.http.HttpStatusCode?;kotlin.String?;kotlin.String?){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ProviderResult.Error.RequestError.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // torrentsearch.models/ProviderResult.Error.RequestError.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // torrentsearch.models/ProviderResult.Error.RequestError.toString|toString(){}[0]
+        }
+
+        final class UnknownError : torrentsearch.models/ProviderResult.Error { // torrentsearch.models/ProviderResult.Error.UnknownError|null[0]
+            constructor <init>(kotlin/String, kotlin/String?, kotlin/Throwable?) // torrentsearch.models/ProviderResult.Error.UnknownError.<init>|<init>(kotlin.String;kotlin.String?;kotlin.Throwable?){}[0]
+
+            final val exception // torrentsearch.models/ProviderResult.Error.UnknownError.exception|{}exception[0]
+                final fun <get-exception>(): kotlin/Throwable? // torrentsearch.models/ProviderResult.Error.UnknownError.exception.<get-exception>|<get-exception>(){}[0]
+            final val message // torrentsearch.models/ProviderResult.Error.UnknownError.message|{}message[0]
+                final fun <get-message>(): kotlin/String? // torrentsearch.models/ProviderResult.Error.UnknownError.message.<get-message>|<get-message>(){}[0]
+            final val providerName // torrentsearch.models/ProviderResult.Error.UnknownError.providerName|{}providerName[0]
+                final fun <get-providerName>(): kotlin/String // torrentsearch.models/ProviderResult.Error.UnknownError.providerName.<get-providerName>|<get-providerName>(){}[0]
+
+            final fun component1(): kotlin/String // torrentsearch.models/ProviderResult.Error.UnknownError.component1|component1(){}[0]
+            final fun component2(): kotlin/String? // torrentsearch.models/ProviderResult.Error.UnknownError.component2|component2(){}[0]
+            final fun component3(): kotlin/Throwable? // torrentsearch.models/ProviderResult.Error.UnknownError.component3|component3(){}[0]
+            final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/Throwable? = ...): torrentsearch.models/ProviderResult.Error.UnknownError // torrentsearch.models/ProviderResult.Error.UnknownError.copy|copy(kotlin.String;kotlin.String?;kotlin.Throwable?){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ProviderResult.Error.UnknownError.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // torrentsearch.models/ProviderResult.Error.UnknownError.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // torrentsearch.models/ProviderResult.Error.UnknownError.toString|toString(){}[0]
+        }
+    }
+}
+
+sealed class torrentsearch.models/ResolveResult { // torrentsearch.models/ResolveResult|null[0]
+    abstract val providerName // torrentsearch.models/ResolveResult.providerName|{}providerName[0]
+        abstract fun <get-providerName>(): kotlin/String // torrentsearch.models/ResolveResult.providerName.<get-providerName>|<get-providerName>(){}[0]
+    abstract val torrents // torrentsearch.models/ResolveResult.torrents|{}torrents[0]
+        abstract fun <get-torrents>(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.torrents.<get-torrents>|<get-torrents>(){}[0]
+
+    final class Success : torrentsearch.models/ResolveResult { // torrentsearch.models/ResolveResult.Success|null[0]
+        constructor <init>(kotlin/String, kotlin.collections/List<torrentsearch.models/TorrentDescription>) // torrentsearch.models/ResolveResult.Success.<init>|<init>(kotlin.String;kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+
+        final val providerName // torrentsearch.models/ResolveResult.Success.providerName|{}providerName[0]
+            final fun <get-providerName>(): kotlin/String // torrentsearch.models/ResolveResult.Success.providerName.<get-providerName>|<get-providerName>(){}[0]
+        final val torrents // torrentsearch.models/ResolveResult.Success.torrents|{}torrents[0]
+            final fun <get-torrents>(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.Success.torrents.<get-torrents>|<get-torrents>(){}[0]
+
+        final fun component1(): kotlin/String // torrentsearch.models/ResolveResult.Success.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.Success.component2|component2(){}[0]
+        final fun copy(kotlin/String = ..., kotlin.collections/List<torrentsearch.models/TorrentDescription> = ...): torrentsearch.models/ResolveResult.Success // torrentsearch.models/ResolveResult.Success.copy|copy(kotlin.String;kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ResolveResult.Success.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // torrentsearch.models/ResolveResult.Success.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // torrentsearch.models/ResolveResult.Success.toString|toString(){}[0]
+    }
+
+    sealed class Error : torrentsearch.models/ResolveResult { // torrentsearch.models/ResolveResult.Error|null[0]
+        abstract val message // torrentsearch.models/ResolveResult.Error.message|{}message[0]
+            abstract fun <get-message>(): kotlin/String? // torrentsearch.models/ResolveResult.Error.message.<get-message>|<get-message>(){}[0]
+
+        final class RequestError : torrentsearch.models/ResolveResult.Error { // torrentsearch.models/ResolveResult.Error.RequestError|null[0]
+            constructor <init>(kotlin/String, kotlin.collections/List<torrentsearch.models/TorrentDescription>, io.ktor.http/HttpStatusCode?, kotlin/String?, kotlin/String? = ...) // torrentsearch.models/ResolveResult.Error.RequestError.<init>|<init>(kotlin.String;kotlin.collections.List<torrentsearch.models.TorrentDescription>;io.ktor.http.HttpStatusCode?;kotlin.String?;kotlin.String?){}[0]
+
+            final val body // torrentsearch.models/ResolveResult.Error.RequestError.body|{}body[0]
+                final fun <get-body>(): kotlin/String? // torrentsearch.models/ResolveResult.Error.RequestError.body.<get-body>|<get-body>(){}[0]
+            final val httpStatusCode // torrentsearch.models/ResolveResult.Error.RequestError.httpStatusCode|{}httpStatusCode[0]
+                final fun <get-httpStatusCode>(): io.ktor.http/HttpStatusCode? // torrentsearch.models/ResolveResult.Error.RequestError.httpStatusCode.<get-httpStatusCode>|<get-httpStatusCode>(){}[0]
+            final val message // torrentsearch.models/ResolveResult.Error.RequestError.message|{}message[0]
+                final fun <get-message>(): kotlin/String? // torrentsearch.models/ResolveResult.Error.RequestError.message.<get-message>|<get-message>(){}[0]
+            final val providerName // torrentsearch.models/ResolveResult.Error.RequestError.providerName|{}providerName[0]
+                final fun <get-providerName>(): kotlin/String // torrentsearch.models/ResolveResult.Error.RequestError.providerName.<get-providerName>|<get-providerName>(){}[0]
+            final val torrents // torrentsearch.models/ResolveResult.Error.RequestError.torrents|{}torrents[0]
+                final fun <get-torrents>(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.Error.RequestError.torrents.<get-torrents>|<get-torrents>(){}[0]
+
+            final fun component1(): kotlin/String // torrentsearch.models/ResolveResult.Error.RequestError.component1|component1(){}[0]
+            final fun component2(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.Error.RequestError.component2|component2(){}[0]
+            final fun component3(): io.ktor.http/HttpStatusCode? // torrentsearch.models/ResolveResult.Error.RequestError.component3|component3(){}[0]
+            final fun component4(): kotlin/String? // torrentsearch.models/ResolveResult.Error.RequestError.component4|component4(){}[0]
+            final fun component5(): kotlin/String? // torrentsearch.models/ResolveResult.Error.RequestError.component5|component5(){}[0]
+            final fun copy(kotlin/String = ..., kotlin.collections/List<torrentsearch.models/TorrentDescription> = ..., io.ktor.http/HttpStatusCode? = ..., kotlin/String? = ..., kotlin/String? = ...): torrentsearch.models/ResolveResult.Error.RequestError // torrentsearch.models/ResolveResult.Error.RequestError.copy|copy(kotlin.String;kotlin.collections.List<torrentsearch.models.TorrentDescription>;io.ktor.http.HttpStatusCode?;kotlin.String?;kotlin.String?){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ResolveResult.Error.RequestError.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // torrentsearch.models/ResolveResult.Error.RequestError.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // torrentsearch.models/ResolveResult.Error.RequestError.toString|toString(){}[0]
+        }
+
+        final class UnknownError : torrentsearch.models/ResolveResult.Error { // torrentsearch.models/ResolveResult.Error.UnknownError|null[0]
+            constructor <init>(kotlin/String, kotlin/String?, kotlin/Throwable?, kotlin.collections/List<torrentsearch.models/TorrentDescription>) // torrentsearch.models/ResolveResult.Error.UnknownError.<init>|<init>(kotlin.String;kotlin.String?;kotlin.Throwable?;kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+
+            final val exception // torrentsearch.models/ResolveResult.Error.UnknownError.exception|{}exception[0]
+                final fun <get-exception>(): kotlin/Throwable? // torrentsearch.models/ResolveResult.Error.UnknownError.exception.<get-exception>|<get-exception>(){}[0]
+            final val message // torrentsearch.models/ResolveResult.Error.UnknownError.message|{}message[0]
+                final fun <get-message>(): kotlin/String? // torrentsearch.models/ResolveResult.Error.UnknownError.message.<get-message>|<get-message>(){}[0]
+            final val providerName // torrentsearch.models/ResolveResult.Error.UnknownError.providerName|{}providerName[0]
+                final fun <get-providerName>(): kotlin/String // torrentsearch.models/ResolveResult.Error.UnknownError.providerName.<get-providerName>|<get-providerName>(){}[0]
+            final val torrents // torrentsearch.models/ResolveResult.Error.UnknownError.torrents|{}torrents[0]
+                final fun <get-torrents>(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.Error.UnknownError.torrents.<get-torrents>|<get-torrents>(){}[0]
+
+            final fun component1(): kotlin/String // torrentsearch.models/ResolveResult.Error.UnknownError.component1|component1(){}[0]
+            final fun component2(): kotlin/String? // torrentsearch.models/ResolveResult.Error.UnknownError.component2|component2(){}[0]
+            final fun component3(): kotlin/Throwable? // torrentsearch.models/ResolveResult.Error.UnknownError.component3|component3(){}[0]
+            final fun component4(): kotlin.collections/List<torrentsearch.models/TorrentDescription> // torrentsearch.models/ResolveResult.Error.UnknownError.component4|component4(){}[0]
+            final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/Throwable? = ..., kotlin.collections/List<torrentsearch.models/TorrentDescription> = ...): torrentsearch.models/ResolveResult.Error.UnknownError // torrentsearch.models/ResolveResult.Error.UnknownError.copy|copy(kotlin.String;kotlin.String?;kotlin.Throwable?;kotlin.collections.List<torrentsearch.models.TorrentDescription>){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // torrentsearch.models/ResolveResult.Error.UnknownError.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // torrentsearch.models/ResolveResult.Error.UnknownError.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // torrentsearch.models/ResolveResult.Error.UnknownError.toString|toString(){}[0]
+        }
+    }
+}

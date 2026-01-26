@@ -42,6 +42,10 @@ public abstract class BaseTorrentProvider(
         isEnabled = true
     }
 
+    override fun enable(apiKey: String?) {
+        isEnabled = true
+    }
+
     override fun disable() {
         isEnabled = false
     }

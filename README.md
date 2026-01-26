@@ -5,11 +5,11 @@
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Js/badge.svg)
 ![](https://github.com/DrewCarlson/TorrentSearch-Kotlin/workflows/Native/badge.svg)
 
-Multiplatform Torrent Provider API client written in Kotlin.
+Multiplatform Torrent and NZB Provider API client written in Kotlin.
 
 ## About
 
-TorrentSearch-Kotlin enables you to query multiple torrent provides in one request and handle all the results. Supported
+TorrentSearch-Kotlin enables you to query multiple torrent & NZB provides in one request and handle all the results. Supported
 providers can be found in [`src/commonMain/kotlin/providers`](src/commonMain/kotlin/providers).
 
 ## Usage

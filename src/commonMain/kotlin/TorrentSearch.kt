@@ -62,6 +62,7 @@ public class TorrentSearch public constructor(
             X1337Provider(http, enableDefaultProviders),
             NyaaProvider(http, enabled = false),
             LibreProvider(enabled = false),
+            NzbGeekProvider(http, enabled = false),
         )
         ).associateBy { it.name }
 
@@ -143,6 +144,15 @@ public class TorrentSearch public constructor(
     ) {
         checkIsNotDisposed()
         providers.singleOrNull { it.name == name }?.enable(username, password, cookies)
+    }
+
+
+    /**
+     * Enable the provider [name] with the provided API key.
+     */
+    public fun enableProvider(name: String, apiKey: String? = null) {
+        checkIsNotDisposed()
+        providers.singleOrNull { it.name == name }?.enable(apiKey = apiKey)
     }
 
     /**
