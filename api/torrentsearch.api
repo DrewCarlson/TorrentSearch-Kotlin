@@ -36,7 +36,9 @@ public final class torrentsearch/TorrentSearch {
 	public synthetic fun <init> (Lio/ktor/client/HttpClient;ZLjava/util/List;Ltorrentsearch/TorrentProviderCache;Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun disableProvider (Ljava/lang/String;)V
 	public final fun dispose ()V
+	public final fun enableProvider (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun enableProvider (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public static synthetic fun enableProvider$default (Ltorrentsearch/TorrentSearch;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
 	public static synthetic fun enableProvider$default (Ltorrentsearch/TorrentSearch;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)V
 	public final fun enabledProviders ()Ljava/util/List;
 	public final fun providers ()Ljava/util/List;

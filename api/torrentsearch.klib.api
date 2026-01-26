@@ -222,6 +222,7 @@ final class torrentsearch/TorrentSearch { // torrentsearch/TorrentSearch|null[0]
 
     final fun disableProvider(kotlin/String) // torrentsearch/TorrentSearch.disableProvider|disableProvider(kotlin.String){}[0]
     final fun dispose() // torrentsearch/TorrentSearch.dispose|dispose(){}[0]
+    final fun enableProvider(kotlin/String, kotlin/String? = ...) // torrentsearch/TorrentSearch.enableProvider|enableProvider(kotlin.String;kotlin.String?){}[0]
     final fun enableProvider(kotlin/String, kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<kotlin/String> = ...) // torrentsearch/TorrentSearch.enableProvider|enableProvider(kotlin.String;kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>){}[0]
     final fun enabledProviders(): kotlin.collections/List<torrentsearch/TorrentProvider> // torrentsearch/TorrentSearch.enabledProviders|enabledProviders(){}[0]
     final fun providers(): kotlin.collections/List<torrentsearch/TorrentProvider> // torrentsearch/TorrentSearch.providers|providers(){}[0]
