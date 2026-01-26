@@ -143,7 +143,8 @@ public class TorrentSearch public constructor(
         cookies: List<String> = emptyList(),
     ) {
         checkIsNotDisposed()
-        providers.singleOrNull { it.name == name }?.enable(username, password, cookies)
+        providers.singleOrNull { it.name.equals(name, ignoreCase = true) }
+            ?.enable(username, password, cookies)
     }
 
 
@@ -152,7 +153,7 @@ public class TorrentSearch public constructor(
      */
     public fun enableProvider(name: String, apiKey: String? = null) {
         checkIsNotDisposed()
-        providers.singleOrNull { it.name == name }?.enable(apiKey = apiKey)
+        providers.singleOrNull { it.name.equals(name, ignoreCase = true) }?.enable(apiKey = apiKey)
     }
 
     /**
@@ -160,7 +161,7 @@ public class TorrentSearch public constructor(
      */
     public fun disableProvider(name: String) {
         checkIsNotDisposed()
-        providers.singleOrNull { it.name == name }?.disable()
+        providers.singleOrNull { it.name.equals(name, ignoreCase = true) }?.disable()
     }
 
     /**

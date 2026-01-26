@@ -21,7 +21,7 @@ internal class PirateBayProvider(
     enabled: Boolean = true,
 ) : BaseTorrentProvider(enabled) {
 
-    override val name: String = "ThePirateBay"
+    override val name: String = "PirateBay"
     override val baseUrl: String = "https://apibay.org"
     override val tokenPath: String = ""
     override val searchPath: String = "/q.php"
